@@ -1,6 +1,6 @@
 ---
 title: "Semesterplan"
-description: "Wintersemester 2021/22"
+description: "Sommersemester 2022"
 author: " "
 date: " "
 output: html_document
@@ -26,14 +26,14 @@ library(tidyverse)
 library(kableExtra)
 library(fontawesome)
 
-tibble(Datum = c("08.10.2021",
-                 "22.10.2021",
-                 "05.11.2021",
-                 "19.11.2021",
-                 "03.12.2021",
-                 "17.12.2021",
-                 "07.01.2022",
-                 "14.01.2022"),
+tibble(Datum = c("08.04.2022",
+                 "22.04.2022",
+                 "06.05.2022",
+                 "20.05.2022",
+                 "03.06.2022",
+                 "10.06.2022",
+                 "24.06.2022",
+                 "01.07.2022"),
        Uhrzeit = rep(c("13:00 - 16:15 Uhr"), length(Datum)),
        Raum = c(rep(c("G-107"), length(Datum)-2), "\\- \\- \\- \\- \\-", "G-107"),
        "Geplanter Kursinhalt" = c("Kursvorstellung und erste Schritte",

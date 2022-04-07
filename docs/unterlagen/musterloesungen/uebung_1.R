@@ -1,5 +1,5 @@
 # Autor: Pekka Sagner
-# Zuletzt bearbeitet: 8.10.2021
+# Zuletzt bearbeitet: 7.4.2022
 # Inhalt: Übungsblatt 1 - Musterlösung
 
 #Aufgabe 6 

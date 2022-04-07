@@ -1,6 +1,6 @@
 ---
 title: "Kursbeschreibung"
-description: "Wintersemester 2021/22"
+description: "Sommersemester 2022"
 author: " "
 date: " "
 output: html_document

@@ -1,6 +1,6 @@
 name: "my-website"
 navbar:
-  title: "<b>DAVR</b><br/><p style=\"font-weight:lighter; font-size:10px\">[HBRS WS 21/22]</p>"
+  title: "<b>DAVR</b><br/><p style=\"font-weight:lighter; font-size:10px\">[HBRS SS 2022]</p>"
   left:
     - text: "Home"
       icon: fa-home
