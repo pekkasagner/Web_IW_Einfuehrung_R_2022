@@ -1,0 +1,44 @@
+---
+title: "Kontakt"
+description: "Wintersemester 2021/22"
+author: " "
+date: " "
+output:
+  html_document:
+    toc: false
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<div class="row">
+<div class="column">
+### &nbsp;&nbsp; Pekka Sagner M.Sc.
+
++ Volkswirt im Institut der deutschen Wirtschaft
+
++ Kompetenzfeld Finanzmärkte und Immobilienmärkte
+
+<img src="./images/Sagner_Pekka_Porträt_Zuschnitt.jpg" height="auto" width="300" style="border-radius:50%">
+
+</div>
+<div class="column">
+
+**Kontaktdaten**:
+
+[`r fontawesome::fa(name = "envelope", fill = "black")` sagner@iwkoeln.de](mailto:sagner@iwkoeln.de)
+
+[`r fontawesome::fa(name = "user", fill = "black")` iwkoeln.de/.../pekka-sagner](https://www.iwkoeln.de/institut/personen/pekka-sagner.html)
+
+[`r fontawesome::fa(name = "github", fill = "black")` github.com/pekkasagner](https://github.com/pekkasagner)
+
+</div>
+</div>
+
+
+

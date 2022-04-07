@@ -1,0 +1,78 @@
+---
+title: "Semesterplan"
+description: "Wintersemester 2021/22"
+author: " "
+date: " "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- Hier ist der Zeitplan für dieses Semester. Die Veranstaltung findet grundsätzlich in Präsenz statt.  -->
+
+<!-- + **Leseempfehlungen** (`r fontawesome::fa("book-reader")`): Diese Seite enthält die Leseempfehlungen mit Links für das entsprechende Thema. Die Leseempfehlungen bilden die Grundlage der Kursinhalte und enthalten wichtige Erweiterungen zur Vorlesung und den Übungsaufgaben. -->
+
+<!-- + **Vorlesung** (`r fontawesome::fa("chalkboard-teacher")`): Diese Seite enthält die Vorlesungsfolien für das entsprechende Thema. Die Vorlesung führt die einzelnen Themenblöcke ein und verbindet die verschiedenen Lerninhalte strukturell miteinander. In den Vorlesungen wird Code Schritt für Schritt erläutert und dessen Auswirkungen illustriert. -->
+
+<!-- + **Übung** (`r fontawesome::fa("laptop-code")`): Diese Seite enthält die Übungsaufgaben sowie kompakte Musterlösungen. Die Übungsaufgaben werden gemeinsam bearbeitet. -->
+
+
+
+
+```{r echo=F, message=F, warning=F}
+library(tidyverse)
+library(kableExtra)
+library(fontawesome)
+
+tibble(Datum = c("08.10.2021",
+                 "22.10.2021",
+                 "05.11.2021",
+                 "19.11.2021",
+                 "03.12.2021",
+                 "17.12.2021",
+                 "07.01.2022",
+                 "14.01.2022"),
+       Uhrzeit = rep(c("13:00 - 16:15 Uhr"), length(Datum)),
+       Raum = c(rep(c("G-107"), length(Datum)-2), "\\- \\- \\- \\- \\-", "G-107"),
+       "Geplanter Kursinhalt" = c("Kursvorstellung und erste Schritte",
+                                  "Datenanalyse mit dem Tidyverse",
+                                  "Visualisierungen mit ggplot2",
+                                  "Umgang mit unordentlichen Daten",
+                                  "Daten verbinden",
+                                  "Geodaten - R als GIS",
+                                  "Vorbereitung Kurzpräsentationen <br/>(Selbstlernen)",
+                                  "Abschlusspräsentationen"),
+       Link = c(paste0("<a href=\"", "./kursinhalte.html#1_Kursinhalte_und_Organisatorisches", "\">", as.character(fa("list")), "</a>"),
+                          paste0("<a href=\"", "./kursinhalte.html#2_Datenanalyse_mit_dem_Tidyverse", "\">", as.character(fa("list")), "</a>"),
+                          paste0("<a href=\"", "./kursinhalte.html#3_Visualisierungen_mit_ggplot2", "\">", as.character(fa("list")), "</a>"),
+                          paste0("<a href=\"", "./kursinhalte.html#4_Umgang_mit_unordentlichen_Daten", "\">", as.character(fa("list")), "</a>"),
+                          paste0("<a href=\"", "./kursinhalte.html#5_Daten_verbinden", "\">", as.character(fa("list")), "</a>"),
+                          paste0("<a href=\"", "./kursinhalte.html#6_Geodaten_-_R_als_GIS", "\">", as.character(fa("list")), "</a>"),
+                          "",
+                          paste0("<a href=\"", "./praesentation.html", "\">", as.character(fa("chalkboard")), "</a>"))
+       # Vorlesung = c(paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>"),
+       #                    "",
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("chalkboard-teacher")), "</a>")),
+       # Übung = c(paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"),
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"),
+       #                    "",
+       #                    paste0("<a href=\"", "www.google.com", "\">", as.character(fa("laptop-code")), "</a>"))
+       ) %>%
+  kbl(escape = F, align = c("l", "l", "l", "l", "c")) %>% #https://stackoverflow.com/questions/53549662/how-can-i-add-a-fontawesome-icon-to-a-table-in-rmarkdown
+  kable_material(c("striped", "hover")) 
+
+
+```
+
+

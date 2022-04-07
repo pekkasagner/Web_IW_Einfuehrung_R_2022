@@ -1,0 +1,39 @@
+---
+title: "Kursbeschreibung"
+description: "Wintersemester 2021/22"
+author: " "
+date: " "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Zielsetzung (Mission Statement)
+
+Der Kurs richtet sich an Studierende mit Interesse an der praktischen Datenanalyse. Studierende sind nach Absolvieren des Kurses in der Lage, eigene Datenanalysen mit dem Statistikprogramm R durchzuführen.
+
+### Inhalt / Fragestellungen (Projektaufgaben)
+
+Im Kurs lernen die Studierenden die Grundkonzepte der Datenanalyse: Einlesen, Ordnen, Transformieren, Visualisieren, Modellieren und Kommunizieren.
+
+### Voraussetzungen
+
+-	Kenntnisse der (Wirtschafts-)Statistik
+-	Kenntnisse der empirischen Wirtschaftsforschung (optional)
+
+### Zu erwerbende Kompetenzen
+
+-	Die Studierenden sind sensibilisiert für die Arbeit mit Daten und führen explorative Datenanalysen und -visualisierungen selbständig durch. 
+-	Studierende kennen die Grammatik der Grafiken (grammar of graphics) und die Grundlagen reproduzierbarer Forschung durch literarisches Programmieren.
+
+### Lehr- und Lernmethoden
+
++	Im Kurs wird die Software R und RStudio genutzt. R ist eine über viele wissenschaftliche Diziplinen hinweg weitverbreitete Programmiersprache. Der Kurs bietet einen modernen Einstieg in die Datenanalyse mit dem Tidyverse, einer Sammlung von Paketen, die das Programmieren mit R besonders nutzerfreundlich macht und zur Beliebtheit der Programmiersprache beiträgt.
++	Der Kurs besteht auf Vorlesungs- und Übungszeiten sowie selbständiger Eigenleistung in Form von Übungsaufgaben. Im Vorlesungsteil werden Konzepte und Strukturen theoretisch eingeführt, die in den praktischen Übungsteilen vertieft werden.
+
+### Prüfungsform (Bedingungen Leistungsnachweis)
++	Aktive, engagierte Beteiligung am Ergänzungsfach 
++ Eigenständige Erbringung der geforderten Leistungen in entsprechender Qualität 
++	Anwesenheit mindestens 80% der vorgesehenen Zeit (Teammeetings), Teilnahme an Präsentationen

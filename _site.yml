@@ -1,0 +1,27 @@
+name: "my-website"
+navbar:
+  title: "<b>DAVR</b><br/><p style=\"font-weight:lighter; font-size:10px\">[HBRS WS 21/22]</p>"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Kursbeschreibung"
+      icon: fa-project-diagram
+      href: kursbeschreibung.html      
+    - text: "Semesterplan"
+      icon: fa-calendar
+      href: semesterplan.html
+    - text: "Kursinhalte"
+      icon: fa-list
+      href: kursinhalte.html
+    - text: "Abschlusspräsentation"
+      icon: fa-chalkboard
+      href: praesentation.html   
+    - text: "Kontakt"
+      icon: fa-address-book
+      href: kontakt.html    
+output_dir: "docs"
+output:
+  html_document:
+    css: ["css/default.css"]
+ 
