@@ -64,16 +64,13 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Einführung in das Tidyverse&laquo; als PDF-Datei öffnen]() 
 
-<!-- [`r fontawesome::fa("file-pdf")` Folien &raquo;Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/03_Vorlesung_Tidyverse.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/03_Vorlesung_Tidyverse.pdf)
 
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/02_Uebungsblatt_Intro_Tidyverse.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/02_Uebungsblatt_Intro_Tidyverse.pdf)
 
 ### Musterlösung
 
@@ -83,9 +80,7 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv) -->
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv)
 
 
 ## 3. Visualisierungen mit ggplot2 {.tabset .tabset-fade}
