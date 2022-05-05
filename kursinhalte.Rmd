@@ -45,9 +45,7 @@ In dieser Sitzung besprechen wir die Inhalte der Vorlesung, installieren R und R
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_1.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_1.R)
 
 ### Daten
 
@@ -100,15 +98,11 @@ In dieser Sitzung lernen wir die Syntax zum Erstellen von Abbildungen in R kenne
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Grammar of graphics (ggplot)&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Folien &raquo;Grammar of graphics (ggplot)&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/04_Vorlesung_ggplot.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Grammar of graphics (ggplot)&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/04_Vorlesung_ggplot.pdf)
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/03_Uebungsblatt_Intro_ggplot.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/03_Uebungsblatt_Intro_ggplot.pdf)
 
 ### Musterlösung
 
@@ -118,14 +112,9 @@ In dieser Sitzung lernen wir die Syntax zum Erstellen von Abbildungen in R kenne
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;datasaurus&laquo; als TSV-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;datasaurus&laquo; als TSV-Datei öffnen](./unterlagen/daten/datasaurus.tsv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen]()
-
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;datasaurus&laquo; als TSV-Datei öffnen](./unterlagen/daten/datasaurus.tsv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv) -->
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv)
 
 ## 4. Umgang mit unordentlichen Daten {.tabset .tabset-fade}
 
