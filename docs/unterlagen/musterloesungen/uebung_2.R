@@ -1,163 +1,168 @@
-#Lösungen zur Übung 2 R-Kurs
+#Datum: 22.4.2022
 #Autor: Pekka Sagner
-#Zuletzt bearbeitet: 22.10.2021
+#Übung 2: Einführung in das Tidyverse
+#----------------------------------------------------
 
-#Aufgabe 1
-#b) Installieren Tidyverse
-install.packages("tidyverse")
-
-#c) tidyverse laden
+# install.packages("tidyverse")
 library(tidyverse)
 
-#d) Übungsdatensätze einladen und betrachten
-datensatz1 <- table1
-datensatz2 <- table2
-datensatz3 <- table3
+#d)/e)/f))
+datensatz_1 <- table1
+#tidy
+
+datensatz_2 <- table2
+#nicht tidy
+
+datensatz_3 <- table3
+#nicht tidy
 
 #Aufgabe 2
-#a)
-lernen(fahren(trinken(anziehen(aufstehen(Zeit = "6:00 Uhr"), 
-          Hose = TRUE, Pullover = TRUE), 
-         Kaffee = "stark"), 
-       Auto = F, Fahrrad = T), 
-       Stimmung = "herausragend")
+
+#a) Klassiche Funktionsschreibweise
+
+f(g(x))
+
+lernen(fahren(trinken(anziehen(aufstehen(zeit = 6 Uhr), kleidung = c(Hose, Pullover)), 
+        getränk = kaffee, koffein = viel), Auto = FALSE, Fahrrad = TRUE, 
+       Ziel = Hochschule), Laune = herausragend)
+
 #b)
-aufstehen(Zeit = "6:00 Uhr") %>% 
-          anziehen(Hose = TRUE, Pullover = TRUE) %>% 
-          trinken(Kaffee = "stark") %>% 
-          fahren(Auto = F, Fahrrad = T) %>% 
-          lernen(Stimmung = "herausragend")
+kommilitone |> 
+          aufstehen(zeit = 6 Uhr) |> 
+          anziehen(kleidung = c(Hose, Pullover)) |> 
+          trinken(getränk = kaffee, koffein = viel) |> 
+          fahren(Auto = FALSE, Fahrrad = TRUE) |> 
+          lernen(Laune = herausragend)
 
 
-#Augabe 3
+#Aufgabe 3
 #b) Daten einlesen
-olympics <- read_csv("data/olympics.csv")
-#c) Beobachtungen: 271.116
-#Eine AthletIn bei einem der olympischen Spiele und einem Wettbewerb
+olympics <- read_csv(file = "data/olympics.csv")
+#c)
+#271.116 Beobachtungen
+#
 
 #d)
-filter(olympics, games == "2016 Summer")
-
-#mit Pipe:
-olympics %>% 
+olympics |> 
           filter(games == "2016 Summer")
-#Beobachtungen: 13.688
+#13688 Beobachtungen für Sommerspiele 2016
 
 #e)
-olympics_2016 <- olympics %>% 
-          filter(games == "2016 Summer") %>% 
-          select(c(id, name, sex, age, height, weight, team, sport, 
-                   event, medal))
+olympics_2016 <- olympics |> 
+          filter(games == "2016 Summer") |> 
+          select(id, name, sex, age, height, weight, team, sport, event, medal)
 
 #f)
-#i)
-#größte
-olympics_2016 %>% 
-          summarise(groesste = max(height, na.rm = T))
-#kleinste
-olympics_2016 %>% 
-          summarise(kleinste = min(height, na.rm = T))
-
-#filtern:
-olympics_2016 %>% 
+#Gesucht: der/die größte/kleinste AthletIn
+olympics_2016 |> 
           filter(height == max(height, na.rm = T))
 
-olympics_2016 %>% 
-          filter(height == min(height, na.rm = T))
+olympics_2016 |> 
+          filter(sex == "F") |> 
+          filter(height == max(height, na.rm = T))
 
-#arrange:
-olympics_2016 %>% 
-          arrange(height)
+###
+olympics_2016 |> 
+          group_by(sex) |> 
+          filter(height == max(height, na.rm = T))
 
-olympics_2016 %>% 
-          arrange(desc(height))
-
-#"billo-variante"
-olympics_2016 %>% 
-          select(height) %>% 
-          max(na.rm = T)
-
-#ii)
-olympics_2016 %>% 
-          summarise(groesste = max(height, na.rm = T), 
-                    kleinste = min(height, na.rm = T)) %>% 
-          mutate(differenz = groesste - kleinste) %>% 
-          mutate(differenz_proz = groesste / kleinste - 1)
-
-#iii)
-olympics_2016 %>% 
-          filter(height == max(height, na.rm = T) |
-                 height == min(height, na.rm = T)) %>% 
+#max und min und gender in einem:
+olympics_2016 |> 
+          group_by(sex) |> 
+          filter(height == max(height, na.rm = T) | 
+                           height == min(height, na.rm = T)) |> 
           View()
 
+#alternative mit summarize
+olympics_2016 |> 
+          group_by(sex) |> 
+          summarise(min_height = min(height, na.rm = T),
+                    max_height = max(height, na.rm = T)) |> 
+          ungroup() |> 
+          mutate(diff_height = max_height - min_height)
 
-#iv)
-#wichtig: wir möchten jeden AthletIn nur einmal berücksichtigen!
-olympics_2016 %>% 
-          distinct(id, .keep_all = TRUE) %>% 
-          summarise(mean_height = mean(height, na.rm = T)) %>% 
-          View()
-
-#v)
-olympics_2016 %>% 
-          group_by(sport) %>% 
-          distinct(id, .keep_all = T) %>% 
-          summarise(mean_height = mean(height, na.rm = T)) %>% 
-          filter(mean_height == max(mean_height) |  
-                           mean_height == min(mean_height))
-
-
-#vi)
-olympics_2016 %>% 
-          group_by(sex) %>% 
-          distinct(id, .keep_all = T) %>% 
+#iv) Durchschnitt nach Geschlecht
+olympics_2016 |> 
+          distinct(id, .keep_all = TRUE) |>
+          group_by(sex) |> 
           summarise(mean_height = mean(height, na.rm = T))
 
-#vii)
-olympics_2016 %>% 
-          group_by(sport, sex) %>% 
-          distinct(id, .keep_all = T) %>% 
-          summarise(mean_height = mean(height, na.rm = T)) %>% 
-          View()
+#v) Durchschnitt nach Geschlecht und Sportart
+olympics_2016 |> 
+          group_by(sex, sport) |> 
+          distinct(id, .keep_all = T) |> 
+          summarise(mean_height = mean(height, na.rm = T)) |> 
+          ungroup() |> 
+          group_by(sex) |> 
+          filter(mean_height == max(mean_height) | 
+                           mean_height == min(mean_height))
 
-#viii)
-olympics_2016 %>%
-          distinct(id, .keep_all = T) %>% 
-          filter(sex == "M") %>%
+#vi) Durchschnitt AthletInnen
+olympics_2016 |> 
+          group_by(sex) |> 
+          distinct(id, .keep_all = T) |> 
+          summarise(mean_height = mean(height, na.rm = T))
+
+#Missings anzeigen
+olympics_2016 |> 
+          filter(is.na(height))
+
+#vii) Zum Verständnis getrennt:
+olympics_2016 |> 
+          filter(sex == "F") |> 
+          distinct(id, .keep_all = T) |> 
+          group_by(sport) |> 
+          summarise(mean_height = mean(height, na.rm = T))
+
+olympics_2016 |> 
+          filter(sex == "M") |> 
+          distinct(id, .keep_all = T) |> 
+          group_by(sport) |> 
+          summarise(mean_height = mean(height, na.rm = T))
+
+#viii)Wie viele Athleten > 180cm? 
+olympics_2016 |> 
+          filter(sex == "M") |> 
+          distinct(id, .keep_all = T) 
+#6145 Athleten insgesamt
+olympics_2016 |> 
+          filter(sex == "M") |> 
+          distinct(id, .keep_all = T) |> 
           filter(height > 180)
+#3319 Athleten größer als 180
+3319 / 6145
 
-#count()
-olympics_2016 %>% 
-          distinct(id, .keep_all = T) %>% 
-          filter(sex == "M") %>% 
-          drop_na(height) %>% 
-          count(height > 180) %>% 
-          mutate(total = sum(n)) %>% 
-          mutate(share = n / total)
+#Eleganter mit count()
+olympics_2016 |> 
+          filter(sex == "M") |> 
+          distinct(id, .keep_all = T) |> 
+          drop_na(height) |> 
+          count(height > 180) |> 
+          mutate(total_M = sum(n)) |> 
+          mutate(share = n / total_M)
 
-olympics_2016 %>% 
-          distinct(id, .keep_all = T) %>% 
-          filter(sex == "F") %>% 
-          drop_na(height) %>% 
-          count(height > 160) %>% 
-          mutate(total = sum(n)) %>% 
-          mutate(share = n / total)
-
-#Anteile für Gruppen innerhalb einer Operation
-olympics_2016 %>% 
-          distinct(id, .keep_all = T) %>% 
-          drop_na(height) %>% 
-          group_by(sex) %>% 
-          count(height > 180) %>%
-          mutate(total = sum(n)) %>% 
-          ungroup() %>% 
-          mutate(share = n / total)
+#Für Frauen
+olympics_2016_F_taller_160 <- olympics_2016 |> 
+          filter(sex == "F") |> 
+          distinct(id, .keep_all = T) |> 
+          drop_na(height) |> 
+          count(height > 160) |> 
+          mutate(total_F = sum(n)) |> 
+          mutate(share = n / total_F)
 
 #g)
-olympics_2016 %>% 
-          distinct(id, .keep_all = T) %>% 
-          filter(sex == "F" & age %in% c(20:30) & sport == "Volleyball") %>%
-          #filter(sex == "F" & age >= 30 & age <= 30)
-          #filter(sex == "F" & between(age, 20, 30))
-          mutate(bmi = weight / (height/100)^2 ) %>%
-          summarise(mean_bmi = mean(bmi))
+olympics_2016 |> 
+          distinct(id, .keep_all = T) |> 
+          filter(sex == "F" & 
+                           sport == "Volleyball" & 
+                           age >= 20 & 
+                           age <= 30) |> 
+          mutate(bmi = weight / (height / 100)^2) |> 
+          summarise(mean_bmi = mean(bmi, na.rm = T))
+
+
+#Beispiel für arrange()
+olympics_2016 |> 
+          filter(sex == "F") |> 
+          arrange(desc(height))
+

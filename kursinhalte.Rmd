@@ -72,9 +72,7 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_2.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_2.R)
 
 ### Daten
 
@@ -131,15 +129,11 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Grammar of graphics (ggplot)&laquo; als PDF-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("file-pdf")` Folien &raquo;Grammar of graphics (ggplot)&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/05_Vorlesung_messy_data_tidy_data.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Säubern von Daten&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/05_Vorlesung_messy_data_tidy_data.pdf)
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/04_Uebungsblatt_Messy_Data.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/04_Uebungsblatt_Messy_Data.pdf)
 
 ### Musterlösung
 
@@ -149,9 +143,7 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Einkommen_Kreise&laquo; als xlsx-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;Einkommen_Kreise&laquo; als xlsx-Datei öffnen](./unterlagen/daten/Einkommen_Kreise.xlsx) -->
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;Einkommen_Kreise&laquo; als xlsx-Datei öffnen](./unterlagen/daten/Einkommen_Kreise.xlsx)
 
 ## 5. Daten verbinden {.tabset .tabset-fade}
 
