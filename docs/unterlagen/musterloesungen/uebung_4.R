@@ -1,6 +1,6 @@
 #Übungsblatt 4
 #Autor: Pekka Sagner
-#Zuletzt bearbeitet: 19.11.2021
+#Zuletzt bearbeitet: 2.06.2022
 
 #b)
 #install.packages("readxl")

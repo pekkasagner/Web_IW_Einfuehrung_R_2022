@@ -137,9 +137,7 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_4.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_4.R)
 
 ### Daten
 
@@ -156,40 +154,27 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Daten zusammenführen&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Folien &raquo;Daten zusammenführen&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/06_Vorlesung_daten_zusammenfuehren.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Daten zusammenführen&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/06_Vorlesung_daten_zusammenfuehren.pdf)
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf)
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen]()
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R)
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv)
 
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv) -->
 
 ## 6. Geodaten - R als GIS {.tabset .tabset-fade}
 

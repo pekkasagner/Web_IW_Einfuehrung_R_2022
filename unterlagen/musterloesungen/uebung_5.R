@@ -1,6 +1,6 @@
 #Übung 5 - Joins
 #Autor: Pekka Sagner
-#Zuletzt bearbeitet: 3.12.2021
+#Zuletzt bearbeitet: 2.06.2022
 
 #Header
 library(tidyverse)
@@ -91,7 +91,6 @@ studis_joined_rhein_sieg %>%
 studis_joined %>% 
           mutate(anteil = studierende_fh / studierende_insg) %>% 
           filter(anteil > 1)
-
 
 
 #d) Ziel: Entwicklung Studis insg. und FH in Top-7 Städten über die Zeit 
