@@ -104,9 +104,7 @@ In dieser Sitzung lernen wir die Syntax zum Erstellen von Abbildungen in R kenne
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als R-Datei öffnen]()
-
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_3.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_3.R)
 
 ### Daten
 
@@ -161,7 +159,6 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf)
 
 ### Musterlösung
-
 
 [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R)
 

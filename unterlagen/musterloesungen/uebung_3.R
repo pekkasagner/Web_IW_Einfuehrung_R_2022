@@ -1,6 +1,7 @@
 #Übung 3 Visualisierungen mit ggplot
 #Autor: Pekka Sagner
-#Zuletzt bearbeitet: 5.11.2021
+#Zuletzt bearbeitet: 6.5.2022
+
 
 #Header (Pakete laden)
 library(tidyverse)
