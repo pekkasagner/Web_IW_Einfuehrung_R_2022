@@ -195,8 +195,6 @@ In diesem Teil der Veranstaltung lernen wir R als GIS kennen. Wir erstellen Kart
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als R-Datei öffnen]()
-
 [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_6.R)
 
 ### Daten
