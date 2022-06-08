@@ -187,38 +187,25 @@ In diesem Teil der Veranstaltung lernen wir R als GIS kennen. Wir erstellen Kart
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Geodaten&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Folien &raquo;Geodaten&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/07_Vorlesung_Geodaten.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Geodaten&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/07_Vorlesung_Geodaten.pdf)
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als PDF-Datei öffnen]() 
-
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/06_Uebungsblatt_Geodaten.pdf)  -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/06_Uebungsblatt_Geodaten.pdf)
 
 ### Musterlösung
 
 [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als R-Datei öffnen]()
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_6.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_6.R)
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Geometrie_Corona_Landkreise&laquo; als GEOJSON-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;Geometrie_Corona_Landkreise&laquo; als GEOJSON-Datei öffnen](./unterlagen/daten/Geometrie_Corona_Landkreise.geojson)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Bundesland_clean&laquo; als ZIP-Ordner öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;Bundesland_clean&laquo; als ZIP-Ordner öffnen](./unterlagen/daten/Bundesland_clean.zip)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Arbeitslosenquote_Bundeslaender_clean&laquo; als CSV-Datei öffnen]()
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;Arbeitslosenquote_Bundeslaender_clean&laquo; als CSV-Datei öffnen](./unterlagen/daten/Arbeitslosenquote_Bundeslaender_clean.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Fallzahlen_Inzidenz_aktualisiert&laquo; als XLSX-Datei öffnen]()
-
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;Geometrie_Corona_Landkreise&laquo; als GEOJSON-Datei öffnen](./unterlagen/daten/Geometrie_Corona_Landkreise.geojson) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;Bundesland_clean&laquo; als ZIP-Ordner öffnen](./unterlagen/daten/Bundesland_clean.zip) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;Arbeitslosenquote_Bundeslaender_clean&laquo; als CSV-Datei öffnen](./unterlagen/daten/Arbeitslosenquote_Bundeslaender_clean.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;Fallzahlen_Inzidenz_aktualisiert&laquo; als XLSX-Datei öffnen](./unterlagen/daten/Fallzahlen_Inzidenz_aktualisiert.xlsx) -->
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;Fallzahlen_Kum_Tab_aktuell&laquo; als XLSX-Datei öffnen](./unterlagen/daten/Fallzahlen_Kum_Tab_aktuell.xlsx)
 
