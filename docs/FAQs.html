@@ -11,7 +11,7 @@
 
 
 
-<title>Kontakt</title>
+<title>(F)AQs</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -221,6 +224,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -228,6 +294,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -305,39 +381,117 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Kontakt</h1>
+<h1 class="title toc-ignore">(F)AQs</h1>
 <h4 class="author"></h4>
 
 </div>
 
 
-<div class="row">
-<div class="column">
-<div id="pekka-sagner-m.sc." class="section level3">
-<h3>   Pekka Sagner M.Sc.</h3>
-<ul>
-<li><p>Volkswirt im Institut der deutschen Wirtschaft</p></li>
-<li><p>Kompetenzfeld Finanzmärkte und Immobilienmärkte</p></li>
-</ul>
-<p><img src="./images/Sagner_Pekka_Porträt_Zuschnitt.jpg" height="auto" width="300" style="border-radius:50%"></p>
+<p>Hier werden (häufig) gestellte Fragen und Antworten gesammelt:</p>
+<div id="tidytuesday-daten-einlesen" class="section level3">
+<h3>TidyTuesday-Daten einlesen</h3>
+<div id="das-problem" class="section level4">
+<h4>Das Problem:</h4>
+<p>Nach dem Einlesen, können die Daten nicht mit den üblichen Befehlen
+bearbeitet werden:</p>
+<pre><code>## 
+##  Downloading file 1 of 2: `colony.csv`
+##  Downloading file 2 of 2: `stressor.csv`</code></pre>
+</div>
+<div id="die-lösung" class="section level4">
+<h4>Die Lösung</h4>
+<p>TidyTuesday-Daten bestehen häufig aus mehreren Datensätzen. Mit dem
+<code>$</code>-Operator können diese extrahiert werden:</p>
+<p>Dann können die Objekte wie gewohnt bearbeitet werden:</p>
+<pre><code>## # A tibble: 851 x 10
+##     year months        state     colony_n colony_max colony_lost colony_lost_pct
+##    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+##  1  2015 January-March Alabama       7000       7000        1800              26
+##  2  2015 January-March Arizona      35000      35000        4600              13
+##  3  2015 January-March Arkansas     13000      14000        1500              11
+##  4  2015 January-March Californ~  1440000    1690000      255000              15
+##  5  2015 January-March Colorado      3500      12500        1500              12
+##  6  2015 January-March Florida     305000     315000       42000              13
+##  7  2015 January-March Georgia     104000     105000       14500              14
+##  8  2015 January-March Idaho        81000      88000        3700               4
+##  9  2015 January-March Illinois      6000      10500        4200              40
+## 10  2015 January-March Indiana       9000       9500        2100              22
+## # ... with 841 more rows, and 3 more variables: colony_added &lt;dbl&gt;,
+## #   colony_reno &lt;dbl&gt;, colony_reno_pct &lt;dbl&gt;</code></pre>
+<p>Im Allgemeinen können Informationen zu den TidyTuesday-Daten im
+<em>Hilfefenster</em> angezeigt werden, wenn der Name des Objekts, in
+dem die Daten zwischengespeichert wurden, ausgeführt wird. Hier:</p>
 </div>
 </div>
-<div class="column">
-<p><strong>Kontaktdaten</strong>:</p>
-<p><a
-href="mailto:sagner@iwkoeln.de"><svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
-sagner@iwkoeln.de</a></p>
-<p><a
-href="https://www.iwkoeln.de/institut/personen/pekka-sagner.html"><svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg>
-iwkoeln.de/…/pekka-sagner</a></p>
-<p><a
-href="https://github.com/pekkasagner"><svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-github.com/pekkasagner</a></p>
+<div
+id="zahlen-auf-achsen-werden-in-wissenschaftlicher-notation-angezeigt"
+class="section level3">
+<h3>Zahlen auf Achsen werden in wissenschaftlicher Notation
+angezeigt</h3>
+<div id="das-problem-1" class="section level4">
+<h4>Das Problem:</h4>
+<p>In ggplot werden Zahlen auf den Achsen standardmäßig in der
+wissenschaftlichen Notation (scientific notation) dargestellt, wenn die
+Zahlen groß oder klein werden:</p>
+<pre><code>## # A tibble: 2 x 2
+##       x      y
+##   &lt;int&gt;  &lt;dbl&gt;
+## 1     1      0
+## 2     2 400000</code></pre>
+<p><img src="FAQs_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="die-lösung-1" class="section level4">
+<h4>Die Lösung</h4>
+<p>Das Paket scales bietet eine Funktion <code>number_format()</code>,
+mit der dieses Verhalten verändert werden kann:</p>
+<p><img src="FAQs_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Zusätzlich kann bei Bedarf das im Deutschen gebräuchliche
+Tausendertrennzeichen und das Komma als Dezimaltrennzeichen festgesetzt
+werden:</p>
+<p><img src="FAQs_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="jahreszahlen-auf-achsen-werden-mit-kommastellen-angezeigt"
+class="section level3">
+<h3>Jahreszahlen auf Achsen werden mit Kommastellen angezeigt</h3>
+<div id="das-problem-2" class="section level4">
+<h4>Das Problem:</h4>
+<p>Wenn Jahreszahlen nicht explizit als solche definiert sind, werden
+diese als Zahlen behandelt, was zur unerwünschten Darstellung von
+Kommastallen und “krummen” Jahreszahlen führen kann. Außerdem werden in
+der Beschriftung dann Jahre ausgelassen:</p>
+<pre><code>## # A tibble: 11 x 2
+##     year   wert
+##    &lt;int&gt;  &lt;dbl&gt;
+##  1  2010  0.676
+##  2  2011  0.744
+##  3  2012  0.608
+##  4  2013  1.46 
+##  5  2014 -1.42 
+##  6  2015  0.199
+##  7  2016  0.233
+##  8  2017 -0.114
+##  9  2018 -2.72 
+## 10  2019 -2.17 
+## 11  2020  0.455</code></pre>
+<p><img src="FAQs_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="die-lösung-2" class="section level4">
+<h4>Die Lösung</h4>
+<p>Eine schnelle Lösung ist es, die Labels für die Jahre
+“hardzucoden”:</p>
+<p><img src="FAQs_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Eine allgemeingültigere Lösung ist es, die Jahreszahlen auch in R als
+Datum zu hinterlegen und die Darstellung auf den Achsen auf die Jahre zu
+beschränken. In diesem Beispiel führt dies zum gleichen Ergebnis:</p>
+<p><img src="FAQs_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -370,6 +524,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

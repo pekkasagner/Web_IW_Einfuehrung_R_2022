@@ -17,6 +17,9 @@ navbar:
     - text: "Abschlusspräsentation"
       icon: fa-chalkboard
       href: praesentation.html   
+    - text: "(F)AQs"
+      icon: fa-question-circle
+      href: FAQs.html   
     - text: "Kontakt"
       icon: fa-address-book
       href: kontakt.html    

@@ -1,0 +1,145 @@
+---
+title: "(F)AQs"
+description: "Sommersemester 2022"
+author: " "
+date: " "
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = F, message = F)
+```
+
+Hier werden (häufig) gestellte Fragen und Antworten gesammelt:
+
+### TidyTuesday-Daten einlesen
+
+#### Das Problem:
+Nach dem Einlesen, können die Daten nicht mit den üblichen Befehlen bearbeitet werden:
+
+```{r cache=T}
+library(tidyverse) 
+library(tidytuesdayR)
+
+daten <- tidytuesdayR::tt_load(2022, week = 2)
+```
+
+#### Die Lösung
+TidyTuesday-Daten bestehen häufig aus mehreren Datensätzen. Mit dem `$`-Operator können diese extrahiert werden:
+
+```{r}
+colony <- daten$colony
+
+stressor <- daten$stressor
+```
+
+Dann können die Objekte wie gewohnt bearbeitet werden:
+
+```{r}
+colony |> 
+          filter(colony_lost > 1000)
+
+```
+
+Im Allgemeinen können Informationen zu den TidyTuesday-Daten im *Hilfefenster* angezeigt werden, wenn der Name des Objekts, in dem die Daten zwischengespeichert wurden, ausgeführt wird. Hier:
+
+```{r}
+daten
+```
+
+### Zahlen auf Achsen werden in wissenschaftlicher Notation angezeigt
+
+#### Das Problem:
+In ggplot werden Zahlen auf den Achsen standardmäßig in der wissenschaftlichen Notation (scientific notation) dargestellt, wenn die Zahlen groß oder klein werden:
+
+```{r}
+library(tidyverse)
+
+# Beispieldaten
+(daten <- tibble(x = 1:2, y = c(0, 400000))
+          )
+
+# Problemplot
+daten |> 
+          ggplot(aes(x = x, y = y)) +
+          geom_point()
+
+```
+
+
+#### Die Lösung
+Das Paket scales bietet eine Funktion `number_format()`, mit der dieses Verhalten verändert werden kann:
+
+```{r}
+daten |> 
+          ggplot(aes(x = x, y = y)) +
+          geom_point() +
+          scale_y_continuous(labels = scales::number_format()) 
+```
+
+Zusätzlich kann bei Bedarf das im Deutschen gebräuchliche Tausendertrennzeichen und das Komma als Dezimaltrennzeichen festgesetzt werden:
+
+```{r}
+daten |> 
+          ggplot(aes(x = x, y = y)) +
+          geom_point() +
+          scale_y_continuous(labels = scales::number_format(big.mark = ".", decimal.mark = ","))
+
+```
+
+
+### Jahreszahlen auf Achsen werden mit Kommastellen angezeigt
+
+#### Das Problem:
+Wenn Jahreszahlen nicht explizit als solche definiert sind, werden diese als Zahlen behandelt, was zur unerwünschten Darstellung von Kommastallen und "krummen" Jahreszahlen führen kann. Außerdem werden in der Beschriftung dann Jahre ausgelassen:
+
+```{r}
+library(tidyverse)
+
+#Daten generieren
+(daten <- tibble(year = 2010:2020, 
+                 wert = rnorm(n = length(year), mean = 0, sd = 1)
+                 )
+)
+
+# Problemplot
+daten |>
+          ggplot(aes(x = year, y = wert)) +
+          geom_line() +
+          geom_point()
+```
+
+
+#### Die Lösung
+Eine schnelle Lösung ist es, die Labels für die Jahre "hardzucoden":
+
+```{r}
+daten |>
+          ggplot(aes(x = year, y = wert)) +
+          geom_line() +
+          geom_point() +
+          scale_x_continuous(breaks = 2010:2020)
+```
+
+Eine allgemeingültigere Lösung ist es, die Jahreszahlen auch in R als Datum zu hinterlegen und die Darstellung auf den Achsen auf die Jahre zu beschränken. In diesem Beispiel führt dies zum gleichen Ergebnis:
+
+```{r}
+daten |>
+          mutate(year = paste0(year, "-01-01")) |> #Jahreszahl um Monat und Tag erweitern
+          mutate(year = as.Date(year)) |> #als Datum definieren
+          ggplot(aes(x = year, y = wert)) +
+          geom_line() +
+          geom_point() +
+          scale_x_date(date_labels = "%Y", #nur Jahreszahl anzeigen
+                       date_breaks = "1 year") #Breaks zwischen den Jahren definieren
+```
+
+
+
+
