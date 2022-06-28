@@ -394,6 +394,10 @@ div.tocify {
 <h4>Das Problem:</h4>
 <p>Nach dem Einlesen, können die Daten nicht mit den üblichen Befehlen
 bearbeitet werden:</p>
+<pre class="r"><code>library(tidyverse) 
+library(tidytuesdayR)
+
+daten &lt;- tidytuesdayR::tt_load(2022, week = 2)</code></pre>
 <pre><code>## 
 ##  Downloading file 1 of 2: `colony.csv`
 ##  Downloading file 2 of 2: `stressor.csv`</code></pre>
@@ -402,7 +406,12 @@ bearbeitet werden:</p>
 <h4>Die Lösung</h4>
 <p>TidyTuesday-Daten bestehen häufig aus mehreren Datensätzen. Mit dem
 <code>$</code>-Operator können diese extrahiert werden:</p>
+<pre class="r"><code>colony &lt;- daten$colony
+
+stressor &lt;- daten$stressor</code></pre>
 <p>Dann können die Objekte wie gewohnt bearbeitet werden:</p>
+<pre class="r"><code>colony |&gt; 
+          filter(colony_lost &gt; 1000)</code></pre>
 <pre><code>## # A tibble: 851 x 10
 ##     year months        state     colony_n colony_max colony_lost colony_lost_pct
 ##    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
@@ -421,6 +430,7 @@ bearbeitet werden:</p>
 <p>Im Allgemeinen können Informationen zu den TidyTuesday-Daten im
 <em>Hilfefenster</em> angezeigt werden, wenn der Name des Objekts, in
 dem die Daten zwischengespeichert wurden, ausgeführt wird. Hier:</p>
+<pre class="r"><code>daten</code></pre>
 </div>
 </div>
 <div
@@ -433,21 +443,38 @@ angezeigt</h3>
 <p>In ggplot werden Zahlen auf den Achsen standardmäßig in der
 wissenschaftlichen Notation (scientific notation) dargestellt, wenn die
 Zahlen groß oder klein werden:</p>
+<pre class="r"><code>library(tidyverse)
+
+# Beispieldaten
+(daten &lt;- tibble(x = 1:2, y = c(0, 400000))
+          )</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##       x      y
 ##   &lt;int&gt;  &lt;dbl&gt;
 ## 1     1      0
 ## 2     2 400000</code></pre>
+<pre class="r"><code># Problemplot
+daten |&gt; 
+          ggplot(aes(x = x, y = y)) +
+          geom_point()</code></pre>
 <p><img src="FAQs_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="die-lösung-1" class="section level4">
 <h4>Die Lösung</h4>
 <p>Das Paket scales bietet eine Funktion <code>number_format()</code>,
 mit der dieses Verhalten verändert werden kann:</p>
+<pre class="r"><code>daten |&gt; 
+          ggplot(aes(x = x, y = y)) +
+          geom_point() +
+          scale_y_continuous(labels = scales::number_format()) </code></pre>
 <p><img src="FAQs_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Zusätzlich kann bei Bedarf das im Deutschen gebräuchliche
 Tausendertrennzeichen und das Komma als Dezimaltrennzeichen festgesetzt
 werden:</p>
+<pre class="r"><code>daten |&gt; 
+          ggplot(aes(x = x, y = y)) +
+          geom_point() +
+          scale_y_continuous(labels = scales::number_format(big.mark = &quot;.&quot;, decimal.mark = &quot;,&quot;))</code></pre>
 <p><img src="FAQs_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>
@@ -460,30 +487,55 @@ class="section level3">
 diese als Zahlen behandelt, was zur unerwünschten Darstellung von
 Kommastallen und “krummen” Jahreszahlen führen kann. Außerdem werden in
 der Beschriftung dann Jahre ausgelassen:</p>
+<pre class="r"><code>library(tidyverse)
+
+#Daten generieren
+(daten &lt;- tibble(year = 2010:2020, 
+                 wert = rnorm(n = length(year), mean = 0, sd = 1)
+                 )
+)</code></pre>
 <pre><code>## # A tibble: 11 x 2
 ##     year   wert
 ##    &lt;int&gt;  &lt;dbl&gt;
-##  1  2010  0.676
-##  2  2011  0.744
-##  3  2012  0.608
-##  4  2013  1.46 
-##  5  2014 -1.42 
-##  6  2015  0.199
-##  7  2016  0.233
-##  8  2017 -0.114
-##  9  2018 -2.72 
-## 10  2019 -2.17 
-## 11  2020  0.455</code></pre>
+##  1  2010  1.13 
+##  2  2011 -0.629
+##  3  2012  0.529
+##  4  2013 -0.873
+##  5  2014 -0.630
+##  6  2015 -0.532
+##  7  2016  0.548
+##  8  2017 -1.18 
+##  9  2018 -0.586
+## 10  2019 -0.727
+## 11  2020 -0.555</code></pre>
+<pre class="r"><code># Problemplot
+daten |&gt;
+          ggplot(aes(x = year, y = wert)) +
+          geom_line() +
+          geom_point()</code></pre>
 <p><img src="FAQs_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="die-lösung-2" class="section level4">
 <h4>Die Lösung</h4>
 <p>Eine schnelle Lösung ist es, die Labels für die Jahre
 “hardzucoden”:</p>
+<pre class="r"><code>daten |&gt;
+          ggplot(aes(x = year, y = wert)) +
+          geom_line() +
+          geom_point() +
+          scale_x_continuous(breaks = 2010:2020)</code></pre>
 <p><img src="FAQs_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Eine allgemeingültigere Lösung ist es, die Jahreszahlen auch in R als
 Datum zu hinterlegen und die Darstellung auf den Achsen auf die Jahre zu
 beschränken. In diesem Beispiel führt dies zum gleichen Ergebnis:</p>
+<pre class="r"><code>daten |&gt;
+          mutate(year = paste0(year, &quot;-01-01&quot;)) |&gt; #Jahreszahl um Monat und Tag erweitern
+          mutate(year = as.Date(year)) |&gt; #als Datum definieren
+          ggplot(aes(x = year, y = wert)) +
+          geom_line() +
+          geom_point() +
+          scale_x_date(date_labels = &quot;%Y&quot;, #nur Jahreszahl anzeigen
+                       date_breaks = &quot;1 year&quot;) #Breaks zwischen den Jahren definieren</code></pre>
 <p><img src="FAQs_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </div>
