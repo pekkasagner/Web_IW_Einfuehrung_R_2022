@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einführung in R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis_changed.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts_changed.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Einführung in R
+## Fortbildung im Institut der deutschen Wirtschaft
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span&gt;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  Einführung in R | Funktionen &amp; Iteration | Pekka Sagner &lt;/span&gt; 
+&lt;/div&gt;
+
+
+
+ 
+---
+class: clear, inverse, middle, center
+
+#.font200[7] &amp;emsp;Funktionen &amp; Iteration
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 100px;
+height: 128px;
+z-index: 0;
+background-image: url(images/IW_LOGO_STANDARD_RGB.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:-.5em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Funktionen im Tidyverse (mit dplyr)
++ Moderne Iteration im Tidyverse
+
++ Leseempfehlung:
+   + [Programming with dplyr Vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html)
+
+---
+class: clear, inverse, middle, center
+
+# Funktionen: Basics
+
+---
+#Wann und warum eigene Funktionen?
+
++ Eine Daumenregel: Mehr als dreimal sollte derselbe Code nicht von Hand (&amp;raquo;hardgecodet&amp;laquo;) geschrieben, beziehungsweise kopiert werden.
+
++ Funktionen haben drei große Vorteile gegenüber Copy-and-paste:
+
+  1. Funktionen können (und sollten) einen ausdrucksstarken Namen haben, das macht den Code besser lesbar.
+
+  2. Wenn die Anforderungen an den Code sich verändern, müssen wir nur an einer Stelle etwas ändern, anstatt an vielen Stellen.
+  
+  3. Wir verhindern Folgefehler, die entstehen wenn Code kopiert wird. 
+
+---
+#Aufbau einer Funktion
+
+
+```r
+mein_funktionsname &lt;- function( Argument(e) ) {
+          Ergebnis &lt;- Mach dies, mach jenes
+                    ...
+          return(Ergebnis)
+}
+```
+
++ `mein_funktionsname`: (optional) Name, mit dem die Funktion als Objekt im Environment gespeichert wird.
++ `function() {}`: Grundgerüst, um eine Funktion zu definieren.
++ `Argument(e)`: Argumente, die mit Inputs gefüllt werden können.
++ `Mach dies, mach jenes`: Dinge, die die Funktion macht.
++ `Ergebnis &lt;-`: Dinge, die die Funktion gemacht hat werden gespeichert.
++ `return(Ergebnis)`: Dinge, die die Funktion gemacht hat werden ausgegeben.
+
+---
+#Ein simples Beispiel für eine Funktion
+
++ Wir möchten eine Funktion erstellen, die zu jedem Element eines numerischen Vektors Eins addiert.
+
++ Übersetzung in Funktion:
+
+    + Klingender Funktionsname z. B.: `plus_eins`
+    + Argument, das den Platzhalter für den Input darstellt, z. B.: `numerischer_vektor`
+    + Was die Funktion macht: `numerischer_vektor + 1`
+    + Name für Ergebnis, z.B.: `numerischer_vektor_plus_eins`
+    + Ausgabe des Ergebnisses: `return(numerischer_vektor_plus_eins)`
+
+---
+#Drei Schritte zum Anwenden einer Funktion
+
++ Um eine Funktion anwenden zu können brauchen wir immer drei Dinge:
+
+   1. Daten
+     + Auf was wollen wir die Funktion anwenden?
+   2. Definieren der Funktion
+     + Was soll die Funktion mit unserem Input / unseren Daten machen?
+   3. Call der Funktion
+     + Schließlich wenden wir die Funktion auf unseren Input an.
+
+
+---
+#Drei Schritte zum Anwenden einer Funktion
+
+1\. Daten:
+
+
+```r
+(daten &lt;- 1:10)
+```
+
+```
+#&gt;  [1]  1  2  3  4  5  6  7  8  9 10
+```
+2\. Definieren der Funktion:
+
+
+```r
+plus_eins &lt;- function(numerischer_vektor) {
+          numerischer_vektor_plus_eins &lt;- numerischer_vektor + 1
+          return(numerischer_vektor_plus_eins)
+}
+```
+3\. Call der Funktion
+
+
+```r
+plus_eins(daten) # oder x |&gt; plus_eins()
+```
+
+```
+#&gt;  [1]  2  3  4  5  6  7  8  9 10 11
+```
+
+---
+#Die Datenanalyse mit Funktionen vereinfachen
+
++ Bei der explorativen Datenanalyse, zum Beispiel beim Erstellen von deskriptiven Statistiken, wenden wir häufig die gleichen Funktionen nacheinander an.
+
++ Wenn wir den Anteil der Ausprägung einer kategorialen Variable an allen Ausprägungen der Variable bestimmen möchten, dann sind die Berechnungsschritte immer dieselben, zuerst zählen wir mit `count()`, dann berechnen wir den Anteil als Anzahl der Ausprägung in Relation zur Summe der Anzahlen der Ausprägungen: `mutate(share = n / sum(n))`.
+
++ Wir könnten eine eigene Funktion schreiben, die diese beiden Schritte für uns durchführt.
+
+---
+#Die Datenanalyse mit Funktionen vereinfachen
+
+##Beispieldatensatz
+
+
+```r
+(gapminder &lt;- gapminder::gapminder)
+```
+
+```
+#&gt; # A tibble: 1,704 x 6
+#&gt;    country     continent  year lifeExp      pop gdpPercap
+#&gt;    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt;  1 Afghanistan Asia       1952    28.8  8425333      779.
+#&gt;  2 Afghanistan Asia       1957    30.3  9240934      821.
+#&gt;  3 Afghanistan Asia       1962    32.0 10267083      853.
+#&gt;  4 Afghanistan Asia       1967    34.0 11537966      836.
+#&gt;  5 Afghanistan Asia       1972    36.1 13079460      740.
+#&gt;  6 Afghanistan Asia       1977    38.4 14880372      786.
+#&gt;  7 Afghanistan Asia       1982    39.9 12881816      978.
+#&gt;  8 Afghanistan Asia       1987    40.8 13867957      852.
+#&gt;  9 Afghanistan Asia       1992    41.7 16317921      649.
+#&gt; 10 Afghanistan Asia       1997    41.8 22227415      635.
+#&gt; # ... with 1,694 more rows
+```
+
+---
+class: font100
+#Wiederholung der Analyseschritte
+
+
+```r
+ergebnis &lt;- gapminder |&gt; #Datensatz
+          count(continent) |&gt; #was die Funktion...
+          mutate(share = n/sum(n)) #...macht
+```
+
+
+```r
+ergebnis #das Ergebnis der angewendeten Funktion anschauen
+```
+
+```
+#&gt; # A tibble: 5 x 3
+#&gt;   continent     n  share
+#&gt;   &lt;fct&gt;     &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 Africa      624 0.366 
+#&gt; 2 Americas    300 0.176 
+#&gt; 3 Asia        396 0.232 
+#&gt; 4 Europe      360 0.211 
+#&gt; 5 Oceania      24 0.0141
+```
+
++ Was aber, wenn wir den Anteil der Länder ermitteln wollen?
+
++ Wir könnten den oberen Code Copy-pasten und `continent` durch `country` ersetzen. 
+
++ Oder wir schreiben eine Funktion, die als Argument verschiedene Spalten annimmt.
+
+---
+#Anteile als Funktion
+##Erster Versuch
+
++ Funktion:
+
+```r
+my_share_function &lt;- function(cat_var) {
+          ergebnis &lt;- gapminder |&gt; 
+                    count(cat_var) |&gt; 
+                    mutate(share = n/sum(n))
+          return(ergebnis)
+}
+```
+
++ Funktion anwenden:
+
+```r
+my_share_function(country)
+```
+
++ Funktioniert nicht!
+
+---
+#Data masking
+
++ Die vorangegangene Funktion funktioniert nicht, weil die Funktion `count()` versucht eine Variable zu evaluieren, die tatsächlich `cat_var` heißt. 
+
++ Dieses Problem tritt auf, weil wir mit den dplyr-Funktionen arbeiten. 
+
++ Diese nutzen [Data masking](https://dplyr.tidyverse.org/reference/dplyr_data_masking.html).
+
++ Wir können dieses Problem umgehen, indem wir die Variable mit zwei geschweiften Klammern `{{ }}` umschließen.
+
+---
+#Anteile als Funktion
+##Zweiter Versuch
+
++ Funktion:
+
+```r
+my_share_function &lt;- function(cat_var) {
+          ergebnis &lt;- gapminder |&gt; 
+*                   count({{ cat_var }}) |&gt;
+                    mutate(share = n/sum(n))
+          return(ergebnis)
+}
+```
+
+---
+class: font90
+# Anteile als Funktion
+
+## Zweiter Versuch
+
++ Die Funktion funktioniert jetzt auch mit der Variable `country`...
+
+
+
+```r
+my_share_function(country)
+```
+
+```
+#&gt; # A tibble: 142 x 3
+#&gt;    country         n   share
+#&gt;    &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
+#&gt;  1 Afghanistan    12 0.00704
+#&gt;  2 Albania        12 0.00704
+#&gt;  3 Algeria        12 0.00704
+#&gt;  4 Angola         12 0.00704
+#&gt;  5 Argentina      12 0.00704
+#&gt;  6 Australia      12 0.00704
+#&gt;  7 Austria        12 0.00704
+#&gt;  8 Bahrain        12 0.00704
+#&gt;  9 Bangladesh     12 0.00704
+#&gt; 10 Belgium        12 0.00704
+#&gt; # ... with 132 more rows
+```
+
+---
+class: font90
+# Anteile als Funktion
+
+## Zweiter Versuch
+
++ ...genauso wie mit anderen Variablen:
+
+
+```r
+my_share_function(year)
+```
+
+```
+#&gt; # A tibble: 12 x 3
+#&gt;     year     n  share
+#&gt;    &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+#&gt;  1  1952   142 0.0833
+#&gt;  2  1957   142 0.0833
+#&gt;  3  1962   142 0.0833
+#&gt;  4  1967   142 0.0833
+#&gt;  5  1972   142 0.0833
+#&gt;  6  1977   142 0.0833
+#&gt;  7  1982   142 0.0833
+#&gt;  8  1987   142 0.0833
+#&gt;  9  1992   142 0.0833
+#&gt; 10  1997   142 0.0833
+#&gt; 11  2002   142 0.0833
+#&gt; 12  2007   142 0.0833
+```
+
+---
+#Noch mehr Schreibarbeit sparen
+
++ Unsere `my_share_function` ist zwar schön und gut, allerdings spezifisch für das Objekt, das wir `gapminder` genannt haben geschrieben.
+
++ Was, wenn wir die Funktion allgemeiner für Datensätze unserer Wahl schreiben möchten?
+
++ Wir verändern die Funktion schlichtweg so, dass wir ein zweites Argument einfügen:
+
+
+```r
+*my_share_function_general &lt;- function(my_data, cat_var) {
+          ergebnis &lt;- my_data |&gt; #Das Data-Argument benutzt kein Data-masking.
+                    count({{ cat_var }}) |&gt; 
+                    mutate(share = n/sum(n))
+          return(ergebnis)
+}
+```
+
+---
+#Anwenden der Funktion mit zwei Argumenten
+##Auf den gapminder-Datensatz:
+
+
+```r
+my_share_function_general(gapminder, continent)
+```
+
+```
+#&gt; # A tibble: 5 x 3
+#&gt;   continent     n  share
+#&gt;   &lt;fct&gt;     &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 Africa      624 0.366 
+#&gt; 2 Americas    300 0.176 
+#&gt; 3 Asia        396 0.232 
+#&gt; 4 Europe      360 0.211 
+#&gt; 5 Oceania      24 0.0141
+```
+
+
+---
+#Anwenden der Funktion mit zwei Argumenten
+##Einfach übertragbar auf andere Datensätze:
+
+
+```r
+my_share_function_general(palmerpenguins::penguins, species)
+```
+
+```
+#&gt; # A tibble: 3 x 3
+#&gt;   species       n share
+#&gt;   &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt;
+#&gt; 1 Adelie      152 0.442
+#&gt; 2 Chinstrap    68 0.198
+#&gt; 3 Gentoo      124 0.360
+```
+
+---
+#Der Zahl der Argumente ist keine Grenze gesetzt
+##Funktion für Anteile nach Gruppen (Kreuztabelle)
+
++ Zur Erinnerung, die Funktion für einen **bestimmten** Datensatz und zwei **bestimmte** Variablen:
+
+
+```r
+palmerpenguins::penguins |&gt; 
+          count(year, species) |&gt; 
+          group_by(year) |&gt; 
+          mutate(share = n/sum(n)) |&gt; 
+          ungroup() |&gt; 
+          select(-n) |&gt; #Entfernen der absoluten Werte
+          pivot_wider(names_from = "species", id_cols = "year", values_from = "share")
+```
+
+```
+#&gt; # A tibble: 3 x 4
+#&gt;    year Adelie Chinstrap Gentoo
+#&gt;   &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1  2007  0.455     0.236  0.309
+#&gt; 2  2008  0.439     0.158  0.404
+#&gt; 3  2009  0.433     0.2    0.367
+```
+
+---
+#Funktion für Anteile in Kreuztabellen
+
++ Übersetzen in eine Funktion:
+
+
+```r
+my_share_cross_tabulation_function &lt;- function(data, var1, var2) {
+          result &lt;- data |&gt; 
+                    count({{ var1 }}, {{ var2 }}) |&gt; 
+                    group_by({{ var1 }} ) |&gt; 
+                    mutate(share = n/sum(n)) |&gt; 
+                    ungroup() |&gt; 
+                    select(-n) |&gt; 
+                    pivot_wider(id_cols = {{ var1 }}, names_from = {{ var2 }}, values_from = "share")
+          return(result)
+}
+```
+
++ *Hinweis: Funktionen sollten eigentlich einen Kommentar enthalten, in dem die Funktionsweise un die verschiedenen Argumente beschrieben werden.*
+
+---
+#Anwenden der Funktion für Anteile in Kreuztabellen
+
++ Egal ob Pinguin...
+
+
+```r
+my_share_cross_tabulation_function(palmerpenguins::penguins, year, species)
+```
+
+```
+#&gt; # A tibble: 3 x 4
+#&gt;    year Adelie Chinstrap Gentoo
+#&gt;   &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1  2007  0.455     0.236  0.309
+#&gt; 2  2008  0.439     0.158  0.404
+#&gt; 3  2009  0.433     0.2    0.367
+```
+
+---
+#Anwenden der Funktion für Anteile in Kreuztabellen
+
++ ...oder Kontinent:
+
+
+```r
+my_share_cross_tabulation_function(gapminder::gapminder, year, continent)
+```
+
+```
+#&gt; # A tibble: 12 x 6
+#&gt;     year Africa Americas  Asia Europe Oceania
+#&gt;    &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;  1  1952  0.366    0.176 0.232  0.211  0.0141
+#&gt;  2  1957  0.366    0.176 0.232  0.211  0.0141
+#&gt;  3  1962  0.366    0.176 0.232  0.211  0.0141
+#&gt;  4  1967  0.366    0.176 0.232  0.211  0.0141
+#&gt;  5  1972  0.366    0.176 0.232  0.211  0.0141
+#&gt;  6  1977  0.366    0.176 0.232  0.211  0.0141
+#&gt;  7  1982  0.366    0.176 0.232  0.211  0.0141
+#&gt;  8  1987  0.366    0.176 0.232  0.211  0.0141
+#&gt;  9  1992  0.366    0.176 0.232  0.211  0.0141
+#&gt; 10  1997  0.366    0.176 0.232  0.211  0.0141
+#&gt; 11  2002  0.366    0.176 0.232  0.211  0.0141
+#&gt; 12  2007  0.366    0.176 0.232  0.211  0.0141
+```
+
+---
+class: clear, inverse, middle, center
+
+# Iteration
+
+---
+#Funktionen + Iteration = <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:red;overflow:visible;position:relative;"><path d="M216 23.86c0-23.8-30.65-32.77-44.15-13.04C48 191.85 224 200 224 288c0 35.63-29.11 64.46-64.85 63.99-35.17-.45-63.15-29.77-63.15-64.94v-85.51c0-21.7-26.47-32.23-41.43-16.5C27.8 213.16 0 261.33 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-193-168-296.14z"/></svg><svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:orange;overflow:visible;position:relative;"><path d="M216 23.86c0-23.8-30.65-32.77-44.15-13.04C48 191.85 224 200 224 288c0 35.63-29.11 64.46-64.85 63.99-35.17-.45-63.15-29.77-63.15-64.94v-85.51c0-21.7-26.47-32.23-41.43-16.5C27.8 213.16 0 261.33 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-193-168-296.14z"/></svg><svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:yellow;overflow:visible;position:relative;"><path d="M216 23.86c0-23.8-30.65-32.77-44.15-13.04C48 191.85 224 200 224 288c0 35.63-29.11 64.46-64.85 63.99-35.17-.45-63.15-29.77-63.15-64.94v-85.51c0-21.7-26.47-32.23-41.43-16.5C27.8 213.16 0 261.33 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-193-168-296.14z"/></svg>
+
++ Funktionen entfalten ihr wahres Potenzial wenn sie iterativ angewendet werden.
+
++ Die moderne Syntax, um Funktionen iterativ anzuwenden sind die `map`-Funktionen aus dem Paket `purrr`, das Teil des Tidyverse ist.
+
++ Leseempfehlungen:
+
+  + [Learn to purrr](https://www.rebeccabarter.com/blog/2019-08-19_purrr/)
+  + [purrr cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf)
+  + [R4DS, Kapitel 21](https://r4ds.had.co.nz/iteration.html)
+  
+---
+#`map()`
+
++ Eine `map`-Funktion wendet dieselbe Funktion auf jedes Element eines Objekts an, z. B. auf jeden Eintrag einer Liste, eines Vektors oder jede Spalte eines Tibbles.
+
++ Die verschiedenen `map`-Funktionen sind nach dem Typ des **Outputs** benannt, z. B.:
+
+|Funktion                | Beschreibung
+|------------------------|----------------------------------------------------
+|map() | Hauptfunktion; Output ist eine Liste
+|map_df()                   | Output ist ein Tibble (Dataframe)
+|map_dbl()                  | Output ist ein numerischer (double) Vektor
+|map_chr()               | Output ist ein character-Vektor
+|map_lgl() | Output ist ein logischer Vektor
+
++ *Hinweis: Es gibt noch weitere `map`-Funktionen.*
+
+---
+#`map()` - simples Anwendungsbeispiel: Tibble
+
++ `map`-Funktion iterativ über alle Spalten eines Datensatzes:
+
+
+```r
+gapminder::gapminder |&gt; 
+          map_df(mean)
+```
+
+```
+#&gt; # A tibble: 1 x 6
+#&gt;   country continent  year lifeExp       pop gdpPercap
+#&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1      NA        NA 1980.    59.5 29601212.     7215.
+```
+
+---
+#`map()` - simples Anwendungsbeispiel mit eigener Funktion: Vektor
+
++ `map`-Funktion iteriert über alle Elemente eines Vektors:
+
++ Eigene Funktion:
+
+
+```r
+eigene_funktion &lt;- function(input_vektor) {
+          set.seed(80085)
+          
+          rnorm(n = 1, mean = 12, sd = 3) * input_vektor |&gt;
+                    log()
+                    
+}
+```
+
+---
+#`map()` - simples Anwendungsbeispiel mit eigener Funktion: Vektor
+
++ Anwenden der Funktion:
+
+
+
+```r
+1:10 |&gt; 
+          map_dbl(.f = eigene_funktion)
+```
+
+```
+#&gt;  [1]  0.00000  7.94008 12.58473 15.88016 18.43630 20.52481 22.29062 23.82024 25.16946 26.37638
+```
+
+---
+#Iteration: ein (hoffentlich) realistisches Beispiel
+                    
++ Aufgabe: Wir haben einen Datensatz mit Informationen zu Ländern (gapminder-Datensatz).
++ Wir möchten für jeden Kontinent ein Reporting erstellen.
++ Unsere Berechnungen möchten wir für die Weitergabe der Daten in Excel speichern.
++ *Hinweis: Wir möchten (die Vorstufe) eines automatisierten Reports erstellen.*
++ Hierfür können wir Funktionen und die Iteration mit den `map()`-Funktionen nutzen.
++ Unser Report soll eine Liste der Top-3 Länder nach BIP pro Kopf und der ärmsten drei Länder nach BIP pro Kopf im aktuellsten Jahr, sowie eine Korrelationstabelle von BIP pro Kopf und Lebenserwartung pro Jahr enthalten.
+
+---
+#Die Arbeitsschritte anhand eines Kontinents:
+
++ Top-3 Länder nach BIP pro Kopf
+
+
+```r
+gapminder::gapminder |&gt; 
+          filter(continent == "Europe") |&gt; 
+          filter(year == max(year))
+```
+
+```
+#&gt; # A tibble: 30 x 6
+#&gt;    country                continent  year lifeExp      pop gdpPercap
+#&gt;    &lt;fct&gt;                  &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt;  1 Albania                Europe     2007    76.4  3600523     5937.
+#&gt;  2 Austria                Europe     2007    79.8  8199783    36126.
+#&gt;  3 Belgium                Europe     2007    79.4 10392226    33693.
+#&gt;  4 Bosnia and Herzegovina Europe     2007    74.9  4552198     7446.
+#&gt;  5 Bulgaria               Europe     2007    73.0  7322858    10681.
+#&gt;  6 Croatia                Europe     2007    75.7  4493312    14619.
+#&gt;  7 Czech Republic         Europe     2007    76.5 10228744    22833.
+#&gt;  8 Denmark                Europe     2007    78.3  5468120    35278.
+#&gt;  9 Finland                Europe     2007    79.3  5238460    33207.
+#&gt; 10 France                 Europe     2007    80.7 61083916    30470.
+#&gt; # ... with 20 more rows
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%<br>",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    if (preNodes.length < 2) return;
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details " +
+      (el.classList.contains("open") ? "open " : "") +
+      "class='output'><summary>Ergebnis anzeigen</summary>" +
+      outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
