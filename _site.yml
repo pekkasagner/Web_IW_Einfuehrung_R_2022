@@ -1,6 +1,6 @@
 name: "my-website"
 navbar:
-  title: "<b>DAVR</b><br/><p style=\"font-weight:lighter; font-size:10px\">[HBRS SS 2022]</p>"
+  title: "<b>EiR-IW</b><br/><p style=\"font-weight:lighter; font-size:10px\">[Sommer 2022]</p>"
   left:
     - text: "Home"
       icon: fa-home
@@ -17,9 +17,6 @@ navbar:
     - text: "Abschlusspräsentation"
       icon: fa-chalkboard
       href: praesentation.html   
-    - text: "(F)AQs"
-      icon: fa-question-circle
-      href: FAQs.html   
     - text: "Kontakt"
       icon: fa-address-book
       href: kontakt.html    

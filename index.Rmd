@@ -1,7 +1,7 @@
 ---
-title: "Datenanalyse und -visualisierung mit R (DAVR)"
-subtitle: "Ergänzungsfach an der Hochschule Bonn-Rhein-Sieg im Sommersemester 2022"
+title: "Einführung in R"
+subtitle: "Fortbildung im Institut der deutschen Wirtschaft"
 ---
 
 
-Diese Webseite begleitet das Ergänzungsfach Datenanalyse und -visualisierung mit R. Der Bereich [`r fontawesome::fa("project-diagram")` Kursbeschreibung](./kursbeschreibung.html) enthält eine Kurzbeschreibung der Lerninhalte. Unter [`r fontawesome::fa("calendar")` Semesterplan](./semesterplan.html) finden Sie die geplanten Vorlesungstermine und deren Thema mit Datum und Ort. Die [`r fontawesome::fa("list")` Kursinhalte](./kursinhalte.html) bestehen aus Leseempfehlungen und den Vorlesungs- und Übungsmaterialien. Im Reiter [`r fontawesome::fa("chalkboard")` Abschlusspräsentation](./praesentation.html) finden Sie Hinweise zur Abschlusspräsentation am Ende des Semesters. 
+Diese Webseite begleitet Fortbildung &raquo;Einführung in R&laquo; im Institut der deutschen Wirtschaft. Der Bereich [`r fontawesome::fa("project-diagram")` Kursbeschreibung](./kursbeschreibung.html) enthält eine Kurzbeschreibung der Lerninhalte. Unter [`r fontawesome::fa("calendar")` Lehrplan](./lehrplan.html) finden Sie die geplanten Termine und deren Thema mit Datum und Ort. Die [`r fontawesome::fa("list")` Kursinhalte](./kursinhalte.html) bestehen aus Leseempfehlungen und den Vorlesungs- und Übungsmaterialien.
