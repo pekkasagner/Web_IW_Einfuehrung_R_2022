@@ -22,6 +22,7 @@ a, a > code {
 
 
 
+
 /* Two-column layout */
 .left-column {
   color: #777;
@@ -149,16 +150,17 @@ th, td { padding: 5px; }
 
 /*custom footer*/
 div.my-footer {
-    background-color: #748A9D;
-    position: relative;
-    margin: 0 auto;
-    top: 520px;
-    height: 1px;
+    /*background-color: #E0C599;*/
+    position: absolute;
+    bottom: 4px;
+    left: 0px;
+    height: 20px;
     width: 100%;
 }
 div.my-footer span {
     font-size: 10pt;
     color: #748A9D;
     position: absolute;
-    bottom: -40px;
+    left: 15px;
+    bottom: 0;
 }

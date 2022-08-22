@@ -1,4 +1,4 @@
-xaringa---
+---
 title: "Einführung in R"
 subtitle: "Fortbildung im Institut der deutschen Wirtschaft"
 output: 
