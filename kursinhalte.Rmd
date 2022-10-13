@@ -1,6 +1,6 @@
 ---
 title: "Kursinhalte"
-description: "Sommersemester 2022"
+description: ""
 author: " "
 date: " "
 output:
@@ -16,11 +16,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Jede Vorlesung besteht aus einer Sammlung aus empfohlener Literatur, Vorlesungsfolien und zugehörigen Übungsaufgaben, einschließlich einer kompakten Musterlösung.
+Jede Kurseinheit besteht aus einer Sammlung aus empfohlener Literatur, Vorlesungsfolien und zugehörigen Übungsaufgaben, einschließlich einer kompakten Musterlösung.
 
 ## 1. Kursinhalte und Organisatorisches {.tabset .tabset-fade}
 
-In dieser Sitzung besprechen wir die Inhalte der Vorlesung, installieren R und R-Studio (falls noch nicht geschehen) und orientieren uns in der Benutzeroberfläche von R-Studio. Darüber hinaus besprechen wir organisatorische Dinge, wie den Semesterplan und die finale Präsentation, die für das erfolgreiche Abschließen des Kurses (ECTS-Punkte) notwendig ist. Im Übungsteil machen wir uns mit verschiedenen Datentypen in R und der grundlegenden Syntax mathematischer und logischer Operatoren vertraut.
+In dieser Sitzung besprechen wir die Inhalte der Vorlesung und orientieren uns in der Benutzeroberfläche von R-Studio. Die Installation von R und R-Studio muss vor dem Kurs erfolgt sein. Im Übungsteil machen wir uns mit verschiedenen Datentypen in R und der grundlegenden Syntax mathematischer und logischer Operatoren vertraut.
 
 ### Leseempfehlungen
 
@@ -32,9 +32,13 @@ In dieser Sitzung besprechen wir die Inhalte der Vorlesung, installieren R und R
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Kursüberblick&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/01_Vorlesung_Kursueberblick.pdf) 
+[`r fontawesome::fa("window-restore")` Folien &raquo;Kursüberblick&laquo; als HTML-Datei öffnen](./slides/01_Vorlesung_Kursueberblick.html) 
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Erste Schritte&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/02_Vorlesung_Erste_Schritte.pdf) 
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Kursüberblick&laquo; als PDF-Datei öffnen](./slides/01_Vorlesung_Kursueberblick.pdf) 
+
+[`r fontawesome::fa("window-restore")` Folien &raquo;Erste Schritte&laquo; als HTML-Datei öffnen](./slides/02_Vorlesung_Erste_Schritte.html) 
+
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Erste Schritte&laquo; als PDF-Datei öffnen](./slides/02_Vorlesung_Erste_Schritte.pdf) 
 
 
 ### Übungsaufgaben
@@ -62,8 +66,10 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 ### Vorlesungsfolien
 
+[`r fontawesome::fa("window-restore")` Folien &raquo;Einführung in das Tidyverse&laquo; als HTML-Datei öffnen](./slides/03_Vorlesung_Tidyverse.html)
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/03_Vorlesung_Tidyverse.pdf)
+
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./slides/03_Vorlesung_Tidyverse.pdf)
 
 
 ### Übungsaufgaben
@@ -78,41 +84,7 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 [`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv)
 
-
-## 3. Visualisierungen mit ggplot2 {.tabset .tabset-fade}
-
-In dieser Sitzung lernen wir die Syntax zum Erstellen von Abbildungen in R kennen. Hierfür nutzen wir das Paket ggplot2, welches Teil des Tidyverse ist. Wir erarbeiten uns das Grundverständnis für die verschiedenen Abbildungsoptionen und Erkennen den Wert von Abbildungen bei der explorativen Datenanalyse.
-
-### Leseempfehlungen
-
-[`r fontawesome::fa("external-link-alt")` R4DS, Kapitel 3 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/data-visualisation.html)
-
-[`r fontawesome::fa("external-link-alt")` A Layered Grammar of Graphics (Wickham, 2010)](http://vita.had.co.nz/papers/layered-grammar.pdf)
-
-[`r fontawesome::fa("external-link-alt")` ggplot2: Elegant Graphics for Data Analysis (Wickham, 2021)](https://ggplot2-book.org/index.html)
-
-[`r fontawesome::fa("external-link-alt")` R Graphics Cookbook, 2nd edition (Chang, 2022)](https://r-graphics.org/)
-
-
-### Vorlesungsfolien
-
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Grammar of graphics (ggplot)&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/04_Vorlesung_ggplot.pdf)
-
-### Übungsaufgaben
-
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/03_Uebungsblatt_Intro_ggplot.pdf)
-
-### Musterlösung
-
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Einführung in ggplot2&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_3.R)
-
-### Daten
-
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;datasaurus&laquo; als TSV-Datei öffnen](./unterlagen/daten/datasaurus.tsv)
-
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv)
-
-## 4. Umgang mit unordentlichen Daten {.tabset .tabset-fade}
+## 3. Umgang mit unordentlichen Daten {.tabset .tabset-fade}
 
 Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenanalyse verwenden, ist für das Säubern von Daten reserviert. Daten werden uns nur selten in einem idealen Format geliefert. Wir lernen in diesem Teil der Veranstaltung einige Konzepte kennen, wie wir aus unordentlichen Daten ordentliche Daten machen können.
 
@@ -127,7 +99,9 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Säubern von Daten&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/05_Vorlesung_messy_data_tidy_data.pdf)
+[`r fontawesome::fa("window-restore")` Folien &raquo;Säubern von Daten&laquo; als HTML-Datei öffnen](./slides/05_Vorlesung_messy_data_tidy_data.html)
+
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Säubern von Daten&laquo; als PDF-Datei öffnen](./slides/05_Vorlesung_messy_data_tidy_data.pdf)
 
 ### Übungsaufgaben
 
@@ -141,7 +115,7 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 [`r fontawesome::fa("file-archive")` Datensatz &raquo;Einkommen_Kreise&laquo; als xlsx-Datei öffnen](./unterlagen/daten/Einkommen_Kreise.xlsx)
 
-## 5. Daten verbinden {.tabset .tabset-fade}
+## 4. Daten verbinden {.tabset .tabset-fade}
 
 Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Häufig wird jedoch von uns erwartet, Datensätze aus verschiedenen Quellen zu kombinieren, so neue Forschungsfragen zu generieren und deren Antwort zu finden. In diesem Teil der Veranstaltung lernen wir die verschiedenen Arten kennen, mit denen wir relationale Daten kombinieren können.
 
@@ -152,7 +126,9 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Daten zusammenführen&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/06_Vorlesung_daten_zusammenfuehren.pdf)
+[`r fontawesome::fa("window-restore")` Folien &raquo;Daten zusammenführen&laquo; als HTML-Datei öffnen](./slides/05_Vorlesung_daten_zusammenfuehren.html)
+
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Daten zusammenführen&laquo; als PDF-Datei öffnen](./slides/05_Vorlesung_daten_zusammenfuehren.pdf)
 
 ### Übungsaufgaben
 
@@ -160,7 +136,7 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R)
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R)
 
 ### Daten
 
@@ -173,37 +149,69 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv)
 
 
-## 6. Geodaten - R als GIS {.tabset .tabset-fade}
+## 5. Deskriptive Statistiken {.tabset .tabset-fade}
 
-In diesem Teil der Veranstaltung lernen wir R als GIS kennen. Wir erstellen Karten und lernen diesen Visualisierungstyp näher kennen. Mit diesem Anwendungsfall unterstreichen wir das Gelernte und dessen Flexibilität mit Bezug auf scheinbar unbekannte Visualisierungstypen.
+Deskriptive Statistiken bilden einen wichtigen Teil der Datenanalyse. Sie tragen einen entscheidenden Teil zum Gesamtverständnis der analysierten Daten bei, außerdem sind zusammenfassende deskriptive Statistiken zentral für die Wissenschaftskommunikation. Neben der Berechnung zusammenfassender deskriptiver Statistiken lernen wir in diesem Teil des Kurses zudem, wie Häufigkeitsstatistiken für kategoriale Variablen berechnet werden können.
 
 ### Leseempfehlungen
 
-[`r fontawesome::fa("external-link-alt")` Geocomputation with R (Lovelace et al., 2021)](https://geocompr.robinlovelace.net/index.html)
+<!-- [`r fontawesome::fa("external-link-alt")` R4DS, Kapitel 13 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/relational-data.html) -->
 
-[`r fontawesome::fa("external-link-alt")` ggplot2: Elegant Graphics for Data Analysis, Kapitel 6.2 ff (Wickham et al., 2021)](https://ggplot2-book.org/maps.html)
-
-[`r fontawesome::fa("external-link-alt")` Vignettes for the sf-package (Pebesma et al., 2021)](https://cran.r-project.org/web/packages/sf/)
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Geodaten&laquo; als PDF-Datei öffnen](./unterlagen/vorlesungen/07_Vorlesung_Geodaten.pdf)
+[`r fontawesome::fa("window-restore")` Folien &raquo;Deskriptive Statistiken&laquo; als HTML-Datei öffnen](./slides/06_Vorlesung_Deskriptive_Statistiken.html)
+
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Deskriptive Statistiken&laquo; als PDF-Datei öffnen](./slides/06_Vorlesung_Deskriptive_Statistiken.pdf)
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/06_Uebungsblatt_Geodaten.pdf)
+<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf) -->
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Geodaten visualisieren&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_6.R)
+<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Geometrie_Corona_Landkreise&laquo; als GEOJSON-Datei öffnen](./unterlagen/daten/Geometrie_Corona_Landkreise.geojson)
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv) -->
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Bundesland_clean&laquo; als ZIP-Ordner öffnen](./unterlagen/daten/Bundesland_clean.zip)
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv) -->
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Arbeitslosenquote_Bundeslaender_clean&laquo; als CSV-Datei öffnen](./unterlagen/daten/Arbeitslosenquote_Bundeslaender_clean.csv)
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv) -->
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Fallzahlen_Kum_Tab_aktuell&laquo; als XLSX-Datei öffnen](./unterlagen/daten/Fallzahlen_Kum_Tab_aktuell.xlsx)
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv) -->
 
+
+## 6. Funktionen & Iteration {.tabset .tabset-fade}
+
+Datenanalyseschritte wiederholen sich häufig. Um Zeit zu sparen und Fehler zu vermeiden, kann es sinnvoll sein, Analyseschritte in Funktionen zu sammeln. In diesem Teil des Kurses werfen wir einen Blick auf den grundsätzlichen Aufbau von Funktionen in R. Wir verbinden diese mit kleinen Besonderheiten, die Tidyverse-Funktionen mit sich bringen, um die bekannte Syntax anwenden zu können. Darüber hinaus wenden wir Funktionen iterativ an.
+
+### Leseempfehlungen
+
+<!-- [`r fontawesome::fa("external-link-alt")` R4DS, Kapitel 13 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/relational-data.html) -->
+
+
+### Vorlesungsfolien
+
+[`r fontawesome::fa("window-restore")` Folien &raquo;Funktionen & Iteration&laquo; als HTML-Datei öffnen](./slides/07_Vorlesung_Funktionen_Iteration.html)
+
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Funktionen & Iteration&laquo; als PDF-Datei öffnen](./slides/07_Vorlesung_Funktionen_Iteration.pdf)
+
+### Übungsaufgaben
+
+<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf) -->
+
+### Musterlösung
+
+<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
+
+### Daten
+
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv) -->
+
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv) -->
+
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv) -->
+
+<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv) -->

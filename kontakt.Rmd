@@ -1,6 +1,6 @@
 ---
 title: "Kontakt"
-description: "Wintersemester 2021/22"
+description: ""
 author: " "
 date: " "
 output:
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 + Volkswirt im Institut der deutschen Wirtschaft
 
-+ Kompetenzfeld Finanzmärkte und Immobilienmärkte
++ Themencluster Globale und Regionale Märkte
 
 <img src="./images/Sagner_Pekka_Porträt_Zuschnitt.jpg" height="auto" width="300" style="border-radius:50%">
 
@@ -39,6 +39,3 @@ knitr::opts_chunk$set(echo = TRUE)
 
 </div>
 </div>
-
-
-

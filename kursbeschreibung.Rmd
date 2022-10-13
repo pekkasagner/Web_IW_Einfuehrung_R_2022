@@ -1,6 +1,6 @@
 ---
 title: "Kursbeschreibung"
-description: "Sommersemester 2022"
+description: ""
 author: " "
 date: " "
 output: html_document
@@ -10,30 +10,29 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Zielsetzung (Mission Statement)
+#### Neuer Datenanalyse-Kurs mit R als Fortbildung im IW
 
-Der Kurs richtet sich an Studierende mit Interesse an der praktischen Datenanalyse. Studierende sind nach Absolvieren des Kurses in der Lage, eigene Datenanalysen mit dem Statistikprogramm R durchzuführen.
+R ist eine freie Programmiersprache für statistische Berechnungen und Grafiken und erfreut sich aufgrund einer modernen und intuitiven Anwendung zunehmender Beliebtheit. 
+Daher wird für interessierte Kolleginnen und Kollegen eine interne Schulung zum Umgang mit R angeboten. Wichtige Informationen zum Kurs finden Sie hier im Überblick. 
 
-### Inhalt / Fragestellungen (Projektaufgaben)
+### Was sind die Lernziele?
+Der Kurs vermittelt einen intuitiven Einstieg in die moderne Datenanalyse mit R. Im Kurs wird das Tidyverse eingeführt. Das Tidyverse ist eine Sammlung von Funktionen, die die Datenanalyse mit R besonders nutzerfreundlich macht und zur Beliebtheit der Programmiersprache beiträgt. Hauptziel ist das Schaffen eines soliden Fundaments für die Datenanalyse mit R auf der komplexere statistische Methoden aufbauen.
 
-Im Kurs lernen die Studierenden die Grundkonzepte der Datenanalyse: Einlesen, Ordnen, Transformieren, Visualisieren, Modellieren und Kommunizieren.
+### Für wen ist der Kurs geeignet?
+Der Kurs richtet sich insbesondere an Datenanalyseaffine aus dem Haus. Vorkenntnisse in R sind nicht notwendig.
 
-### Voraussetzungen
+### Allgemeines
+Neben den Kurseinheiten selbst wird zudem ein Überblick über wichtige Online-Ressourcen zum Selbstlernen gegeben.
 
--	Kenntnisse der (Wirtschafts-)Statistik
--	Kenntnisse der empirischen Wirtschaftsforschung (optional)
+### Die Kurseinheiten
+1.	Grundlagen R, R-Studio und Tidyverse
+2.	Deskriptive Statistiken
+3.	Umgang mit unordentlichen Daten
+4.	Daten verbinden
+5.	Funktionen und Automatisierung – Use Case
 
-### Zu erwerbende Kompetenzen
+Die Kursinhalte werden möglichst nah am Arbeitsalltag der Teilnehmenden ausgerichtet. Den Teilnehmenden werden über die Kursinhalte hinaus Übungsaufgaben und Musterlösungen (Code), die sich auf die Lerninhalte beziehen, bereitgestellt.
 
--	Die Studierenden sind sensibilisiert für die Arbeit mit Daten und führen explorative Datenanalysen und -visualisierungen selbständig durch. 
--	Studierende kennen die Grammatik der Grafiken (grammar of graphics) und die Grundlagen reproduzierbarer Forschung durch literarisches Programmieren.
+### Referenten
+Pekka Sagner, Economist im Themencluster Globale und Regionale Märkte
 
-### Lehr- und Lernmethoden
-
-+	Im Kurs wird die Software R und RStudio genutzt. R ist eine über viele wissenschaftliche Diziplinen hinweg weitverbreitete Programmiersprache. Der Kurs bietet einen modernen Einstieg in die Datenanalyse mit dem Tidyverse, einer Sammlung von Paketen, die das Programmieren mit R besonders nutzerfreundlich macht und zur Beliebtheit der Programmiersprache beiträgt.
-+	Der Kurs besteht auf Vorlesungs- und Übungszeiten sowie selbständiger Eigenleistung in Form von Übungsaufgaben. Im Vorlesungsteil werden Konzepte und Strukturen theoretisch eingeführt, die in den praktischen Übungsteilen vertieft werden.
-
-### Prüfungsform (Bedingungen Leistungsnachweis)
-+	Aktive, engagierte Beteiligung am Ergänzungsfach 
-+ Eigenständige Erbringung der geforderten Leistungen in entsprechender Qualität 
-+	Anwesenheit mindestens 80% der vorgesehenen Zeit (Teammeetings), Teilnahme an Präsentationen

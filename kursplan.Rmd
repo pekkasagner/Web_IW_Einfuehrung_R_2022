@@ -1,0 +1,32 @@
+---
+title: "Kursplan"
+description: ""
+author: " "
+date: " "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=F, message=F, warning=F}
+library(tidyverse)
+library(kableExtra)
+library(fontawesome)
+
+tibble(Datum = c("25.10.2022",
+                 "08.11.2022"),
+       Uhrzeit = rep(c("9:00 - 13:00 Uhr"), length(Datum)),
+       Raum = c(rep(c("MS-Teams"), length(Datum))),
+       "Kursinhalte" = c("Kursvorstellung und erste Schritte, Datenanalyse mit dem Tidyverse, Daten einlesen, Kreuztabellen,
+                                  Deskriptive Statistiken",
+                                  "Daten verbinden, Umgang mit unordentlichen Daten, Funktionen, Iteration")) %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_minimal(c("hover"), full_width = F)
+
+
+```
+
+

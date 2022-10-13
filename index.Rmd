@@ -4,4 +4,4 @@ subtitle: "Fortbildung im Institut der deutschen Wirtschaft"
 ---
 
 
-Diese Webseite begleitet Fortbildung &raquo;Einführung in R&laquo; im Institut der deutschen Wirtschaft. Der Bereich [`r fontawesome::fa("project-diagram")` Kursbeschreibung](./kursbeschreibung.html) enthält eine Kurzbeschreibung der Lerninhalte. Unter [`r fontawesome::fa("calendar")` Lehrplan](./lehrplan.html) finden Sie die geplanten Termine und deren Thema mit Datum und Ort. Die [`r fontawesome::fa("list")` Kursinhalte](./kursinhalte.html) bestehen aus Leseempfehlungen und den Vorlesungs- und Übungsmaterialien.
+Diese Webseite begleitet die Fortbildung &raquo;Einführung in die moderne Datenanalyse mit R&laquo; im Institut der deutschen Wirtschaft. Der Bereich [`r fontawesome::fa("project-diagram")` Kursbeschreibung](./kursbeschreibung.html) enthält eine Kurzbeschreibung der Lerninhalte. Unter [`r fontawesome::fa("calendar")` Kursplan](./kursplan.html) finden Sie die geplanten Termine und deren Thema mit Datum und Uhrzeit. Die [`r fontawesome::fa("list")` Kursinhalte](./kursinhalte.html) bestehen aus Vorlesungs- und Übungsmaterialien sowie weiterführenden Leseempfehlungen.
