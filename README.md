@@ -1,2 +1,2 @@
-# Webseite des HBRS_SS_22
- Webseite zum R-Kurs an der HBRS
+# Webseite zur Fortbildung "Einführung in R" im Institut der deutschen Wirtschaft
+ 
