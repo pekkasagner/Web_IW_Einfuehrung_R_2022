@@ -1,0 +1,20 @@
+---
+title: "Übungsblatt 2"
+subtitle:    |
+          | Datenanalyse und -visualisierung mit R
+| Hochschule Bonn-Rhein-Sieg
+author: "Pekka Sagner M.Sc."
+date: "22. April 2022"
+output: pdf_document
+urlcolor: Tan
+---
+          
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Deskriptive Statistiken und Häufigkeitstabellen
+
+### Aufgabe 1: &raquo;Mehr als nur fünf Zahlen&laquo;
+
+a) 

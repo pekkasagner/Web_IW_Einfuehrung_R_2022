@@ -1,0 +1,34 @@
+---
+title: "Übungsblatt 6"
+subtitle:    |
+    | Datenanalyse und -visualisierung mit R
+    | Hochschule Bonn-Rhein-Sieg
+author: "Pekka Sagner M.Sc."
+date: "10\\. Juni 2022"
+output: pdf_document
+urlcolor: Tan
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Geodaten visualisieren
+
+### Aufgabe 1: Ein simples Beispiel
+
+a) Visualisieren Sie die Karte der Arbeitlosenquote in den Bundesländern aus der Vorlesung. Laden Sie hierzu die Dateien `Bundesland_clean.zip` und `Arbeitslosenquote_Bundeslaender_clean.csv` herunter.
+
+b) Erstellen Sie eine alternative Abbildung (keine Karte) der Arbeitslosenquote in den Bundesländern. Diskutieren Sie Vor- und Nachteile der beiden Abbildungen.
+
+### Aufgabe 2: &raquo;Corona visualisieren&laquo;
+
+a) Die beiden unten dargestellten Karten haben zur Zeit der Veröffentlichung für einen (kleinen) Aufruhr gesorgt. Warum?
+
+![](images/corona.jpg)\ 
+
+b) Erstellen Sie Ihre eigene Coronakarte. Die Datei `geometrien_corona_kreise.geojson` im LEA-Kursordner enthält die Geometrien der 400 deutschen Landkreise (neu, seit Juli 2021, vorher 401) minus Berlin, also 399 Landkreise, und der 12 Berliner Stadtbezirke (Quelle: [Covid-19 Datenhub](https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0/explore?location=51.181765%2C10.714458%2C6.69)). Auf dieser Ebene stellt das Robert-Koch-Institut Coronafallzahlen bereit. Laden Sie die aktuellen Coronafallzahlen auf dieser räumlichen Ebene unter [https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Inzidenz-Tabellen.html](https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Inzidenz-Tabellen.html) herunter. 
+
+
+

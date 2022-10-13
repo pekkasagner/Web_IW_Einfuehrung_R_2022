@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Datenanalyse und -visualisierung</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis_changed.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts_changed.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Datenanalyse und -visualisierung
+## mit der Programmiersprache R
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span&gt;&amp;emsp;
+  Pekka Sagner M.Sc.
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  Datenanalyse und -visualisierung&lt;/span&gt; 
+&lt;/div&gt;
+
+
+
+ 
+
+---
+#Datenanalyse und -visualisierung
+
+## mit der Programmiersprache R
+
+.split3070_left[
+
+### Pekka Sagner M.Sc.
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> sagner@iwkoeln.de](mailto:sagner@iwkoeln.de)&lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg> iwkoeln.de/.../pekka-sagner](https://www.iwkoeln.de/institut/personen/pekka-sagner.html)&lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> @pekkasagner](http://github.com/pekkasagner)
+
+Sommersemester 2022
+
+.font60[Letzte Aktualisierung:  02. Juni 2022
+]
+
+]
+
+.split3070_right[
+&lt;br/&gt;&lt;br/&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+## Daten verbinden
+]
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 200px;
+height: 128px;
+z-index: 0;
+background-image: url(images/logo_print_studierende.jpg);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Kennenlernen der verschiedenen Arten, Datensätze zusammenzuführen
+
+.center[
+&lt;img src="images/Joins_1.png" width="800px"&gt; 
+]
+
+
+
++ Leseempfehlungen:
+    + [R4DS, Kapitel 13 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/relational-data.html)
+
+
+---
+class: clear, inverse, middle, center
+
+# &amp;raquo;Ein Datensatz kommt selten allein.&amp;laquo;
+
+---
+# Relationale Daten
+
++ Es kommt eher selten vor, dass eine Datenanalyse nur auf einen einzigen Datensatz zurückgreift.
+
++ Oft kombinieren wir in einem Analyseprojekt Daten aus verschiedenen Quellen, um unsere Forschungsfragen zu beantworten und so spannende Sachverhalte aufzudecken.
+
++ Zusammen werden diese Datensätze als **relationale Daten** bezeichnet. 
+
++ Es ist die Beziehung zwischen den Daten, die wichtig ist, nicht die individuellen Datensätze alleine.      
+
++ Die Beziehung von Datensätzen ist immer zwischen **zwei** Datensätzen definiert.
+
+---
+# Relationale Daten
+
++ Für die Arbeit mit relationalen Daten brauchen wir Funktionen, die mit Datensatzpaaren funktionieren.
+
++ Grundsätzlich gibt es drei Familien von Funktionen, um mit relationalen Daten zu arbeiten:
+
+    + **Mutating Joins**: fügen einem Datensatz Variablen hinzu, basierend auf identischen Beobachtungen.
+    + **Filtering Joins**: filtern Beobachtungen eines Datensatzes, basierend darauf, ob diese in einem anderen Datensatz vorkommen oder nicht.
+    + **Set Operations**: behandeln die Beobachtungen wie mathematische Mengen und vergleichen die Werte jeder Variable.
+    
++ Die häufigsten Funktionen, die wir nutzen sind aus der Familie der **Mutating Joins**.
+
+---
+# Die Familie der **Mutating Joins**
+
++ **Mutating Joins** kommen immer dann zum Einsatz, wenn Informationen aus verschiedenen Datensätzen in einem neuen Datensatz zusammengefasst werden.
+
++ `mutate()` &amp;lrarr; **Mutating Join**
+
++ In der Regel ist dabei unser Ziel, Informationen aus verschiedenen Datensätzen zu kombinieren und somit neue Erkenntsnise zu gewinnen. 
+
+
+---
+# Key-Konzept: **Keys**
+
++ Datensätze werden immer anhand einer oder mehrerer gemeinsamer Identifikationsvariablen (**Keys**, häufig auch **ID**) zusammengefügt.
+
++ Welche Variablen sich dafür konkret anbieten, hängt vom Datensatz ab. 
+
++ Ein einfaches Beispiel:
+
+.center[
+&lt;img src="images/data_join_1.png" width="500px"&gt;
+]
+
+---
+class: code70
+# Key-Konzept: **Keys**
+
++ In `R` übersetzt sehen die Beispieldatensätze wie unten dargestellt aus.
+
++ Die Variable `key` ist in dem Fall die Variable, die die Beobachtungen eindeutig definiert, zum Beispiel der Name einer Person, die Nummer eines Landkreises, ... .
+
++ Anhand dieser Variable werden die Datensätze zusammengeführt.
+
+.pull-left[
+
+```r
+(x &lt;- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+))
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt;     key val_x
+#&gt;   &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1 x1   
+#&gt; 2     2 x2   
+#&gt; 3     3 x3
+```
+]
+
+.pull-right[
+
+```r
+(y &lt;- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+))
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt;     key val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1 y1   
+#&gt; 2     2 y2   
+#&gt; 3     4 y3
+```
+]
+
+---
+class: font90
+# Ziel der **Mutating Joins**
+
++ Ein **Join** ist letztlich ein Weg, die Zeilen (Beobachtungen) in `x` mit **keiner**, **einer**, oder **mehreren** Zeilen (Beobachtungen) in `y` zusammenzuführen. 
+
++ Grafisch lassen sich alle möglichen Matches wie folgt darstellen:
+
+.center[
+&lt;img src="images/data_join_2.png" width="480px"&gt;
+]
+
++ Jeder Schnittpunkt zweier Linien zeigt im Diagramm ein mögliches Match der Beobachtungen.
+
++ Tatsächliche Matches werden mit Punkten markiert.
+
+---
+class: code70
+# Inner Join
+
++ Der einfachste Join ist ein **Inner Join**.
+
++ Ein **Inner Join** fügt Paare von Beobachtungen zusammen, wenn die `key`-Variable identisch ist.
+
++ Der Output der Funktion `inner_join()` ist ein Datensatz, der die `key`-Variable sowie die Werte-Variablen enthält.
+
++ Das Argument `by` steht für die Variable(n), die die Identifikationsvariable(n) (`key`-Variable) bezeichnet.
+
+&gt; Ein **Inner Join** ist dadurch charakterisiert, dass der zusammengeführte Datensatz nur Beobachtungen enthält, für die es ein Match gab.
+
+&gt; Alle anderen ungematchten Beobachtungen gehen verloren.
+
+---
+class: code70
+# Inner Join
+
+.pull-left[
+Grafisch:
+.center[
+&lt;img src="images/data_join_3.png" width="250px"&gt;
+]
+]
+
+.pull-right[
+in `R`:
+
+```r
+x %&gt;% 
+  inner_join(y, by = "key")
+```
+
+```
+#&gt; # A tibble: 2 x 3
+#&gt;     key val_x val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1     1 x1    y1   
+#&gt; 2     2 x2    y2
+```
+]
+
+---
+class: code70
+# Outer Joins
+
++ Das Gegenstück zum Inner Join sind **Outer Joins**.
+
+.pull-left[
+### Inner Join
+&gt; Ergebnis enthält Beobachtungen, die in beiden Datensätzen auftreten.
+
+]
+
+
+
+.pull-right[
+### Outer Joins 
+&gt; Ergebnis enthält Beobachtungen, die **in mindestens einem** der beiden Datensätzen auftreten.
+
+]
+
+---
+class: code70
+# Funktionsweise der **Mutating Joins**
+## Outer Joins
+
+.pull-left[
++ Es gibt also nur eine Variante eines Inner Joins, aber **drei** Outer-Joins:
+    + Left Join
+    + Right Join
+    + Full Join
+]
+
+.pull-right[
+&lt;img src="images/data_join_4.png" width="320px"&gt;
+]
+
+---
+class: code70
+# Left Join
+
++ Das Ergebnis eines **Left Join** enthält alle Beobachtungen des **linken**/ersten Datensatzes. 
+
++ Der **linke**/erste Datensatz wird um Variablen aus dem rechten/zweiten Datensatz ergänzt.
+
+.pull-left[
+Grafisch:
+.center[
+&lt;img src="images/data_join_5.png" width="500px"&gt;
+]
+]
+
+.pull-right[
+in `R`:
+
+```r
+x %&gt;% 
+  left_join(y, by = "key")
+```
+
+```
+#&gt; # A tibble: 3 x 3
+#&gt;     key val_x val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1     1 x1    y1   
+#&gt; 2     2 x2    y2   
+#&gt; 3     3 x3    &lt;NA&gt;
+```
+]
+
+---
+class: code70
+# Right Join
+
++ Das Ergebnis eines **Right Join** enthält alle Beobachtungen des **rechten**/zweiten Datensatzes. 
+
++ Der **rechte**/zweite Datensatz wird um Variablen aus dem linken/ersten Datensatz ergänzt.
+
+.pull-left[
+Grafisch:
+.center[
+&lt;img src="images/data_join_6.png" width="500px"&gt;
+]
+]
+
+.pull-right[
+in `R`:
+
+```r
+x %&gt;% 
+  right_join(y, by = "key")
+```
+
+```
+#&gt; # A tibble: 3 x 3
+#&gt;     key val_x val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1     1 x1    y1   
+#&gt; 2     2 x2    y2   
+#&gt; 3     4 &lt;NA&gt;  y3
+```
+]
+
+
+---
+class: code70
+# Full Join
+
++ Das Ergebnis eines **Full Join** enthält alle Beobachtungen **beider** Datensätze. 
+
++ Keine Beobachtungen gehen verloren.
+
+.pull-left[
+Grafisch:
+.center[
+&lt;img src="images/data_join_7.png" width="500px"&gt;
+]
+]
+
+.pull-right[
+in `R`:
+
+```r
+x %&gt;% 
+  full_join(y, by = "key")
+```
+
+```
+#&gt; # A tibble: 4 x 3
+#&gt;     key val_x val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1     1 x1    y1   
+#&gt; 2     2 x2    y2   
+#&gt; 3     3 x3    &lt;NA&gt; 
+#&gt; 4     4 &lt;NA&gt;  y3
+```
+]
+
+---
+# Empfehlung
+
++ Der meistgenutzte Join ist der **Left Join**.
++ Dieser kommt immer dann zum Einsatz, wenn ein bestehender Datensatz mit weiteren Informationen ergänzt werden soll.
++ Dabei gehen keine Informationen aus dem Ausgangsdatensatz verloren. 
++ Das ist ein guter Standard.
++ Das heißt, die Entscheidung für andere Joins sollte immer eine bewusste sein, die auf guten Gründen basiert. 
+
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+.center[.font200[**Im Zweifel: Left Join**]
+]
+---
+# Wichtige Erweiterungen
+
+## Mehrere, identische Keys
+
++ In der Praxis kommt es häufiger vor, dass ein Datensatz Beobachtungen enthält, die durch eine `Key`-Variable bestimmt sind, die nicht einzigartig ist.
+
++ Dies kommt zum Beispiel dann vor, wenn eine Beobachtung einer Einheit und einer Untereinheit zugewiesen werden kann.
+
++ Zum Beispiel:
+
+.center[Landkreis &amp;rarr; .font120[Bundesland] &amp;rarr; .font150[Land] &amp;rarr; .font170[Kontinent]
+]
+
+.center[Art &amp;rarr; .font120[Gattung] &amp;rarr; .font150[Familie] &amp;rarr; .font170[Ordnung]
+]
+
+---
+# Wichtige Erweiterungen
+
+## Mehrere, identische Keys
+
+.pull-left[
+
+```r
+(x &lt;- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     1, "x4"
+))
+```
+
+```
+#&gt; # A tibble: 4 x 2
+#&gt;     key val_x
+#&gt;   &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1 x1   
+#&gt; 2     2 x2   
+#&gt; 3     2 x3   
+#&gt; 4     1 x4
+```
+]
+
+.pull-right[
+
+```r
+(y &lt;- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2"
+))
+```
+
+```
+#&gt; # A tibble: 2 x 2
+#&gt;     key val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1 y1   
+#&gt; 2     2 y2
+```
+]
+
+
+---
+# Wichtige Erweiterungen
+
+## Mehrere, identische Keys
+
+.pull-left[
+Grafisch:
+.center[
+&lt;img src="images/data_join_8.png" width="500px"&gt;
+]
+]
+
+.pull-right[
+in `R`:
+
+```r
+x %&gt;% 
+  left_join(y, by = "key")
+```
+
+```
+#&gt; # A tibble: 4 x 3
+#&gt;     key val_x val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1     1 x1    y1   
+#&gt; 2     2 x2    y2   
+#&gt; 3     2 x3    y2   
+#&gt; 4     1 x4    y1
+```
+]
+
+---
+class: code70
+# Wichtige Erweiterungen
+
+## Keys mit unterschiedlichen Namen
+
++ Bisher entsprachen sich die Namen der identifizierenden `Key`-Variable in den beiden Datensätzen.
+
++ Falls dies einmal nicht der Fall sein sollte, so können die Namen der `Key`-Variablen, die sich inhaltlich entsprechen, händisch definiert werden:
+
+.pull-left[
+
+```r
+(x &lt;- tribble(
+  ~key_x, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+))
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt;   key_x val_x
+#&gt;   &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1 x1   
+#&gt; 2     2 x2   
+#&gt; 3     3 x3
+```
+]
+
+.pull-right[
+
+```r
+(y &lt;- tribble(
+  ~key_y, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+))
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt;   key_y val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1 y1   
+#&gt; 2     2 y2   
+#&gt; 3     4 y3
+```
+]
+
+---
+# Wichtige Erweiterungen
+
+## Keys mit unterschiedlichen Namen
+
+
+```r
+x %&gt;% 
+          left_join(y, by = c("key_x" = "key_y"))
+```
+
+```
+#&gt; # A tibble: 3 x 3
+#&gt;   key_x val_x val_y
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1     1 x1    y1   
+#&gt; 2     2 x2    y2   
+#&gt; 3     3 x3    &lt;NA&gt;
+```
+
++ Die Reihenfolge beim Gleichsetzen der Key-Variablen entspricht dabei der Reihenfolge der Datensätze.
+
++ Der vergebene Key-Variablenname im neuen Datensatz ist der erste.
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach &lt;img src="images/rstudio.svg" width="250px"&gt;.  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%<br>",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    if (preNodes.length < 2) return;
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details " +
+      (el.classList.contains("open") ? "open " : "") +
+      "class='output'><summary>Ergebnis anzeigen</summary>" +
+      outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

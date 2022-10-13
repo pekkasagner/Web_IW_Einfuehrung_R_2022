@@ -1,0 +1,469 @@
+---
+title: "Einführung in R"
+subtitle: "Fortbildung im Institut der deutschen Wirtschaft"
+output: 
+  xaringan::moon_reader:
+    includes:
+      after_body: "css/collapse-output.html"
+    self_contained: true
+    css:
+    # [default, tamu, tamu-fonts]
+     - css/default.css
+     - css/metropolis_changed.css
+     - css/metropolis-fonts_changed.css
+    lib_dir: libs
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%<br>"
+      ratio: "16:9"
+---
+
+layout: true
+
+<div class="my-footer">
+  <span>&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  Einführung in R | Funktionen & Iteration | Pekka Sagner </span> 
+</div>
+
+
+```{r setup, include=FALSE}
+pacman::p_load(tidyverse, fontawesome, knitr, xaringanExtra)
+
+options(
+    htmltools.dir.version = FALSE,
+    knitr.table.format = "html",
+    knitr.kable.NA = ""
+)
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 15,
+    fig.height = 6,
+    comment = "#>",
+    fig.retina = 3 # Better figure resolution
+)
+# Enables the ability to show all slides in a tile overview by pressing "o"
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = "all")
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = FALSE
+)
+# xaringanExtra::use_logo(
+#   image_url = "images/logo_print_studierende.jpg",
+#   position = xaringanExtra::css_position(top = "1em", right = "1em")
+# )
+
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+```
+ 
+---
+class: clear, inverse, middle, center
+
+#.font200[7] &emsp;Funktionen & Iteration
+
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "images/IW_LOGO_STANDARD_RGB.png", # standard: top right corner
+  position = css_position(top = "-.5em", right = "1em"),
+  width = "100px" 
+)
+```
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Funktionen im Tidyverse (mit dplyr)
++ Moderne Iteration im Tidyverse
+
++ Leseempfehlung:
+   + [Programming with dplyr Vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html)
+
+---
+class: clear, inverse, middle, center
+
+# Funktionen: Basics
+
+---
+#Wann und warum eigene Funktionen?
+
++ Eine Daumenregel: Mehr als dreimal sollte derselbe Code nicht von Hand (&raquo;hardgecodet&laquo;) geschrieben, beziehungsweise kopiert werden.
+
++ Funktionen haben drei große Vorteile gegenüber Copy-and-paste:
+
+  1. Funktionen können (und sollten) einen ausdrucksstarken Namen haben, das macht den Code besser lesbar.
+
+  2. Wenn die Anforderungen an den Code sich verändern, müssen wir nur an einer Stelle etwas ändern, anstatt an vielen Stellen.
+  
+  3. Wir verhindern Folgefehler, die entstehen wenn Code kopiert wird. 
+
+---
+#Aufbau einer Funktion
+
+```{r eval = F}
+mein_funktionsname <- function( Argument(e) ) {
+          Ergebnis <- Mach dies, mach jenes
+                    ...
+          return(Ergebnis)
+}
+```
+
++ `mein_funktionsname`: (optional) Name, mit dem die Funktion als Objekt im Environment gespeichert wird.
++ `function() {}`: Grundgerüst, um eine Funktion zu definieren.
++ `Argument(e)`: Argumente, die mit Inputs gefüllt werden können.
++ `Mach dies, mach jenes`: Dinge, die die Funktion macht.
++ `Ergebnis <-`: Dinge, die die Funktion gemacht hat werden gespeichert.
++ `return(Ergebnis)`: Dinge, die die Funktion gemacht hat werden ausgegeben.
+
+---
+#Ein simples Beispiel für eine Funktion
+
++ Wir möchten eine Funktion erstellen, die zu jedem Element eines numerischen Vektors Eins addiert.
+
++ Übersetzung in Funktion:
+
+    + Klingender Funktionsname z. B.: `plus_eins`
+    + Argument, das den Platzhalter für den Input darstellt, z. B.: `numerischer_vektor`
+    + Was die Funktion macht: `numerischer_vektor + 1`
+    + Name für Ergebnis, z.B.: `numerischer_vektor_plus_eins`
+    + Ausgabe des Ergebnisses: `return(numerischer_vektor_plus_eins)`
+
+---
+#Drei Schritte zum Anwenden einer Funktion
+
++ Um eine Funktion anwenden zu können brauchen wir immer drei Dinge:
+
+   1. Daten
+     + Auf was wollen wir die Funktion anwenden?
+   2. Definieren der Funktion
+     + Was soll die Funktion mit unserem Input / unseren Daten machen?
+   3. Call der Funktion
+     + Schließlich wenden wir die Funktion auf unseren Input an.
+
+
+---
+#Drei Schritte zum Anwenden einer Funktion
+
+1\. Daten:
+
+```{r}
+(daten <- 1:10)
+```
+2\. Definieren der Funktion:
+
+```{r}
+plus_eins <- function(numerischer_vektor) {
+          numerischer_vektor_plus_eins <- numerischer_vektor + 1
+          return(numerischer_vektor_plus_eins)
+}
+```
+3\. Call der Funktion
+
+```{r}
+plus_eins(daten) # oder x |> plus_eins()
+```
+
+---
+#Die Datenanalyse mit Funktionen vereinfachen
+
++ Bei der explorativen Datenanalyse, zum Beispiel beim Erstellen von deskriptiven Statistiken, wenden wir häufig die gleichen Funktionen nacheinander an.
+
++ Wenn wir den Anteil der Ausprägung einer kategorialen Variable an allen Ausprägungen der Variable bestimmen möchten, dann sind die Berechnungsschritte immer dieselben, zuerst zählen wir mit `count()`, dann berechnen wir den Anteil als Anzahl der Ausprägung in Relation zur Summe der Anzahlen der Ausprägungen: `mutate(share = n / sum(n))`.
+
++ Wir könnten eine eigene Funktion schreiben, die diese beiden Schritte für uns durchführt.
+
+---
+#Die Datenanalyse mit Funktionen vereinfachen
+
+##Beispieldatensatz
+
+```{r}
+(gapminder <- gapminder::gapminder)
+```
+
+---
+class: font100
+#Wiederholung der Analyseschritte
+
+```{r}
+ergebnis <- gapminder |> #Datensatz
+          count(continent) |> #was die Funktion...
+          mutate(share = n/sum(n)) #...macht
+```
+
+```{r}
+ergebnis #das Ergebnis der angewendeten Funktion anschauen
+```
+
++ Was aber, wenn wir den Anteil der Länder ermitteln wollen?
+
++ Wir könnten den oberen Code Copy-pasten und `continent` durch `country` ersetzen. 
+
++ Oder wir schreiben eine Funktion, die als Argument verschiedene Spalten annimmt.
+
+---
+#Anteile als Funktion
+##Erster Versuch
+
++ Funktion:
+```{r}
+my_share_function <- function(cat_var) {
+          ergebnis <- gapminder |> 
+                    count(cat_var) |> 
+                    mutate(share = n/sum(n))
+          return(ergebnis)
+}
+```
+
++ Funktion anwenden:
+```{r eval = F}
+my_share_function(country)
+```
+
++ Funktioniert nicht!
+
+---
+#Data masking
+
++ Die vorangegangene Funktion funktioniert nicht, weil die Funktion `count()` versucht eine Variable zu evaluieren, die tatsächlich `cat_var` heißt. 
+
++ Dieses Problem tritt auf, weil wir mit den dplyr-Funktionen arbeiten. 
+
++ Diese nutzen [Data masking](https://dplyr.tidyverse.org/reference/dplyr_data_masking.html).
+
++ Wir können dieses Problem umgehen, indem wir die Variable mit zwei geschweiften Klammern `{{ }}` umschließen.
+
+---
+#Anteile als Funktion
+##Zweiter Versuch
+
++ Funktion:
+```{r}
+my_share_function <- function(cat_var) {
+          ergebnis <- gapminder |> 
+                    count({{ cat_var }}) |> #<< 
+                    mutate(share = n/sum(n))
+          return(ergebnis)
+}
+```
+
+---
+class: font90
+# Anteile als Funktion
+
+## Zweiter Versuch
+
++ Die Funktion funktioniert jetzt auch mit der Variable `country`...
+
+
+```{r}
+my_share_function(country)
+```
+
+---
+class: font90
+# Anteile als Funktion
+
+## Zweiter Versuch
+
++ ...genauso wie mit anderen Variablen:
+
+```{r}
+my_share_function(year)
+```
+
+---
+#Noch mehr Schreibarbeit sparen
+
++ Unsere `my_share_function` ist zwar schön und gut, allerdings spezifisch für das Objekt, das wir `gapminder` genannt haben geschrieben.
+
++ Was, wenn wir die Funktion allgemeiner für Datensätze unserer Wahl schreiben möchten?
+
++ Wir verändern die Funktion schlichtweg so, dass wir ein zweites Argument einfügen:
+
+```{r}
+my_share_function_general <- function(my_data, cat_var) { #<< 
+          ergebnis <- my_data |> #Das Data-Argument benutzt kein Data-masking.
+                    count({{ cat_var }}) |> 
+                    mutate(share = n/sum(n))
+          return(ergebnis)
+}
+```
+
+---
+#Anwenden der Funktion mit zwei Argumenten
+##Auf den gapminder-Datensatz:
+
+```{r}
+my_share_function_general(gapminder, continent)
+```
+
+
+---
+#Anwenden der Funktion mit zwei Argumenten
+##Einfach übertragbar auf andere Datensätze:
+
+```{r}
+my_share_function_general(palmerpenguins::penguins, species)
+```
+
+---
+#Der Zahl der Argumente ist keine Grenze gesetzt
+##Funktion für Anteile nach Gruppen (Kreuztabelle)
+
++ Zur Erinnerung, die Funktion für einen **bestimmten** Datensatz und zwei **bestimmte** Variablen:
+
+```{r}
+palmerpenguins::penguins |> 
+          count(year, species) |> 
+          group_by(year) |> 
+          mutate(share = n/sum(n)) |> 
+          ungroup() |> 
+          select(-n) |> #Entfernen der absoluten Werte
+          pivot_wider(names_from = "species", id_cols = "year", values_from = "share")
+```
+
+---
+#Funktion für Anteile in Kreuztabellen
+
++ Übersetzen in eine Funktion:
+
+```{r}
+my_share_cross_tabulation_function <- function(data, var1, var2) {
+          result <- data |> 
+                    count({{ var1 }}, {{ var2 }}) |> 
+                    group_by({{ var1 }} ) |> 
+                    mutate(share = n/sum(n)) |> 
+                    ungroup() |> 
+                    select(-n) |> 
+                    pivot_wider(id_cols = {{ var1 }}, names_from = {{ var2 }}, values_from = "share")
+          return(result)
+}
+```
+
++ *Hinweis: Funktionen sollten eigentlich einen Kommentar enthalten, in dem die Funktionsweise un die verschiedenen Argumente beschrieben werden.*
+
+---
+#Anwenden der Funktion für Anteile in Kreuztabellen
+
++ Egal ob Pinguin...
+
+```{r}
+my_share_cross_tabulation_function(palmerpenguins::penguins, year, species)
+```
+
+---
+#Anwenden der Funktion für Anteile in Kreuztabellen
+
++ ...oder Kontinent:
+
+```{r}
+my_share_cross_tabulation_function(gapminder::gapminder, year, continent)
+```
+
+---
+class: clear, inverse, middle, center
+
+# Iteration
+
+---
+#Funktionen + Iteration = `r fontawesome::fa(name = "fire", fill = "red")``r fontawesome::fa(name = "fire", fill = "orange")``r fontawesome::fa(name = "fire", fill = "yellow")`
+
++ Funktionen entfalten ihr wahres Potenzial wenn sie iterativ angewendet werden.
+
++ Die moderne Syntax, um Funktionen iterativ anzuwenden sind die `map`-Funktionen aus dem Paket `purrr`, das Teil des Tidyverse ist.
+
++ Leseempfehlungen:
+
+  + [Learn to purrr](https://www.rebeccabarter.com/blog/2019-08-19_purrr/)
+  + [purrr cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf)
+  + [R4DS, Kapitel 21](https://r4ds.had.co.nz/iteration.html)
+  
+---
+#`map()`
+
++ Eine `map`-Funktion wendet dieselbe Funktion auf jedes Element eines Objekts an, z. B. auf jeden Eintrag einer Liste, eines Vektors oder jede Spalte eines Tibbles.
+
++ Die verschiedenen `map`-Funktionen sind nach dem Typ des **Outputs** benannt, z. B.:
+
+|Funktion                | Beschreibung
+|------------------------|----------------------------------------------------
+|map() | Hauptfunktion; Output ist eine Liste
+|map_df()                   | Output ist ein Tibble (Dataframe)
+|map_dbl()                  | Output ist ein numerischer (double) Vektor
+|map_chr()               | Output ist ein character-Vektor
+|map_lgl() | Output ist ein logischer Vektor
+
++ *Hinweis: Es gibt noch weitere `map`-Funktionen.*
+
+---
+#`map()` - simples Anwendungsbeispiel: Tibble
+
++ `map`-Funktion iterativ über alle Spalten eines Datensatzes:
+
+```{r}
+gapminder::gapminder |> 
+          map_df(mean)
+```
+
+---
+#`map()` - simples Anwendungsbeispiel mit eigener Funktion: Vektor
+
++ `map`-Funktion iteriert über alle Elemente eines Vektors:
+
++ Eigene Funktion:
+
+```{r}
+eigene_funktion <- function(input_vektor) {
+          set.seed(80085)
+          
+          rnorm(n = 1, mean = 12, sd = 3) * input_vektor |>
+                    log()
+                    
+}
+```
+
+---
+#`map()` - simples Anwendungsbeispiel mit eigener Funktion: Vektor
+
++ Anwenden der Funktion:
+
+
+```{r}
+1:10 |> 
+          map_dbl(.f = eigene_funktion)
+```
+
+---
+#Iteration: ein (hoffentlich) realistisches Beispiel
+                    
++ Aufgabe: Wir haben einen Datensatz mit Informationen zu Ländern (gapminder-Datensatz).
++ Wir möchten für jeden Kontinent ein Reporting erstellen.
++ Unsere Berechnungen möchten wir für die Weitergabe der Daten in Excel speichern.
++ *Hinweis: Wir möchten (die Vorstufe) eines automatisierten Reports erstellen.*
++ Hierfür können wir Funktionen und die Iteration mit den `map()`-Funktionen nutzen.
++ Unser Report soll eine Liste der Top-3 Länder nach BIP pro Kopf und der ärmsten drei Länder nach BIP pro Kopf im aktuellsten Jahr, sowie eine Korrelationstabelle von BIP pro Kopf und Lebenserwartung pro Jahr enthalten.
+
+---
+#Die Arbeitsschritte anhand eines Kontinents:
+
++ Top-3 Länder nach BIP pro Kopf
+
+```{r}
+gapminder::gapminder |> 
+          filter(continent == "Europe") |> 
+          filter(year == max(year))
+          
+```
+
+

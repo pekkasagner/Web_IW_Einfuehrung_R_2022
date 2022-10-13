@@ -1,0 +1,1144 @@
+---
+title: "Datenanalyse und -visualisierung"
+subtitle: "mit der Programmiersprache R"
+output: 
+  xaringan::moon_reader:
+    includes:
+      after_body: "css/collapse-output.html"
+    self_contained: true
+    css:
+    # [default, tamu, tamu-fonts]
+     - css/default.css
+     - css/metropolis_changed.css
+     - css/metropolis-fonts_changed.css
+    lib_dir: libs
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%<br>"
+      ratio: "16:9"
+---
+
+layout: true
+
+<div class="my-footer">
+  <span>&emsp;
+  Pekka Sagner M.Sc.
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;
+  Datenanalyse und -visualisierung</span> 
+</div>
+
+
+```{r setup, include=FALSE}
+pacman::p_load(tidyverse, fontawesome, tidyverse, knitr, xaringanExtra)
+
+options(
+    htmltools.dir.version = FALSE,
+    knitr.table.format = "html",
+    knitr.kable.NA = ""
+)
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 7.252,
+    fig.height = 4,
+    comment = "#>",
+    fig.retina = 3 # Better figure resolution
+)
+# Enables the ability to show all slides in a tile overview by pressing "o"
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = "all")
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = FALSE
+)
+# xaringanExtra::use_logo(
+#   image_url = "images/logo_print_studierende.jpg",
+#   position = xaringanExtra::css_position(top = "1em", right = "1em")
+# )
+
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+```
+ 
+
+---
+#Datenanalyse und -visualisierung
+
+## mit der Programmiersprache R
+
+.split3070_left[
+
+### Pekka Sagner M.Sc.
+
+[`r fa(name = "envelope", fill = "black")` sagner@iwkoeln.de](mailto:sagner@iwkoeln.de)<br>
+[`r fa(name = "user", fill = "black")` iwkoeln.de/.../pekka-sagner](https://www.iwkoeln.de/institut/personen/pekka-sagner.html)<br>
+[`r fa(name = "github", fill = "black")` @pekkasagner](http://github.com/pekkasagner)
+
+Wintersemester 2021/22
+
+.font60[Letzte Aktualisierung:  `r format(Sys.time(), '%d. %B %Y')`
+]
+
+]
+
+.split3070_right[
+<br/><br/>
+<br/><br/>
+
+## Grammar of graphics (ggplot)
+]
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "images/logo_print_studierende.jpg", # top right corner
+  width = "200px" 
+)
+```
+
+
+---
+#Inhalte und Ziele der Sitzung
+
++ Einführung in die Visualisierung mit ggplot2
++ Verständnis der verschiedenen Abbildungsoptionen
++ Erkennen des Werts von Abbildungen für die explorative Datenanalyse
+
+.center[
+<img src="images/ggplot2.svg" width="200px"> 
+]
+
+.right[
+.font50[
+Quelle: [github/rstudio.com](https://github.com/rstudio/hex-stickers/blob/master/SVG/ggplot2.svg)
+]
+] 
+
++ Leseempfehlung: 
+  + [R4DS, Kapitel 3 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/data-visualisation.html)
+  + [A Layered Grammar of Graphics (Wickham, 2010)](http://vita.had.co.nz/papers/layered-grammar.pdf)
+  + [ggplot2: Elegant Graphics for Data Analysis (Wickham, 2021)](https://ggplot2-book.org/index.html)
+  + [R Graphics Coobook (Chang, 2021)](https://r-graphics.org/)
+
+
+---
+class: clear, inverse, middle, center
+
+# Warum Datenvisualisierung?
+
+---
+# Warum Datenvisualisierung?
+
+.center[
+```{r message=F, warning=F, echo=F, out.width="80%"}
+library(tidyverse)
+library(ggvenn)
+theme_update(panel.background = element_rect(fill = "transparent", colour = NA),
+             plot.background = element_rect(fill = "transparent", colour = NA))
+opts_chunk$set(dev.args=list(bg="transparent"))
+
+d <- tibble(value   = c(1,     2,     3,     5,     6,     7,     8,     9),
+            `Programmieren` = c(TRUE,  TRUE, TRUE,  TRUE,  TRUE, TRUE,  TRUE, TRUE),
+            `Statistik` = c(TRUE,  TRUE, TRUE,  TRUE,  TRUE, TRUE,  TRUE, TRUE),
+            `Kommunikation` = c(TRUE,  TRUE, TRUE,  TRUE,  TRUE, TRUE,  TRUE, TRUE))
+
+ggplot(d, aes(A = `Programmieren`, B = `Statistik`, C = `Kommunikation`)) +
+          geom_venn(fill_color = viridis::viridis(n = 3), 
+                    stroke_color = viridis::viridis(n = 3), 
+                    text_color = NA,
+                    fill_alpha = 0.3) + 
+          theme_void() +  
+          coord_fixed() +
+          annotate("text", x = 0, y = 0.1, 
+                   label = "Daten-\nvisualisierung", 
+                   size = 8,
+                   color = "white") 
+
+```
+]
+
+---
+# Warum Datenvisualisierung?
+
++ Visualisierungen sind auf dem Weg zum besseren Verständnis von Daten ein unerlässliches Instrument. 
+
++ Eine gute Visualisierung zeigt möglicherweise unerwartete Dinge.
+
++ Oft zeigen uns Abbildungen, dass **irgendetwas in den Daten nicht stimmt.**
+
++ Sie sind deshalb ein mächtiges Instrument und sollten **immer Teil der explorativen Datenanalyse** sein.
+
++ R ist wegen seiner guten Visualisierungsmöglichkeiten, die auf einer **Grammar of Graphics** basieren, sehr beliebt.
+
+
+---
+class: clear, inverse, middle, center
+
+# Aufbau eines Plots
+
+---
+# Der Aufbau eines Plots
+## Das Ziel
+
+
+```{r echo=F}
+olympics <- read_csv("data/olympics.csv")
+```
+
+
+
+```{r zielplot, eval=FALSE, echo=F}
+olympics %>%
+  filter(medal == "Gold") %>%
+  filter(games == "2016 Summer") %>% 
+  mutate(bmi = weight / (height/100)^2) %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+  scale_color_viridis_c(name = "Body-Mass-Index") +
+  scale_shape(name = "Geschlecht") +
+  labs(title = "Gewicht und Größe der GoldmedaillengewinnerInnen",  
+               subtitle = "Olympische Sommerspiele 2016",  
+               x = "Gewicht in kg",  
+               y = "Größe in cm",  
+               caption = "Quelle: TidyTuesday") +
+  theme_minimal() 
+          
+
+```
+
+
+.center[
+```{r zielplot-out, ref.label="zielplot", echo=FALSE, out.width="80%"}
+
+```
+]
+
+
+
+
+---
+# Der Aufbau eines Plots
+## Elemente eines ggplot: Schicht für Schicht
+
+.pull-left[
+1. **data**: Der Datensatz, den wir visualisieren wollen.
+1. **mapping**: Grundstruktur des Plots
+
+  + Ergibt sich aus den Daten.
+  + Welche Variable wird welcher Achse zugewiesen?
+  + Sollen Farben, Formen oder Größe von Variablenausprägungen abhängen?
+    
+1. **geoms**: Definiert den Plottyp, bzw. die Elemente im Plot.
+1. **labs**: Titel, Untertitel, Quellenverweise und Co.
+1. **themes**: Allgemeiner &raquo;Look&laquo; des Plots.
+1. **scales**: Anpassung der Aesthetics.
+]
+
+.pull-right[
+<img src="images/layers.png" height="350px"/> 
+.font60[Quelle: [datasciencecentral.com](https://www.datasciencecentral.com/profiles/blogs/introduction-to-ggplot2-the-grammar)]
+]
+
+
+
+---
+# 1. Data
+
++ Vor der Datenvisualisierung kommt die -analyse, kommt die -visualisierung, kommt die...
+
++ Bevor wir uns einen Plot erstellen können, müssen wir uns zunächst im Klaren werden, was wir darstellen möchten.
+
++ Im Folgenden Beispiel ist dies der Zusammenhang von **Gewicht** und **Körpergröße** von **AthletInnen**, die bei den Olympischen **Sommerspielen 2016** eine **Goldmedaille** gewonnen haben. Wir möchten außerdem den **Body-Mass-Index** visualisieren.
+
+```{r}
+olympics_daten_plot <- olympics %>% 
+   filter(medal == "Gold") %>%
+   filter(games == "2016 Summer") %>% 
+   mutate(bmi = weight / (height/100)^2) 
+```
+
+
+---
+# 1. Data: `ggplot()`
+
+```{r echo=F}
+theme_set(theme())
+```
+
+.pull-left[
+```{r plot_1, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot) #<<
+```
+
++ Plots werden mit `ggplot()` eingeleitet.
+
++ In der Regel erhält dieser Befehl zwei Inputs:
+   
+   + `data`: Das Objekt (tibble), in dem die Daten stecken.
+   + `mapping`: Die Struktur des Plots (Variablen auf Achsen, Farben, Größe), die auf Variablen im Datensatz zurückzuführen ist.
+
+]
+
+
+.pull-right[
+```{r, ref.label="plot_1", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+
+---
+# 2. Mapping: `aes()`
+
+.pull-left[
+```{r plot_3, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) #<<
+```
+
++ Es steht eine ganze Reihe an Aesthetics zur Verfügung, z. B.:
+
++ `aes(`
+   + `x`, `y` &rarr; Achsen 
+   + `color`, `fill` &rarr; Farben
+   + `alpha` &rarr; Transparenz
+   + `size` &rarr; Größe
+   + `shape` &rarr; Form
+   + `linetype` &rarr; Linientyp
+   
+   `)`
+
+]
+
+.pull-right[
+```{r, ref.label="plot_3", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# 2. Mapping: `aes()`
+
+.pull-left[
+```{r plot_2, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) #<<
+```
+
++ Äquivalent zum obigen Code ist:
+
+```{r, eval=FALSE}
+ggplot(olympics_daten_plot, 
+       aes(x = weight, y = height))
+```
+
++ Bisher sehen wir nur ein leeres Panel - dank `x` und `y` in `aes()` mit einer x-Achsen- und y-Achsen-Beschriftung.
+
++ Dies liegt daran, dass ggplot bisher nur weiß, **was** es plotten soll, aber noch nicht **wie**.
+]
+
+.pull-right[
+```{r, ref.label="plot_3", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# Elemente eines Plots verbinden
+
++ Die Logik, verschiedene Elemente eines Plots zu gestalten und miteinander zu verbinden, ist ähnlich der Pipe-Struktur. 
+
++ [Aber wir benutzen ein Pluszeichen anstelle der Pipe](https://community.rstudio.com/t/why-cant-ggplot2-use/4372/6).
+<br/>
+<br/>
+<br/>
+
+.center[
+.font400[
+`+` statt `%>%`
+]
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+```{r plot_4, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_point() #<<
+
+```
+
++ Die Liste an `geom_`-Optionen ist lang, z. B.:
+   + `geom_col()` &rarr; Säulendiagramme
+   + `geom_line()` &rarr; Liniendiagramme
+   + `geom_boxplot()` &rarr; Boxplots
+   + `geom_smooth()` &rarr; Trends
+
+]
+
+.pull-right[
+```{r, ref.label="plot_4", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+```{r plot_5, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_line() #<<
+
+```
+
++ Die Wahl des &raquo;richtigen&laquo;  **geoms** hängt von 
+   + den **Daten** 
+   + und der Message, die wir transportieren möchten, ab.
+
++ Ein Liniendiagramm ist für diese mappings auf die x- und y-Achse nicht sinnvoll.
+
+]
+
+.pull-right[
+```{r, ref.label="plot_5", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+```{r plot_6, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_hex() #<<
+
+```
+
++ Die Wahl des &raquo;richtigen&laquo;  **geoms** hängt von 
+   + den Daten 
+   + und der **Message**, die wir transportieren möchten, ab.
+
++ Der etwas außergewöhnliche Hexplot betont die Dichte (Häufigkeit) von Gewichts-Größen-Kombinationen in einem gewissen Bereich.
+
++ Steht eben genau die Häufigkeit der Gewichts-Größen-Kombinationen im Fokus **kann** diese Plotart sinnvoll sein.
+
+]
+
+.pull-right[
+```{r, ref.label="plot_6", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+```{r plot_7, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_point() +
+  geom_smooth() #<<
+
+```
+
++ Geoms können miteinander kombiniert werden.
+
++ `geom_smooth()` fügt eine Trendlinie ein. Standardmäßig mit der **LOESS**-Methode (locally weighted scatterplot smoothing) oder mit der  **GAM**-Methode (generalized additive model) (GAM, falls $\geq$ 1.000 Beobachtungen).
+
++ `geom_smooth(method = "lm")` fügt eine lineare Trendlinie ein (linear model). 
+
+]
+
+.pull-right[
+```{r, ref.label="plot_7", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+```{r plot_8, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  geom_rug() #<<
+
+```
+
++ Im Prinzip lassen sich beliebig viele Geoms miteinander kombinieren.
+
++ Man sollte bei der Wahl und der Menge der Geoms jedoch auch immer seine **Zielgruppe bedenken**.
+
++ Niemandem (außer vielleicht dem Autor selbst) ist gedient, wenn ein Plot so komplex wird, dass er von der Zielgruppe nicht verstanden wird.
+
+]
+
+.pull-right[
+```{r, ref.label="plot_8", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+
+---
+# &raquo;Erben&laquo;
+
+.pull-left[
+```{r plot_9, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height,
+                     col = sex)) + #<<
+  geom_point() +
+  geom_smooth() 
+
+```
+
++ Geoms **&raquo;erben&laquo;** ihre Eigenschaften von `aes()` in `ggplot()`.
+
++ Das kann erwünscht sein.
+
++ Falls nicht, so sollten die jeweiligen Aesthetics direkt in die Geoms eingefügt werden.
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_9", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# &raquo;Erben&laquo;
+
+.pull-left[
+```{r plot_10, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = sex)) + #<<
+  geom_smooth() 
+
+```
+
++ Geoms &raquo;erben&laquo; ihre Eigenschaften von `aes()` in `ggplot()`.
+
++ Das kann erwünscht sein.
+
++ Falls nicht, so sollten die jeweiligen Aesthetics direkt in die Geoms eingefügt werden.
+
++ Hier &raquo;erbt&laquo; `geom_smooth()` lediglich die Aesthetics `x` und `y`.
+
++ Die Aesthetic `col = sex` ist alleinig dem `geom_point()` zugewiesen.
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_10", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+# &raquo;Erben&laquo;
+
+.pull-left[
+```{r plot_11, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + #<<
+  geom_smooth() 
+
+```
+
+.font80[
++ Auch hier können wir Aesthetics wieder kombinieren.
+
++ So lassen sich einfach zusätzliche Dimensionen in einen Plot einbringen.
+
++ `col = bmi` weist dem BMI eine kontinuierliche Farbskala zu, da es sich um eine numerische Variable handelt.
+
++ Zuvor, bei `col = sex`, war es eine Character-Variable und der Variable wurde eine diskrete Farbskala zugewiesen.
+
++ Die `shape`-Aesthetic bietet sich beispielsweise für diskrete Variablen mit wenigen Ausprägungen an.
+
+]
+
+]
+
+.pull-right[
+```{r, ref.label="plot_11", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+class: code70
+# 4. Beschriftungen: `labs(...)`
+
+.pull-left[
+```{r plot_12, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  labs(
+    title = "Gewicht und Größe der GoldmedaillengewinnerInnen",   #<<
+       subtitle = "Olympische Sommerspiele 2016",   #<<
+       x = "Gewicht in kg",   #<<
+       y = "Größe in cm",   #<<
+       caption = "Quelle: TidyTuesday", #<<
+       shape = "Geschlecht", #<<
+       color = "Body-Mass-Index")   #<<
+
+```
+
++ Es gibt verschiedene Möglichkeiten, die Achsenbeschriftungen, Titel und Legenden anzupassen.
+
++ Eine der einfachsten ist über die `labs()`-Funktion.
+
+]
+
+.pull-right[
+```{r, ref.label="plot_12", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+#5. `theme_...(...)` und `theme(...)`
+
+.pull-left[
+```{r plot_13, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  theme_bw() #<<
+```
+
+.font80[
+
++ `theme_...(...)` bietet vordefinierte Einstellungen, die das Aussehen des Plots bestimmen.
+
++ Beispiele für vordefinierte Themes:
+   + **`theme_bw()`**
+   + `theme_classic()`
+   + `theme_void()`
+   + `theme_gray()`
+   
++ Verschiedene Pakete bieten zahlreiche weitere Themes, z. B.:
+   + `ggthemes::theme_economist()`
+   + `ggthemes::theme_excel_new()`
+   
+
+]
+]
+
+.pull-right[
+```{r, ref.label="plot_13", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+#5. `theme_...(...)` und `theme(...)`
+
+.pull-left[
+```{r plot_14, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  theme_classic() #<<
+```
+
+
+.font80[
++ `theme_...(...)` bietet vordefinierte Einstellungen, die das Aussehen des Plots bestimmen.
+
++ Beispiele für vordefinierte Themes:
+   + `theme_bw()`
+   + **`theme_classic()`**
+   + `theme_void()`
+   + `theme_gray()`
+   
++ Verschiedene Pakete bieten zahlreiche weitere Themes, z. B.:
+   + `ggthemes::theme_economist()`
+   + `ggthemes::theme_excel_new()`
+   
+
+]
+]
+
+.pull-right[
+```{r, ref.label="plot_14", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+#5. `theme_...(...)` und `theme(...)` 
+
+.pull-left[
+```{r plot_15, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  ggthemes::theme_economist() #<<
+```
+
+.font80[
+
++ `theme_...(...)` bietet vordefinierte Einstellungen, die das Aussehen des Plots bestimmen.
+
++ Beispiele für vordefinierte Themes:
+   + `theme_bw()`
+   + `theme_classic()`
+   + `theme_void()`
+   + `theme_gray()`
+   
++ Verschiedene Pakete bieten zahlreiche weitere Themes, z. B.:
+   + **`ggthemes::theme_economist()`**
+   + `ggthemes::theme_excel_new()`
+   
+
+]
+]
+
+.pull-right[
+```{r, ref.label="plot_15", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+
+---
+#5. `theme_...(...)` und `theme(...)` 
+
+.pull-left[
+```{r plot_16, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  theme(plot.background = #<<
+          element_rect(fill = "green"), #<<
+        legend.title = #<<
+          element_text(color = "red")) #<<
+```
+
+.font80[
+
++ `theme(...)` bietet Anpassungsmöglichkeiten für **alle** Teile des Plots.
+
++ Die [Liste an Optionen](https://ggplot2.tidyverse.org/reference/theme.html) ist entsprechend lang.
+
++ Falls keine konkreten Layoutvorgaben für Plots gemacht werden, genügt in der Regel eines der Standard-Themes.   
+
+]
+]
+
+.pull-right[
+```{r, ref.label="plot_16", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+#6. `scale_...()`
+
++ Die Gruppe der `scale_...()`-Funktionen bietet Möglichkeiten, alle Aesthetics anzupassen.
+
++ Das heißt, es gibt `scale_...()`Funktionen für alle Aesthetics:
+   + `scale_x_...()`, `scale_y_...()` &rarr; Achsen 
+   + `scale_color_...()`, `scale_fill_...()` &rarr; Farben
+   + `scale_alpha_...()` &rarr; Transparenz
+   + `scale_size_...()` &rarr; Größe
+   + `scale_shape_...()` &rarr; Form
+   + `scale_linetype_...()` &rarr; Linientyp
+
+---
+#6. `scale_...()`
+
+.pull-left[
+```{r plot_17, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) +
+  scale_color_viridis_c() #<<
+
+```
+
++ Bezüglich der Farb-Aesthetics gibt es zahlreiche vorgefertigte Farbschemen, z. B.:
+   + **`scale_color_viridis_c()`** / `scale_color_viridis_d()`
+   + `scale_color_distiller()`
+   
++ Und Hilfsfunktionen, um die Farben selbst festzulegen, z. B.:   
+   
+   + `scale_color_gradient(...)`
+]
+
+
+.pull-right[
+```{r, ref.label="plot_17", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+#6. `scale_...()`
+
+.pull-left[
+```{r plot_18, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) +
+  scale_color_distiller() #<<
+
+```
+
++ Bezüglich der Farb-Aesthetics gibt es zahlreiche vorgefertigte Farbschemen, z. B.:
+   + `scale_color_viridis_c()` / `scale_color_viridis_d()`
+   + **`scale_color_distiller()`**
+   
++ Und Hilfsfunktionen, um die Farben selbst festzulegen, z. B.:   
+   
+   + `scale_color_gradient(...)`
+]
+
+
+.pull-right[
+```{r, ref.label="plot_18", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+#6. `scale_...()`
+
+.pull-left[
+```{r plot_19, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) + 
+  scale_color_gradient(low = "white", #<<
+                       high = "red") #<<
+
+```
+
++ Bezüglich der Farb-Aesthetics gibt es zahlreiche vorgefertigte Farbschemen, z. B.:
+   + `scale_color_viridis_c()` / `scale_color_viridis_d()`
+   + `scale_color_distiller()`
+   
++ Und Hilfsfunktionen, um die Farben selbst festzulegen, z. B.:   
+   
+   + **`scale_color_gradient(...)`**
+]
+
+
+.pull-right[
+```{r, ref.label="plot_19", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+
+]
+
+
+---
+#6. `scale_...()`
+
+.pull-left[
+```{r plot_20, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) + 
+  scale_y_continuous(breaks = #<<
+                       c(seq(from = 140, #<<
+                             to = 220, #<<
+                             by = 10))) #<<
+
+```
+
++ Mit der `break`-Option in der `scale`-Achsen-Funktion lassen sich beispielsweise die Beschriftungen anpassen.
+
+
+]
+
+
+.pull-right[
+```{r, ref.label="plot_20", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+class: code70
+#6. `scale_...()`
+
+.pull-left[
+```{r plot_21, eval=FALSE, out.width="100%"}
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  scale_x_continuous(breaks = #<<
+                       c(40, 80, 120, 160), #<<
+                     labels = #<<
+                       c("Ganz", "schön", "schwer", "!")) #<<
+
+```
+
++ Mit dem `break`-Argument in der `scale`-Achsen-Funktion lassen sich beispielsweise die Beschriftungen anpassen.
+
++ In Kombination mit dem `labels`-Argument können Achsenlabels verändert werden, ohne die Daten zu verändern.
+
+]
+
+.pull-right[
+```{r, ref.label="plot_21", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+class: clear, inverse, middle, center
+
+# &raquo;Putting it all together&laquo;
+
+---
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+```{r plot_22, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% #<<
+  ggplot(aes(x = weight, y = height)) #<<
+
+```
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_22", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+```{r plot_23, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point() #<<
+
+```
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_23", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+```{r plot_24, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi)) #<<
+
+```
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_24", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+```{r plot_25, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) #<<
+
+```
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_25", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+```{r plot_26, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth()#<<
+
+```
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_26", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+---
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+```{r plot_27, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+  scale_color_viridis_c() #<<
+
+```
+
+
+]
+
+.pull-right[
+```{r, ref.label="plot_27", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+
+---
+class: code60 
+
+# &raquo;Putting it all together&laquo;
+
+
+.pull-left[
+
+```{r plot_28, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+  scale_color_viridis_c() +
+  labs( #<<
+    title = "Gewicht und Größe der GoldmedaillengewinnerInnen",  #<<
+               subtitle = "Olympische Sommerspiele 2016",  #<<
+               x = "Gewicht in kg",  #<<
+               y = "Größe in cm",  #<<
+               color = "Body-Mass-Index", #<<
+               shape = "Geschlecht", #<<
+               caption = "Quelle: TidyTuesday")  #<<
+
+```
+
+]
+
+.pull-right[
+```{r, ref.label="plot_28", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+
+---
+class: code60 
+
+# &raquo;Putting it all together&laquo;
+
+.pull-left[
+
+```{r plot_29, eval=FALSE, out.width="100%"}
+olympics_daten_plot %>% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+  scale_color_viridis_c() +
+  labs( 
+    title = "Gewicht und Größe der GoldmedaillengewinnerInnen",  
+               subtitle = "Olympische Sommerspiele 2016",
+               x = "Gewicht in kg",  
+               y = "Größe in cm",  
+               color = "Body-Mass-Index", 
+               shape = "Geschlecht", 
+               caption = "Quelle: TidyTuesday") +
+  theme_minimal() #<<
+
+```
+
+]
+
+.pull-right[
+```{r, ref.label="plot_29", echo=FALSE, fig.dim=c(8, 7), out.width="100%"}
+
+```
+]
+
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach <img src="images/rstudio.svg" width="250px">.  

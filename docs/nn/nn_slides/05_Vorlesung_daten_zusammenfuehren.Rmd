@@ -1,0 +1,470 @@
+---
+title: "Einführung in R"
+subtitle: "Fortbildung im Institut der deutschen Wirtschaft"
+output: 
+  xaringan::moon_reader:
+    includes:
+      after_body: "css/collapse-output.html"
+    self_contained: true
+    css:
+    # [default, tamu, tamu-fonts]
+     - css/default.css
+     - css/metropolis_changed.css
+     - css/metropolis-fonts_changed.css
+    lib_dir: libs
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%<br>"
+      ratio: "16:9"
+---
+
+layout: true
+
+<div class="my-footer">
+  <span>&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  Einführung in R | Daten zusammenführen | Pekka Sagner </span> 
+</div>
+
+
+```{r setup, include=FALSE}
+pacman::p_load(tidyverse, fontawesome, knitr, xaringanExtra)
+
+options(
+    htmltools.dir.version = FALSE,
+    knitr.table.format = "html",
+    knitr.kable.NA = ""
+)
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 15,
+    fig.height = 6,
+    comment = "#>",
+    fig.retina = 3 # Better figure resolution
+)
+# Enables the ability to show all slides in a tile overview by pressing "o"
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = "all")
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = FALSE
+)
+# xaringanExtra::use_logo(
+#   image_url = "images/logo_print_studierende.jpg",
+#   position = xaringanExtra::css_position(top = "1em", right = "1em")
+# )
+
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+```
+ 
+---
+class: clear, inverse, middle, center
+
+#.font200[5] &emsp;Daten zusammenführen
+
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "images/IW_LOGO_STANDARD_RGB.png", # standard: top right corner
+  position = css_position(top = "-.5em", right = "1em"),
+  width = "100px" 
+)
+```
+
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Kennenlernen der verschiedenen Arten, Datensätze zusammenzuführen
+
+.center[
+<img src="images/Joins_1.png" width="800px"> 
+]
+
+
+
++ Leseempfehlungen:
+    + [R4DS, Kapitel 13 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/relational-data.html)
+
+
+---
+class: clear, inverse, middle, center
+
+# &raquo;Ein Datensatz kommt selten allein.&laquo;
+
+---
+# Relationale Daten
+
++ Es kommt eher selten vor, dass eine Datenanalyse nur auf einen einzigen Datensatz zurückgreift.
+
++ Oft kombinieren wir in einem Analyseprojekt Daten aus verschiedenen Quellen, um unsere Forschungsfragen zu beantworten und so spannende Sachverhalte aufzudecken.
+
++ Zusammen werden diese Datensätze als **relationale Daten** bezeichnet. 
+
++ Es ist die Beziehung zwischen den Daten, die wichtig ist, nicht die individuellen Datensätze alleine.      
+
++ Die Beziehung von Datensätzen ist immer zwischen **zwei** Datensätzen definiert.
+
+---
+# Relationale Daten
+
++ Für die Arbeit mit relationalen Daten brauchen wir Funktionen, die mit Datensatzpaaren funktionieren.
+
++ Grundsätzlich gibt es drei Familien von Funktionen, um mit relationalen Daten zu arbeiten:
+
+    + **Mutating Joins**: fügen einem Datensatz Variablen hinzu, basierend auf identischen Beobachtungen.
+    + **Filtering Joins**: filtern Beobachtungen eines Datensatzes, basierend darauf, ob diese in einem anderen Datensatz vorkommen oder nicht.
+    + **Set Operations**: behandeln die Beobachtungen wie mathematische Mengen und vergleichen die Werte jeder Variable.
+    
++ Die häufigsten Funktionen, die wir nutzen sind aus der Familie der **Mutating Joins**.
+
+---
+# Die Familie der **Mutating Joins**
+
++ **Mutating Joins** kommen immer dann zum Einsatz, wenn Informationen aus verschiedenen Datensätzen in einem neuen Datensatz zusammengefasst werden.
+
++ `mutate()` &lrarr; **Mutating Join**
+
++ In der Regel ist dabei unser Ziel, Informationen aus verschiedenen Datensätzen zu kombinieren und somit neue Erkenntsnise zu gewinnen. 
+
+
+---
+# Key-Konzept: **Keys**
+
++ Datensätze werden immer anhand einer oder mehrerer gemeinsamer Identifikationsvariablen (**Keys**, häufig auch **ID**) zusammengefügt.
+
++ Welche Variablen sich dafür konkret anbieten, hängt vom Datensatz ab. 
+
++ Ein einfaches Beispiel:
+
+.center[
+<img src="images/data_join_1.png" width="500px">
+]
+
+---
+class: code70
+# Key-Konzept: **Keys**
+
++ In `R` übersetzt sehen die Beispieldatensätze wie unten dargestellt aus.
+
++ Die Variable `key` ist in dem Fall die Variable, die die Beobachtungen eindeutig definiert, zum Beispiel der Name einer Person, die Nummer eines Landkreises, ... .
+
++ Anhand dieser Variable werden die Datensätze zusammengeführt.
+
+.pull-left[
+```{r}
+(x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+))
+```
+]
+
+.pull-right[
+```{r}
+(y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+))
+```
+]
+
+---
+class: font90
+# Ziel der **Mutating Joins**
+
++ Ein **Join** ist letztlich ein Weg, die Zeilen (Beobachtungen) in `x` mit **keiner**, **einer**, oder **mehreren** Zeilen (Beobachtungen) in `y` zusammenzuführen. 
+
++ Grafisch lassen sich alle möglichen Matches wie folgt darstellen:
+
+.center[
+<img src="images/data_join_2.png" width="480px">
+]
+
++ Jeder Schnittpunkt zweier Linien zeigt im Diagramm ein mögliches Match der Beobachtungen.
+
++ Tatsächliche Matches werden mit Punkten markiert.
+
+---
+class: code70
+# Inner Join
+
++ Der einfachste Join ist ein **Inner Join**.
+
++ Ein **Inner Join** fügt Paare von Beobachtungen zusammen, wenn die `key`-Variable identisch ist.
+
++ Der Output der Funktion `inner_join()` ist ein Datensatz, der die `key`-Variable sowie die Werte-Variablen enthält.
+
++ Das Argument `by` steht für die Variable(n), die die Identifikationsvariable(n) (`key`-Variable) bezeichnet.
+
+> Ein **Inner Join** ist dadurch charakterisiert, dass der zusammengeführte Datensatz nur Beobachtungen enthält, für die es ein Match gab.
+
+> Alle anderen ungematchten Beobachtungen gehen verloren.
+
+---
+class: code70
+# Inner Join
+
+.pull-left[
+Grafisch:
+.center[
+<img src="images/data_join_3.png" width="250px">
+]
+]
+
+.pull-right[
+in `R`:
+```{r}
+x %>% 
+  inner_join(y, by = "key")
+```
+]
+
+---
+class: code70
+# Outer Joins
+
++ Das Gegenstück zum Inner Join sind **Outer Joins**.
+
+.pull-left[
+### Inner Join
+> Ergebnis enthält Beobachtungen, die in beiden Datensätzen auftreten.
+
+]
+
+
+
+.pull-right[
+### Outer Joins 
+> Ergebnis enthält Beobachtungen, die **in mindestens einem** der beiden Datensätzen auftreten.
+
+]
+
+---
+class: code70
+# Funktionsweise der **Mutating Joins**
+## Outer Joins
+
+.pull-left[
++ Es gibt also nur eine Variante eines Inner Joins, aber **drei** Outer-Joins:
+    + Left Join
+    + Right Join
+    + Full Join
+]
+
+.pull-right[
+<img src="images/data_join_4.png" width="320px">
+]
+
+---
+class: code70
+# Left Join
+
++ Das Ergebnis eines **Left Join** enthält alle Beobachtungen des **linken**/ersten Datensatzes. 
+
++ Der **linke**/erste Datensatz wird um Variablen aus dem rechten/zweiten Datensatz ergänzt.
+
+.pull-left[
+Grafisch:
+.center[
+<img src="images/data_join_5.png" width="500px">
+]
+]
+
+.pull-right[
+in `R`:
+```{r}
+x %>% 
+  left_join(y, by = "key")
+```
+]
+
+---
+class: code70
+# Right Join
+
++ Das Ergebnis eines **Right Join** enthält alle Beobachtungen des **rechten**/zweiten Datensatzes. 
+
++ Der **rechte**/zweite Datensatz wird um Variablen aus dem linken/ersten Datensatz ergänzt.
+
+.pull-left[
+Grafisch:
+.center[
+<img src="images/data_join_6.png" width="500px">
+]
+]
+
+.pull-right[
+in `R`:
+```{r}
+x %>% 
+  right_join(y, by = "key")
+```
+]
+
+
+---
+class: code70
+# Full Join
+
++ Das Ergebnis eines **Full Join** enthält alle Beobachtungen **beider** Datensätze. 
+
++ Keine Beobachtungen gehen verloren.
+
+.pull-left[
+Grafisch:
+.center[
+<img src="images/data_join_7.png" width="500px">
+]
+]
+
+.pull-right[
+in `R`:
+```{r}
+x %>% 
+  full_join(y, by = "key")
+```
+]
+
+---
+# Empfehlung
+
++ Der meistgenutzte Join ist der **Left Join**.
++ Dieser kommt immer dann zum Einsatz, wenn ein bestehender Datensatz mit weiteren Informationen ergänzt werden soll.
++ Dabei gehen keine Informationen aus dem Ausgangsdatensatz verloren. 
++ Das ist ein guter Standard.
++ Das heißt, die Entscheidung für andere Joins sollte immer eine bewusste sein, die auf guten Gründen basiert. 
+
+<br/>
+<br/>
+<br/>
+.center[.font200[**Im Zweifel: Left Join**]
+]
+---
+# Wichtige Erweiterungen
+
+## Mehrere, identische Keys
+
++ In der Praxis kommt es häufiger vor, dass ein Datensatz Beobachtungen enthält, die durch eine `Key`-Variable bestimmt sind, die nicht einzigartig ist.
+
++ Dies kommt zum Beispiel dann vor, wenn eine Beobachtung einer Einheit und einer Untereinheit zugewiesen werden kann.
+
++ Zum Beispiel:
+
+.center[Landkreis &rarr; .font120[Bundesland] &rarr; .font150[Land] &rarr; .font170[Kontinent]
+]
+
+.center[Art &rarr; .font120[Gattung] &rarr; .font150[Familie] &rarr; .font170[Ordnung]
+]
+
+---
+# Wichtige Erweiterungen
+
+## Mehrere, identische Keys
+
+.pull-left[
+```{r}
+(x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     1, "x4"
+))
+```
+]
+
+.pull-right[
+```{r}
+(y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2"
+))
+```
+]
+
+
+---
+# Wichtige Erweiterungen
+
+## Mehrere, identische Keys
+
+.pull-left[
+Grafisch:
+.center[
+<img src="images/data_join_8.png" width="500px">
+]
+]
+
+.pull-right[
+in `R`:
+```{r}
+x %>% 
+  left_join(y, by = "key")
+```
+]
+
+---
+class: code70
+# Wichtige Erweiterungen
+
+## Keys mit unterschiedlichen Namen
+
++ Bisher entsprachen sich die Namen der identifizierenden `Key`-Variable in den beiden Datensätzen.
+
++ Falls dies einmal nicht der Fall sein sollte, so können die Namen der `Key`-Variablen, die sich inhaltlich entsprechen, händisch definiert werden:
+
+.pull-left[
+```{r}
+(x <- tribble(
+  ~key_x, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+))
+```
+]
+
+.pull-right[
+```{r}
+(y <- tribble(
+  ~key_y, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+))
+```
+]
+
+---
+# Wichtige Erweiterungen
+
+## Keys mit unterschiedlichen Namen
+
+```{r}
+x %>% 
+          left_join(y, by = c("key_x" = "key_y"))
+```
+
++ Die Reihenfolge beim Gleichsetzen der Key-Variablen entspricht dabei der Reihenfolge der Datensätze.
+
++ Der vergebene Key-Variablenname im neuen Datensatz ist der erste.
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach <img src="images/rstudio.svg" width="250px">.  

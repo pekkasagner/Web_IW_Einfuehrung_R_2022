@@ -1,0 +1,85 @@
+---
+title: "Übungsblatt 3"
+subtitle:    |
+    | Datenanalyse und -visualisierung mit R
+    | Hochschule Bonn-Rhein-Sieg
+author: "Pekka Sagner M.Sc."
+date: "6. Mai 2022"
+output: pdf_document
+urlcolor: Tan
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Einführung in ggplot2
+
+### Aufgabe 1: &raquo;Always plot your data&laquo;
+
+a) Laden Sie den Datensatz **datasaurus.tsv** aus dem LEA-Kursordner  herunter. Speichern Sie diesen in einem Unterordner (z. B. *data*) Ihres R-Projektordners.
+
+b) Der Datensatz enthält die Variable `gruppe`. Wie viele Gruppen gibt es? Wie viele Beobachtungen je Gruppe sind in den Daten enthalten? *(Hinweis: Nutzen Sie hierfür die Funktion `count()`.)*
+
+c) Bestimmen Sie den Mittelwert der Variablen `x` und `y` für die Gruppen `01`, `04`, `06` und `10`. Was fällt Ihnen auf?
+
+d) Erstellen Sie jeweils ein Punktediagramm (auch: Scatterplot) der Variablen `x` und `y` für die vier Gruppen `01`, `04`, `06` und `10`. Was fällt Ihnen auf?
+
+e) Erstellen Sie ein Punktediagramm der Variablen `x` und `y` für alle Gruppen. *(Hinweis: Nutzen Sie hierfür die Funktion `facet_wrap()` aus ggplot2.)*
+
+### Aufgabe 2: Olympische Spiele 2
+
+a) Erstellen Sie den finalen Plot aus der Vorlesung, der den Zusammenhang zwischen dem Gewicht und der Größe der GoldmedaillengewinnerInnen bei den Olympischen Sommerspielen 2016 zeigt.
+
+b) Wie viele MedaillengewinnerInnen bei den Olympischen Sommerspielen 2016 waren männlich, wie viele weiblich? Erstellen Sie ein einfaches Säulendiagramm, das diese Häufigkeiten darstellt.     
+
+c) Welches Team gewann bei den Olympischen Sommerspielen 2016 die meisten Medaillen? Wie viele davon waren Gold, Silber, Bronze? Stellen Sie ihr Ergebnis in einem Säulendiagramm dar.
+
+d) Stellen Sie die Entwicklung der Teilnehmerzahlen im Zeitverlauf grafisch dar. 
+
+e) Stellen Sie die Altersverteilung der TeilnehmerInnen bei den Sommerspielen 2016 dar: (i) zuerst für alle TeilnehmerInnen und (ii) dann nach Geschlecht . Nutzen Sie hierfür Boxplots. *(Hinweis: Boxplots sind prinzipiell wie unten dargestellt aufgebaut. Mehr Informationen finden Sie z. B. in [Introduction to Modern Statistics, Kapitel 5.5](https://openintro-ims.netlify.app/explore-numerical.html)).*
+
+
+```{r echo=F, warning=F, message=F, out.width="80%"}
+library(tidyverse)
+daten <- tibble(x = c(-200,-250, 250,300,-100,100,100,50,50,100,100,127,44,28,83,0,6,78,6,5,213,73,20,28,11))
+
+daten %>% 
+          ggplot(aes(x)) +
+          geom_boxplot() +
+          geom_point(alpha = 0.3, y = 0) +
+          annotate(geom = "text", x = -225, y = -0.2,
+                   label = "Ausreißer") +
+          geom_curve(xend = -250, yend = 0, x = - 225, y = -0.18,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4) + 
+          geom_curve(xend = -200, yend = 0, x = - 225, y = -0.18,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4) +
+          annotate(geom = "text", x = -125, y = 0.2,
+                   label = "Kleiner als die größten 75 %\n bis 1,5-Mal Interquartilsabstand") +
+                    geom_curve(xend = -100, yend = 0, x = -150, y = 0.14,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4) +
+                              geom_curve(xend = 6, yend = 0, x = -150, y = 0.14,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = 1) +
+          annotate(geom = "text", x = -75, y = -0.2,
+                   label = "1. Quartilsgrenze") +
+          geom_curve(xend = 6, yend = -0.3, x = -75, y = -0.23,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4) +
+          annotate(geom = "text", x = 135, y = 0.2,
+                   label = "Median") +
+                    geom_curve(xend = 50, yend = 0, x = 135, y = 0.18,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = -0.2) +
+          annotate(geom = "text", x = 160, y = -0.1,
+                   label = "3. Quartilsgrenze") +
+          geom_curve(xend = 100, yend = -0.3, x = 160, y = -0.13,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = -0.4) +
+                    annotate(geom = "text", x = 275, y = -0.3,
+                   label = "Ausreißer") +
+                    geom_curve(xend = 250, yend = -0, x = 275, y = -0.28,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = -0.4) +
+                              geom_curve(xend = 300, yend = -0, x = 275, y = -0.28,     arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = -0.4) +
+          annotate(geom = "text", x = 210, y = 0.3,
+                   label = "Größer als die größten 75 %\n bis 1,5-Mal Interquartilsabstand") +
+                    geom_curve(xend = 100, yend = 0, x = 210, y = 0.25, arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = -0.2) +
+                              geom_curve(xend = 213, yend = 0, x = 210, y = 0.25, arrow = arrow(length = unit(0.07, "inch")), size = 0.4, curvature = -0.5) +
+          theme_minimal() +
+          theme(axis.text.y = element_blank())+
+          labs(x = "Numerische Variable",
+               y = "",
+               subtitle = "Exemplarischer Aufbau eines Boxplots") +
+          scale_x_continuous(breaks = c(-100, 200),
+                             labels = c("Kleinere Werte",
+                                        "Größere Werte"))
+```
+

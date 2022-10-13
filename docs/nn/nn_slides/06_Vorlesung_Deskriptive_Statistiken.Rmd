@@ -1,0 +1,408 @@
+---
+title: "Einführung in R"
+subtitle: "Fortbildung im Institut der deutschen Wirtschaft"
+output: 
+  xaringan::moon_reader:
+    includes:
+      after_body: "css/collapse-output.html"
+    self_contained: true
+    css:
+    # [default, tamu, tamu-fonts]
+     - css/default.css
+     - css/metropolis_changed.css
+     - css/metropolis-fonts_changed.css
+    lib_dir: libs
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%<br>"
+      ratio: "16:9"
+---
+
+layout: true
+
+<div class="my-footer">
+  <span>&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  Einführung in R | Deskriptive Statistiken | Pekka Sagner </span> 
+</div>
+
+
+```{r setup, include=FALSE}
+pacman::p_load(tidyverse, fontawesome, knitr, xaringanExtra)
+
+options(
+    htmltools.dir.version = FALSE,
+    knitr.table.format = "html",
+    knitr.kable.NA = ""
+)
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 15,
+    fig.height = 6,
+    comment = "#>",
+    fig.retina = 3 # Better figure resolution
+)
+# Enables the ability to show all slides in a tile overview by pressing "o"
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = "all")
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = FALSE
+)
+# xaringanExtra::use_logo(
+#   image_url = "images/logo_print_studierende.jpg",
+#   position = xaringanExtra::css_position(top = "1em", right = "1em")
+# )
+
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+```
+ 
+---
+class: clear, inverse, middle, center
+
+#.font200[6] &emsp;Deskriptive Statistiken
+
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "images/IW_LOGO_STANDARD_RGB.png", # standard: top right corner
+  position = css_position(top = "-.5em", right = "1em"),
+  width = "100px" 
+)
+```
+
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Berechnen deskriptiver Statistiken
++ Häufigkeitsstatistiken für kategoriale Variablen
+
+
+---
+class: clear, inverse, middle, center
+
+# Deskriptive Statistiken
+
+---
+#Beispieldatensatz
+
+.font90[
+```{r}
+library(tidyverse)
+# install.packages(palmerpenguins)
+(beispieldaten <- palmerpenguins::penguins)
+```
+]
+
+---
+#`summary()`
+
++ Deskriptive Statistiken fassen Variablen zusammen.
+
++ Einen schnellen Überblick über einen Datensatz kann man sich mit der `summary()`-Funktion verschaffen:
+
+.code80[
+```{r}
+summary(beispieldaten) 
+```
+]
+---
+#Über den Überblick hinaus
+
++ Eine ähnliche Funktionsweise bietet die Funktion `skimr::skim()`.
+
++ Diese Funktionen können einen ersten Überblick über die Daten geben, sind jedoch für die weitere Arbeit mit den errechneten Werten nicht hilfreich.
+
++ Deswegen: &raquo;Selbst sind die Forschenden.&laquo; Die meisten notwendigen Funktionen zur Erstellung deskriptiver Statistiken kennen wir ohnehin bereits.
+
+---
+#Deskriptive Statistiken für numerische Variablen
+
++ Um ausgewählte Summary Statistics für numerische Variablen zu berechnen, nutzen wir die Funktion `summarise()` in Kombination mit der entsprechenden Funktion, die wir anwenden möchten:
+
+
+
+|Funktion                | Beschreibung
+|------------------------|----------------------------------------------------
+|mean(x, na.rm = FALSE)  | Arithmetic mean
+|sd(x)                   | (Sample) Standard Deviation
+|var(x)                  | (Sample) Variance
+|median(x)               | Median
+|quantile(x, probs, type)| Quantile of x.  probs: vector with probabilities
+|min(x)                  | Minimum value of x
+|max(x)                  | Maximum value of x
+|range(x)                | x_min and x_max
+|...                     | ...
+
+
+---
+# Eine Variable, eine Funktion
+
++ Häufig sind wir an **einer** Summary Statistic **einer** Variable interessiert. Z. B.:
+
+
+```{r}
+beispieldaten |>
+          summarise(durchschnitt_bill_length_mm = mean(bill_length_mm, na.rm = T))
+```
+
++ `na.rm = T`: Falls NA-Werte (fehlende Werte) in der Variable auftauchen, sorgt dieses Argument dafür, dass dennoch die Funktion angewendet wird.
+
+---
+# Mehrere Variablen, mehrere Funktionen
+
++ Wir können in einem `summarise()`-Schritt auch mehrere Funktionen manuell kombinieren:
+
+
+```{r}
+beispieldaten |> 
+          summarise(durchschnitt_bill_length_mm = mean(bill_length_mm, na.rm = T), 
+                    median_bill_length_mm = median(bill_length_mm, na.rm = T)) #<<
+```
+
+---
+class: font90
+# Viele Variablen, viele Funktionen
+
++ Das &raquo;hardcoden&laquo; von Variablennamen und Funktionen ist bei wenigen Variablen und Funktionen kein großer Schreibaufwand. 
+
++ Bei mehreren Variablen und Funktionen wird das Tippen jedoch schnell zeitintensiv und fehleranfällig.
+
++ Die Funktion `across()` kann hierbei helfen:
+
+```{r}
+beispieldaten |> 
+          summarise(across(.cols = c("bill_length_mm", "bill_depth_mm"), #<<
+                           .fns = list(durchschnitt = mean, stabw = sd), #<<
+                           na.rm = T #<<
+                           )
+                    )
+```
+
++ *Hinweis: `across()` funktioniert auch mit `mutate()` beim Erstellen neuer oder Überschreiben bestehender Variablen.*
+
+---
+# Viele Variablen, viele Funktionen
+
++ Richtig Schreibaufwand lässt sich sparen, wenn weitere Hilfsfunktionen verwendet werden.
+
++ So kann man Beispielsweise die Liste der Funktionen auf alle numerischen Spalten anwenden:
+
+```{r}
+beispieldaten |> 
+          summarise(across(.cols = where(is.numeric), #<<
+                           .fns = list(durchschnitt = mean, stabw = sd),
+                           na.rm = T
+                           )
+                    )
+```
+
+
+---
+# Viele Variablen, viele Funktionen
+## Für Gruppen
+
+```{r}
+beispieldaten |> 
+          group_by(year) |> #<<
+          summarise(across(.cols = where(is.numeric),
+                           .fns = list(durchschnitt = mean, stabw = sd),
+                           na.rm = T
+                           )
+                    )
+```
+
+---
+class: font100 code100
+# Kreuztabellen
+
++ Kreuztabellen können als gruppenweise Summary Statistics für zwei Gruppen verstanden werden.
++ Mit dieser Interpretation ist das Erstellen von Kreuztabellen in der bekannten Syntax möglich, es muss jedoch für zwei (oder auch mehrere) Variablen gruppiert werden:
+
+```{r}
+beispieldaten |> 
+          group_by(year, species) |> #<<
+          summarise(mean_bill_depth_mm = mean(bill_depth_mm, na.rm = T)) |> 
+          ungroup()
+```
+
+
+
+---
+class: font100 code100
+# Kreuztabellen
+
++ Die so erstellte Tabelle kann mit `pivot_wider()` in das typische Kreuztabellenformat gebracht werden. *Hinweis: Dann genügt die Tabelle nicht mehr dem Tidy Data Prinzip.*
+
+```{r}
+beispieldaten |> 
+          group_by(year, species) |> 
+          summarise(mean_bill_depth_mm = mean(bill_depth_mm, na.rm = T)) |> 
+          ungroup() |> 
+          pivot_wider(id_cols = "year", #<<
+                      names_from = "species", #<<
+                      values_from = "mean_bill_depth_mm") #<<
+```
+
+---
+class: clear, inverse, middle, center
+
+#Häufigkeiten und Anteile
+
+---
+class: font100 code100
+# Häufigkeitstabellen
+
++ Als Teil deskriptiver Statistiken sind wir auch an Häufigkeiten und Anteilen verschiedener Gruppen interessiert.
+
++ Z. B.: Wie viele der beobachteten Pinguine gehören zu welcher Spezies? Wie groß ist der Anteil der beobachteten weiblichen Pinguine nach Spezies und Jahr.
+
++ Die Funktion `count()` zählt die einzigartigen Ausprägungen der übergebenen Variable(n). Bei mehreren Variablen wird paarweise ausgewertet. 
+
++ D. h. `count()` übernimmt die Gruppierung für uns und `group_by()` kann entfallen:
+
+.pull-left[
+```{r}
+beispieldaten |> 
+          group_by(species) |>
+          count()
+```
+]
+
+.pull-right[
+```{r}
+beispieldaten |> 
+          count(species)
+
+```
+]
+
++ *Hinweis: `count()` hebt im Fall von group_by() die Gruppierung nicht wieder auf. Das muss bei weiteren Schritten beachtet werden.* 
+
+---
+class: font100 code100
+# Paarweise Häufigkeitstabellen
+
++ Paarweise Häufigkeiten lassen sich, wie bereits bei den Summary Statistics gezeigt, in Kreuztabellen überführen:
+
+
+.pull-left[
+```{r}
+beispieldaten |> 
+          count(species, year) 
+```
+]
+
+
+.pull-right[
+```{r}
+beispieldaten |> 
+          count(species, year) |>
+          pivot_wider(id_cols = "year",
+                      names_from = "species",
+                      values_from = "n")
+```
+]
+
+---
+# Anteile
+
++ Die Berechnung von Anteilen erfolgt schlicht als Anzahl der Ausprägung in Relation zur Summe der Ausprägungen innerhalb der Gruppe, die von Interesse ist. Im einfachsten Fall also als:
+
+```{r}
+beispieldaten |> 
+          count(species) |>
+          mutate(anteil = n / sum(n))
+```
+
+
+---
+class: font100 code100
+# Anteile
+
++ Bei gruppenweisen Anteilen übergeben wir mit `group_by()` die Variable(n) innerhalb derer die Anteile bestimmt werden sollen.
+
+.pull-left[
++ Zuerst Häufigkeiten berechnen:
+```{r}
+beispieldaten |> 
+          count(species, year) 
+```
+]
+
+.pull-right[
++ Dann gruppieren und Anteile berechnen:
+```{r}
+beispieldaten |> 
+          count(species, year) |>
+          group_by(year) |> 
+          mutate(anteil = n / sum(n))
+```
+]
+
+---
+class: font100 code100
+# Anteile
+
++ Bei Bedarf kann dann wieder in ein Kreuztabellenformat überführt werden:
+
+```{r}
+beispieldaten |> 
+          count(species, year) |>
+          group_by(year) |> 
+          mutate(anteil = n / sum(n)) |> 
+          ungroup() |> 
+          pivot_wider(names_from = "species",
+                      id_cols = "year",
+                      values_from = c("n", "anteil"))
+```
+
+---
+class: clear, inverse, middle, center
+
+#Aus `R` in die Kommunikation
+
+---
+#Speichern von Tabellen
+
++ Tabellen können in allen bekannten Datenformaten gespeichert werden.
+
++ Beispieldatensatz, der gespeichert werden soll:
+
+```{r}
+(daten_speich <- beispieldaten |> 
+          count(species))
+```
+
++ Für die Weiterverarbeitung in Reports und anderen IW-Formaten bieten sich die gängigen Excel-Formate, insbesondere xlsx-Dateien, an.
+
+---
+class: font80
+#Funktionen zum Speichern von Tabellen
+
+**Good to know:**
+
+Paket |Funktion                | Beispiel                                                 |Anwendung
+------|------------------------|----------------------------------------------------------
+Base R|`write.table()`           | `write.table(x = daten_speich, file = "daten_speich.txt")` | Für rohe Textdateien, Trennzeichen ist Leerzeichen, Dezimaltrennzeichen ist Punkt.
+Base R |`write.csv() `            | `write.csv(x = daten_speich, file = "daten_speich.csv")`   | Für &raquo;Englische&laquo; CSV-Dateien; Trennzeichen ist Komma, Dezimaltrennzeichen ist Punkt.
+Base R |`write.csv2()`             | `write.csv2(x = daten_speich, file = "daten_speich.csv")`  | Für &raquo;Deutsche&laquo; CSV-Dateien; Trennzeichen ist Semikolon, Dezimaltrennzeichen ist Komma.
+
+**Empfohlene Funktionen:**
+
+Paket |Funktion                | Beispiel                                                 |Anwendung
+------|------------------------|----------------------------------------------------------
+readr |`write_csv()`            | `write_csv(x = daten_speich, file = "daten_speich.csv")`   | &raquo;Englische&laquo; CSV-Dateien; Trennzeichen ist Komma, Dezimaltrennzeichen ist Punkt. <br /> Doppelt so schnell wie write.csv().
+readr |`write_csv2()`            | `write_csv2(x = daten_speich, file = "daten_speich.csv")`  | Für &raquo;Deutsche&laquo; CSV-Dateien; Trennzeichen ist Semikolon, Dezimaltrennzeichen ist Komma. <br /> Doppelt so schnell wie write.csv2().
+xlsx |`write.xlsx()`            | `write.xlsx(x = daten_speich, file = "daten_speich.csv", sheetName = "Tabelle1")`  | Zum Speichern von xlsx-Dateien.
+

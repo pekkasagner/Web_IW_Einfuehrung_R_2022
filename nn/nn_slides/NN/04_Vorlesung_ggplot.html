@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Datenanalyse und -visualisierung</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis_changed.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts_changed.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Datenanalyse und -visualisierung
+## mit der Programmiersprache R
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span&gt;&amp;emsp;
+  Pekka Sagner M.Sc.
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  Datenanalyse und -visualisierung&lt;/span&gt; 
+&lt;/div&gt;
+
+
+
+ 
+
+---
+#Datenanalyse und -visualisierung
+
+## mit der Programmiersprache R
+
+.split3070_left[
+
+### Pekka Sagner M.Sc.
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> sagner@iwkoeln.de](mailto:sagner@iwkoeln.de)&lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg> iwkoeln.de/.../pekka-sagner](https://www.iwkoeln.de/institut/personen/pekka-sagner.html)&lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> @pekkasagner](http://github.com/pekkasagner)
+
+Wintersemester 2021/22
+
+.font60[Letzte Aktualisierung:  05. Mai 2022
+]
+
+]
+
+.split3070_right[
+&lt;br/&gt;&lt;br/&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+## Grammar of graphics (ggplot)
+]
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 200px;
+height: 128px;
+z-index: 0;
+background-image: url(images/logo_print_studierende.jpg);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+---
+#Inhalte und Ziele der Sitzung
+
++ Einführung in die Visualisierung mit ggplot2
++ Verständnis der verschiedenen Abbildungsoptionen
++ Erkennen des Werts von Abbildungen für die explorative Datenanalyse
+
+.center[
+&lt;img src="images/ggplot2.svg" width="200px"&gt; 
+]
+
+.right[
+.font50[
+Quelle: [github/rstudio.com](https://github.com/rstudio/hex-stickers/blob/master/SVG/ggplot2.svg)
+]
+] 
+
++ Leseempfehlung: 
+  + [R4DS, Kapitel 3 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/data-visualisation.html)
+  + [A Layered Grammar of Graphics (Wickham, 2010)](http://vita.had.co.nz/papers/layered-grammar.pdf)
+  + [ggplot2: Elegant Graphics for Data Analysis (Wickham, 2021)](https://ggplot2-book.org/index.html)
+  + [R Graphics Coobook (Chang, 2021)](https://r-graphics.org/)
+
+
+---
+class: clear, inverse, middle, center
+
+# Warum Datenvisualisierung?
+
+---
+# Warum Datenvisualisierung?
+
+.center[
+&lt;img src="figs/unnamed-chunk-1-1.png" width="80%" /&gt;
+]
+
+---
+# Warum Datenvisualisierung?
+
++ Visualisierungen sind auf dem Weg zum besseren Verständnis von Daten ein unerlässliches Instrument. 
+
++ Eine gute Visualisierung zeigt möglicherweise unerwartete Dinge.
+
++ Oft zeigen uns Abbildungen, dass **irgendetwas in den Daten nicht stimmt.**
+
++ Sie sind deshalb ein mächtiges Instrument und sollten **immer Teil der explorativen Datenanalyse** sein.
+
++ R ist wegen seiner guten Visualisierungsmöglichkeiten, die auf einer **Grammar of Graphics** basieren, sehr beliebt.
+
+
+---
+class: clear, inverse, middle, center
+
+# Aufbau eines Plots
+
+---
+# Der Aufbau eines Plots
+## Das Ziel
+
+
+
+
+
+
+
+
+
+.center[
+&lt;img src="figs/zielplot-out-1.png" width="80%" /&gt;
+]
+
+
+
+
+---
+# Der Aufbau eines Plots
+## Elemente eines ggplot: Schicht für Schicht
+
+.pull-left[
+1. **data**: Der Datensatz, den wir visualisieren wollen.
+1. **mapping**: Grundstruktur des Plots
+
+  + Ergibt sich aus den Daten.
+  + Welche Variable wird welcher Achse zugewiesen?
+  + Sollen Farben, Formen oder Größe von Variablenausprägungen abhängen?
+    
+1. **geoms**: Definiert den Plottyp, bzw. die Elemente im Plot.
+1. **labs**: Titel, Untertitel, Quellenverweise und Co.
+1. **themes**: Allgemeiner &amp;raquo;Look&amp;laquo; des Plots.
+1. **scales**: Anpassung der Aesthetics.
+]
+
+.pull-right[
+&lt;img src="images/layers.png" height="350px"/&gt; 
+.font60[Quelle: [datasciencecentral.com](https://www.datasciencecentral.com/profiles/blogs/introduction-to-ggplot2-the-grammar)]
+]
+
+
+
+---
+# 1. Data
+
++ Vor der Datenvisualisierung kommt die -analyse, kommt die -visualisierung, kommt die...
+
++ Bevor wir uns einen Plot erstellen können, müssen wir uns zunächst im Klaren werden, was wir darstellen möchten.
+
++ Im Folgenden Beispiel ist dies der Zusammenhang von **Gewicht** und **Körpergröße** von **AthletInnen**, die bei den Olympischen **Sommerspielen 2016** eine **Goldmedaille** gewonnen haben. Wir möchten außerdem den **Body-Mass-Index** visualisieren.
+
+
+```r
+olympics_daten_plot &lt;- olympics %&gt;% 
+   filter(medal == "Gold") %&gt;%
+   filter(games == "2016 Summer") %&gt;% 
+   mutate(bmi = weight / (height/100)^2) 
+```
+
+
+---
+# 1. Data: `ggplot()`
+
+
+
+.pull-left[
+
+```r
+*ggplot(data = olympics_daten_plot)
+```
+
++ Plots werden mit `ggplot()` eingeleitet.
+
++ In der Regel erhält dieser Befehl zwei Inputs:
+   
+   + `data`: Das Objekt (tibble), in dem die Daten stecken.
+   + `mapping`: Die Struktur des Plots (Variablen auf Achsen, Farben, Größe), die auf Variablen im Datensatz zurückzuführen ist.
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-5-1.png" width="100%" /&gt;
+]
+
+
+
+---
+# 2. Mapping: `aes()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+*      mapping = aes(x = weight, y = height))
+```
+
++ Es steht eine ganze Reihe an Aesthetics zur Verfügung, z. B.:
+
++ `aes(`
+   + `x`, `y` &amp;rarr; Achsen 
+   + `color`, `fill` &amp;rarr; Farben
+   + `alpha` &amp;rarr; Transparenz
+   + `size` &amp;rarr; Größe
+   + `shape` &amp;rarr; Form
+   + `linetype` &amp;rarr; Linientyp
+   
+   `)`
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-6-1.png" width="100%" /&gt;
+]
+
+
+---
+# 2. Mapping: `aes()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+*      mapping = aes(x = weight, y = height))
+```
+
++ Äquivalent zum obigen Code ist:
+
+
+```r
+ggplot(olympics_daten_plot, 
+       aes(x = weight, y = height))
+```
+
++ Bisher sehen wir nur ein leeres Panel - dank `x` und `y` in `aes()` mit einer x-Achsen- und y-Achsen-Beschriftung.
+
++ Dies liegt daran, dass ggplot bisher nur weiß, **was** es plotten soll, aber noch nicht **wie**.
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-8-1.png" width="100%" /&gt;
+]
+
+
+---
+# Elemente eines Plots verbinden
+
++ Die Logik, verschiedene Elemente eines Plots zu gestalten und miteinander zu verbinden, ist ähnlich der Pipe-Struktur. 
+
++ [Aber wir benutzen ein Pluszeichen anstelle der Pipe](https://community.rstudio.com/t/why-cant-ggplot2-use/4372/6).
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+
+.center[
+.font400[
+`+` statt `%&gt;%`
+]
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+* geom_point()
+```
+
++ Die Liste an `geom_`-Optionen ist lang, z. B.:
+   + `geom_col()` &amp;rarr; Säulendiagramme
+   + `geom_line()` &amp;rarr; Liniendiagramme
+   + `geom_boxplot()` &amp;rarr; Boxplots
+   + `geom_smooth()` &amp;rarr; Trends
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-9-1.png" width="100%" /&gt;
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+* geom_line()
+```
+
++ Die Wahl des &amp;raquo;richtigen&amp;laquo;  **geoms** hängt von 
+   + den **Daten** 
+   + und der Message, die wir transportieren möchten, ab.
+
++ Ein Liniendiagramm ist für diese mappings auf die x- und y-Achse nicht sinnvoll.
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-10-1.png" width="100%" /&gt;
+]
+
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+* geom_hex()
+```
+
++ Die Wahl des &amp;raquo;richtigen&amp;laquo;  **geoms** hängt von 
+   + den Daten 
+   + und der **Message**, die wir transportieren möchten, ab.
+
++ Der etwas außergewöhnliche Hexplot betont die Dichte (Häufigkeit) von Gewichts-Größen-Kombinationen in einem gewissen Bereich.
+
++ Steht eben genau die Häufigkeit der Gewichts-Größen-Kombinationen im Fokus **kann** diese Plotart sinnvoll sein.
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-11-1.png" width="100%" /&gt;
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_point() +
+* geom_smooth()
+```
+
++ Geoms können miteinander kombiniert werden.
+
++ `geom_smooth()` fügt eine Trendlinie ein. Standardmäßig mit der **LOESS**-Methode (locally weighted scatterplot smoothing) oder mit der  **GAM**-Methode (generalized additive model) (GAM, falls `\(\geq\)` 1.000 Beobachtungen).
+
++ `geom_smooth(method = "lm")` fügt eine lineare Trendlinie ein (linear model). 
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-12-1.png" width="100%" /&gt;
+]
+
+---
+# 3. Geoms: `geom_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+* geom_rug()
+```
+
++ Im Prinzip lassen sich beliebig viele Geoms miteinander kombinieren.
+
++ Man sollte bei der Wahl und der Menge der Geoms jedoch auch immer seine **Zielgruppe bedenken**.
+
++ Niemandem (außer vielleicht dem Autor selbst) ist gedient, wenn ein Plot so komplex wird, dass er von der Zielgruppe nicht verstanden wird.
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-13-1.png" width="100%" /&gt;
+]
+
+
+
+---
+# &amp;raquo;Erben&amp;laquo;
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height,
+*                    col = sex)) +
+  geom_point() +
+  geom_smooth() 
+```
+
++ Geoms **&amp;raquo;erben&amp;laquo;** ihre Eigenschaften von `aes()` in `ggplot()`.
+
++ Das kann erwünscht sein.
+
++ Falls nicht, so sollten die jeweiligen Aesthetics direkt in die Geoms eingefügt werden.
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-14-1.png" width="100%" /&gt;
+]
+
+
+---
+# &amp;raquo;Erben&amp;laquo;
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+* geom_point(aes(col = sex)) +
+  geom_smooth() 
+```
+
++ Geoms &amp;raquo;erben&amp;laquo; ihre Eigenschaften von `aes()` in `ggplot()`.
+
++ Das kann erwünscht sein.
+
++ Falls nicht, so sollten die jeweiligen Aesthetics direkt in die Geoms eingefügt werden.
+
++ Hier &amp;raquo;erbt&amp;laquo; `geom_smooth()` lediglich die Aesthetics `x` und `y`.
+
++ Die Aesthetic `col = sex` ist alleinig dem `geom_point()` zugewiesen.
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-15-1.png" width="100%" /&gt;
+]
+
+---
+# &amp;raquo;Erben&amp;laquo;
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+* geom_point(aes(col = bmi, shape = sex)) +
+  geom_smooth() 
+```
+
+.font80[
++ Auch hier können wir Aesthetics wieder kombinieren.
+
++ So lassen sich einfach zusätzliche Dimensionen in einen Plot einbringen.
+
++ `col = bmi` weist dem BMI eine kontinuierliche Farbskala zu, da es sich um eine numerische Variable handelt.
+
++ Zuvor, bei `col = sex`, war es eine Character-Variable und der Variable wurde eine diskrete Farbskala zugewiesen.
+
++ Die `shape`-Aesthetic bietet sich beispielsweise für diskrete Variablen mit wenigen Ausprägungen an.
+
+]
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-16-1.png" width="100%" /&gt;
+]
+
+---
+class: code70
+# 4. Beschriftungen: `labs(...)`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+  labs(
+*   title = "Gewicht und Größe der GoldmedaillengewinnerInnen",
+*      subtitle = "Olympische Sommerspiele 2016",
+*      x = "Gewicht in kg",
+*      y = "Größe in cm",
+*      caption = "Quelle: TidyTuesday",
+*      shape = "Geschlecht",
+*      color = "Body-Mass-Index")
+```
+
++ Es gibt verschiedene Möglichkeiten, die Achsenbeschriftungen, Titel und Legenden anzupassen.
+
++ Eine der einfachsten ist über die `labs()`-Funktion.
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-17-1.png" width="100%" /&gt;
+]
+
+---
+#5. `theme_...(...)` und `theme(...)`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+* theme_bw()
+```
+
+.font80[
+
++ `theme_...(...)` bietet vordefinierte Einstellungen, die das Aussehen des Plots bestimmen.
+
++ Beispiele für vordefinierte Themes:
+   + **`theme_bw()`**
+   + `theme_classic()`
+   + `theme_void()`
+   + `theme_gray()`
+   
++ Verschiedene Pakete bieten zahlreiche weitere Themes, z. B.:
+   + `ggthemes::theme_economist()`
+   + `ggthemes::theme_excel_new()`
+   
+
+]
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-18-1.png" width="100%" /&gt;
+]
+
+---
+#5. `theme_...(...)` und `theme(...)`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+* theme_classic()
+```
+
+
+.font80[
++ `theme_...(...)` bietet vordefinierte Einstellungen, die das Aussehen des Plots bestimmen.
+
++ Beispiele für vordefinierte Themes:
+   + `theme_bw()`
+   + **`theme_classic()`**
+   + `theme_void()`
+   + `theme_gray()`
+   
++ Verschiedene Pakete bieten zahlreiche weitere Themes, z. B.:
+   + `ggthemes::theme_economist()`
+   + `ggthemes::theme_excel_new()`
+   
+
+]
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-19-1.png" width="100%" /&gt;
+]
+
+
+---
+#5. `theme_...(...)` und `theme(...)` 
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+* ggthemes::theme_economist()
+```
+
+.font80[
+
++ `theme_...(...)` bietet vordefinierte Einstellungen, die das Aussehen des Plots bestimmen.
+
++ Beispiele für vordefinierte Themes:
+   + `theme_bw()`
+   + `theme_classic()`
+   + `theme_void()`
+   + `theme_gray()`
+   
++ Verschiedene Pakete bieten zahlreiche weitere Themes, z. B.:
+   + **`ggthemes::theme_economist()`**
+   + `ggthemes::theme_excel_new()`
+   
+
+]
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-20-1.png" width="100%" /&gt;
+]
+
+
+
+---
+#5. `theme_...(...)` und `theme(...)` 
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+* theme(plot.background =
+*         element_rect(fill = "green"),
+*       legend.title =
+*         element_text(color = "red"))
+```
+
+.font80[
+
++ `theme(...)` bietet Anpassungsmöglichkeiten für **alle** Teile des Plots.
+
++ Die [Liste an Optionen](https://ggplot2.tidyverse.org/reference/theme.html) ist entsprechend lang.
+
++ Falls keine konkreten Layoutvorgaben für Plots gemacht werden, genügt in der Regel eines der Standard-Themes.   
+
+]
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-21-1.png" width="100%" /&gt;
+]
+
+---
+#6. `scale_...()`
+
++ Die Gruppe der `scale_...()`-Funktionen bietet Möglichkeiten, alle Aesthetics anzupassen.
+
++ Das heißt, es gibt `scale_...()`Funktionen für alle Aesthetics:
+   + `scale_x_...()`, `scale_y_...()` &amp;rarr; Achsen 
+   + `scale_color_...()`, `scale_fill_...()` &amp;rarr; Farben
+   + `scale_alpha_...()` &amp;rarr; Transparenz
+   + `scale_size_...()` &amp;rarr; Größe
+   + `scale_shape_...()` &amp;rarr; Form
+   + `scale_linetype_...()` &amp;rarr; Linientyp
+
+---
+#6. `scale_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) +
+* scale_color_viridis_c()
+```
+
++ Bezüglich der Farb-Aesthetics gibt es zahlreiche vorgefertigte Farbschemen, z. B.:
+   + **`scale_color_viridis_c()`** / `scale_color_viridis_d()`
+   + `scale_color_distiller()`
+   
++ Und Hilfsfunktionen, um die Farben selbst festzulegen, z. B.:   
+   
+   + `scale_color_gradient(...)`
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-22-1.png" width="100%" /&gt;
+]
+
+
+---
+#6. `scale_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) +
+* scale_color_distiller()
+```
+
++ Bezüglich der Farb-Aesthetics gibt es zahlreiche vorgefertigte Farbschemen, z. B.:
+   + `scale_color_viridis_c()` / `scale_color_viridis_d()`
+   + **`scale_color_distiller()`**
+   
++ Und Hilfsfunktionen, um die Farben selbst festzulegen, z. B.:   
+   
+   + `scale_color_gradient(...)`
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-23-1.png" width="100%" /&gt;
+]
+
+---
+#6. `scale_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) + 
+* scale_color_gradient(low = "white",
+*                      high = "red")
+```
+
++ Bezüglich der Farb-Aesthetics gibt es zahlreiche vorgefertigte Farbschemen, z. B.:
+   + `scale_color_viridis_c()` / `scale_color_viridis_d()`
+   + `scale_color_distiller()`
+   
++ Und Hilfsfunktionen, um die Farben selbst festzulegen, z. B.:   
+   
+   + **`scale_color_gradient(...)`**
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-24-1.png" width="100%" /&gt;
+
+]
+
+
+---
+#6. `scale_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi)) + 
+* scale_y_continuous(breaks =
+*                      c(seq(from = 140,
+*                            to = 220,
+*                            by = 10)))
+```
+
++ Mit der `break`-Option in der `scale`-Achsen-Funktion lassen sich beispielsweise die Beschriftungen anpassen.
+
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-25-1.png" width="100%" /&gt;
+]
+
+
+---
+class: code70
+#6. `scale_...()`
+
+.pull-left[
+
+```r
+ggplot(data = olympics_daten_plot,
+       mapping = aes(x = weight, y = height)) + 
+  geom_point(aes(col = bmi, shape = sex)) + 
+  geom_smooth() +
+* scale_x_continuous(breaks =
+*                      c(40, 80, 120, 160),
+*                    labels =
+*                      c("Ganz", "schön", "schwer", "!"))
+```
+
++ Mit dem `break`-Argument in der `scale`-Achsen-Funktion lassen sich beispielsweise die Beschriftungen anpassen.
+
++ In Kombination mit dem `labels`-Argument können Achsenlabels verändert werden, ohne die Daten zu verändern.
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-26-1.png" width="100%" /&gt;
+]
+
+---
+class: clear, inverse, middle, center
+
+# &amp;raquo;Putting it all together&amp;laquo;
+
+---
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+```r
+*olympics_daten_plot %&gt;%
+* ggplot(aes(x = weight, y = height))
+```
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-27-1.png" width="100%" /&gt;
+]
+
+
+---
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+* geom_point()
+```
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-28-1.png" width="100%" /&gt;
+]
+
+
+---
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+* geom_point(aes(col = bmi))
+```
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-29-1.png" width="100%" /&gt;
+]
+
+
+---
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+*                shape = sex))
+```
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-30-1.png" width="100%" /&gt;
+]
+
+
+---
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+* geom_smooth()
+```
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-31-1.png" width="100%" /&gt;
+]
+
+---
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+* scale_color_viridis_c()
+```
+
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-32-1.png" width="100%" /&gt;
+]
+
+
+
+---
+class: code60 
+
+# &amp;raquo;Putting it all together&amp;laquo;
+
+
+.pull-left[
+
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+  scale_color_viridis_c() +
+* labs(
+*   title = "Gewicht und Größe der GoldmedaillengewinnerInnen",
+*              subtitle = "Olympische Sommerspiele 2016",
+*              x = "Gewicht in kg",
+*              y = "Größe in cm",
+*              color = "Body-Mass-Index",
+*              shape = "Geschlecht",
+*              caption = "Quelle: TidyTuesday")
+```
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-33-1.png" width="100%" /&gt;
+]
+
+
+
+---
+class: code60 
+
+# &amp;raquo;Putting it all together&amp;laquo;
+
+.pull-left[
+
+
+```r
+olympics_daten_plot %&gt;% 
+  ggplot(aes(x = weight, y = height)) +
+  geom_point(aes(col = bmi, 
+                 shape = sex)) +
+  geom_smooth() +
+  scale_color_viridis_c() +
+  labs( 
+    title = "Gewicht und Größe der GoldmedaillengewinnerInnen",  
+               subtitle = "Olympische Sommerspiele 2016",
+               x = "Gewicht in kg",  
+               y = "Größe in cm",  
+               color = "Body-Mass-Index", 
+               shape = "Geschlecht", 
+               caption = "Quelle: TidyTuesday") +
+* theme_minimal()
+```
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-34-1.png" width="100%" /&gt;
+]
+
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach &lt;img src="images/rstudio.svg" width="250px"&gt;.  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%<br>",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    if (preNodes.length < 2) return;
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details " +
+      (el.classList.contains("open") ? "open " : "") +
+      "class='output'><summary>Ergebnis anzeigen</summary>" +
+      outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

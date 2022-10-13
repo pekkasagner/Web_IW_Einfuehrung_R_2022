@@ -1,0 +1,39 @@
+---
+title: "Zeitplan"
+subtitle:    |
+    | Datenanalyse und -visualisierung mit R
+    | Hochschule Bonn-Rhein-Sieg
+author: "Pekka Sagner M.Sc."
+date: "Stand: 3. Dezember 2021"
+output: pdf_document
+urlcolor: Tan
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=F, message=F, warning=F}
+library(tidyverse)
+tibble(Datum = c("08.10.2021",
+                 "22.10.2021",
+                 "05.11.2021",
+                 "19.11.2021",
+                 "03.12.2021",
+                 "17.12.2021",
+                 "07.01.2021",
+                 "14.01.2021"),
+       Uhrzeit = rep(c("13:00 - 16:15 Uhr"), length(Datum)),
+       Raum = rep(c("G-107"), length(Datum)),
+       "Geplanter Kursinhalt" = c("Kursvorstellung und erste Schritte",
+                                  "Datenanalyse mit dem Tidyverse",
+                                  "Visualisierungen mit ggplot2",
+                                  "Umgang mit unordentlichen Daten",
+                                  "Zusammenführen mehrerer Datensätze",
+                                  "Geodaten - R als GIS",
+                                  "Vorbereitung Kurzpräsentationen / Selbstlernen",
+                                  "Kurzpräsentationen")) %>% 
+  kableExtra::kable("pipe") 
+
+```

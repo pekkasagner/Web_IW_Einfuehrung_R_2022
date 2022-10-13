@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Datenanalyse und -visualisierung</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis_changed.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts_changed.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Datenanalyse und -visualisierung
+## mit der Programmiersprache R
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span&gt;&amp;emsp;
+  Pekka Sagner M.Sc.
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  Datenanalyse und -visualisierung&lt;/span&gt; 
+&lt;/div&gt;
+
+
+
+ 
+
+---
+#Datenanalyse und -visualisierung
+
+## mit der Programmiersprache R
+
+.split3070_left[
+
+### Pekka Sagner M.Sc.
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> sagner@iwkoeln.de](mailto:sagner@iwkoeln.de)&lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg> iwkoeln.de/.../pekka-sagner](https://www.iwkoeln.de/institut/personen/pekka-sagner.html)&lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> @pekkasagner](http://github.com/pekkasagner)
+
+Sommersemester 2022
+
+.font60[Letzte Aktualisierung:  08. Juni 2022
+]
+
+]
+
+.split3070_right[
+&lt;br/&gt;&lt;br/&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+## Geodaten
+]
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 200px;
+height: 128px;
+z-index: 0;
+background-image: url(images/logo_print_studierende.jpg);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Kennenlernen der Grundstruktur von Geodaten
++ Visualisierung von Geodaten
+
+.center[
+&lt;img src="images/geo_1.png" width="250px"&gt; 
+]
+
+
+
++ Leseempfehlungen:
+    + [Geocomputation with R (Lovelace et al., 2021)](https://geocompr.robinlovelace.net/index.html)
+    + [ggplot2: Elegant Graphics for Data Analysis, Kapitel 6.2 ff (Wickham et al., 2021)](https://ggplot2-book.org/maps.html)
+    + [Vignettes for the sf-package (Pebesma et al., 2021)](https://cran.r-project.org/web/packages/sf/)
+
+---
+class: clear, inverse, middle, center
+
+# Was sind Geodaten?
+
+---
+# Was sind Geodaten?
++ Geodaten sind Informationen, die im Zusammenhang mit der Erde stehen. Sie beschreiben eine räumliche Lage.
+
++ Geodaten können in ihre **geometrische Form** (engl.: shape/geometry) und ihre zugehörigen **Sachinformationen (Attribute)** geteilt werden.
+
++ Beispiele für Geodaten:
+ 
+.center[&lt;img src="images/geo_2_wiki.png" width="600px"&gt;
+.font50[Quelle: [GDF Hannover](http://gdf-hannover.de/)]
+]
+
+---
+# Geodaten leicht gemacht
+
++ Die Visualisierung von simplen Geoinformationen unterscheidet sich nicht wesentlich von der Visualisierung anderer Daten. 
+
++ Bei Punktdaten im zweidimensionalen Raum bedarf es beispielsweise eines x-Wertes und eines y-Wertes, um diesen zu visualisieren. 
+
++ Übertragen auf die Erdkugel bedarf es eines Längen- und Breitengrades. 
+
++ Hinzu kommt eine **Projektion** (z.B. [Mercator-Projektion](https://de.wikipedia.org/wiki/Mercator-Projektion)) und ein [**geodätisches Datum**](https://de.wikipedia.org/wiki/Geod%C3%A4tisches_Datum#:~:text=Das%20geod%C3%A4tische%20Datum%20(lat.,in%20Bezug%20auf%20den%20Erdk%C3%B6rper.&amp;text=Dazu%20geh%C3%B6ren%20Informationen%20%C3%BCber%20die,und%20den%20Ma%C3%9Fstab%20des%20Koordinatensystems.).
+
++ Beide Informationen zusammen bilden ein [**Koordinatenrefernzsystem**](https://de.wikipedia.org/wiki/Koordinatenreferenzsystem).
+
++ Das geodätische Datum trifft Annahmen bezüglich des Erdmittelpunkts, des Ursprungs von Längen und Breitengrad, usw.
+
++ Das Koordinatenreferenzsystem bestimmt, wie die elipsoide Erdoberfläche auf einen zweidimensionalen Raum (Karte) übertragen wird. 
+
++ Mehr Informationen in [ggplot2: Elegant Graphics for Data Analysis, Kapitel 6.3 (Wickham et al., 2021)](https://ggplot2-book.org/maps.html).
+
+---
+# Geodaten leicht gemacht
+
++ Geodaten werden in vielerlei Formen bereitgestellt. Zu den häufig verwendeten gehört das Shapefile-Format von ESRI. 
+
++ Weitere geläufige Geodatenformate sind:
+    + [kml](https://de.wikipedia.org/wiki/Keyhole_Markup_Language)
+    + [GeoJSON](https://de.wikipedia.org/wiki/GeoJSON)
+    
++ R kann mit den meisten Geodatenformaten umgehen.
+
+---
+# Geodaten in den Sozialwissenschaften
+
++ Die Visualisierung von Attributen im geografischen Raum bietet sich dann an, wenn wir die regionalen Unterschiede in den Attributen betonen möchten.
+
++ Oft liegen uns sozio-ökonomische Daten auf der Ebene von Raumeinheiten vor.
+
++ Eine Landkarte, die die Ausprägung eines Attributs in einer Raumeinheit darstellt, erweitert anderweitige Abbildungen um eine weitere Dimension.
+
++ `R` kann noch viel mehr als das, z. B. die Berechnung von Distanzen, geografische Verschneidungen, 3D-Visualisierungen, ...
+
+---
+class: clear, inverse, middle, center
+
+#Geodaten mit dem Paket `sf`
+
+.center[&lt;img src="images/sf.gif" &gt;]
+
+
+---
+# Visualisierung von Geodaten mit `sf`
+
++ Das Paket `sf` erlaubt uns das Arbeiten mit Geodaten, in der uns bekannten `Tidyverse`-Syntax.
+
+### Arbeit mit Geodaten anhand eines Beispiels:
+
++ **Ziel**: Visualisierung der **durchschnittlichen Arbeitslosenquote** in den **Bundesländern**.
+
++ Neben einigen Funktionen aus dem Paket `sf` brauchen wir, wie immer, Daten:
+    + Im Beispiel sind das die Daten, die wir visualisieren möchten (**Attribute**), hier die Arbeitslosenquote je Bundesland,
+    + und zusätzlich die **Geometrien**, hier die Umrisse der Bundesländer.
+    
+    
+---
+# Quellen für Geodaten
+
++ Eine Google Suche á la: ***Shapefile "Name der Raumeinheit"*** oder ***geojson "Name der Raumeinheit"*** fördert meist das gewünschte Ergebnis zu Tage.
+
++ Shapefiles für die deutschen Verwaltungsgebiete stellt zum Beispiel das [Bundesamt für Kartographie und Geodäsie](https://gdz.bkg.bund.de/index.php/default/open-data.html) bereit.
+
++ Es gibt darüber hinaus einige `R`-Pakete, die den Download von Geoinformationen direkt aus `R` heraus ermöglichen.
+
++ Besonderheit bei [Shapefiles](https://de.wikipedia.org/wiki/Shapefile):
+    + Ein Shapefile ist keine einzelne Datei, es besteht aus mindestens drei Dateien:
+    + **.shp** dient zur Speicherung der Geometriedaten
+    + **.dbf** Sachdaten (auch Attributdaten genannt) im dBASE-Format
+    + **.shx** dient als Index der Geometrie zur Verknüpfung der Sachdaten
+    + Beim Einladen der Daten in `R` spielt das jedoch keine Rolle.
+---
+class: clear, inverse, middle, center
+
+# Praxisbeispiel
+## .center[Geoinformationen einlesen]
+
+---
+# Geoinformationen einlesen
+
++ Um ein Shapefile einzulesen, wählen wir eines der Shapefile-Teile aus.
+
++ Wir lesen Geodaten mit der Funktion `read_sf()` aus dem Paket `sf` ein.
+
++ Die Funktion kann mit vielen weiteren Geodatenformaten umgehen.
+
+
+
+```r
+library(tidyverse)
+library(sf)
+
+bundeslaender &lt;- read_sf("data/Bundesland_clean/Bundesland_shape_clean.shp")
+```
+
++ `sf` steht für [**Simple Features**](https://de.wikipedia.org/wiki/Simple_Feature_Access), eine &amp;raquo;**allgemein gültige Architektur für geografische Daten**&amp;laquo;.
+
++ Für die Visualisierung relevant ist, dass sich `sf`-Objekte mit der bekannten `ggplot`-Syntax visualisieren lassen.
+
++ `sf`-Objekte können darüber hinaus mit der bekannten Syntax verändert werden.
+
+---
+class: font90 code90
+
+# Geoinformationen einlesen
+## Struktur eines `sf`-Objekts
+
+
+```r
+bundeslaender
+```
+
+```
+#&gt; Simple feature collection with 16 features and 2 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 280353.1 ymin: 5235878 xmax: 921261.6 ymax: 6101302
+#&gt; Projected CRS: ETRS89 / UTM zone 32N
+#&gt; # A tibble: 16 x 3
+#&gt;    AGS   GEN                                                                                                   geometry
+#&gt;    &lt;chr&gt; &lt;chr&gt;                                                                                       &lt;MULTIPOLYGON [m]&gt;
+#&gt;  1 01    Schleswig-Holstein     (((428802.8 6004127, 427486.6 6003257, 426225.6 6005019, 428337.4 6004906, 429478.9 ...
+#&gt;  2 02    Hamburg                (((464521.5 5978903, 462755.7 5977541, 461955.5 5977811, 463123.4 5978641, 463129.9 ...
+#&gt;  3 03    Niedersachsen          (((358703.9 5939438, 357875.2 5940047, 358627.9 5940777, 359379 5940364, 358703.9 59...
+#&gt;  4 04    Bremen                 (((471012 5933445, 468446.4 5938237, 467569.6 5939474, 468140.2 5939786, 470697.3 59...
+#&gt;  5 05    Nordrhein-Westfalen    (((497895.6 5706077, 492410 5703432, 494508.2 5699391, 494405.4 5697709, 496185.7 56...
+#&gt;  6 06    Hessen                 (((437411.5 5569859, 437085.4 5572675, 436232.1 5573150, 436456.3 5574899, 434912.8 ...
+#&gt;  7 07    Rheinland-Pfalz        (((375299.1 5490019, 375152.4 5491292, 374508.3 5492528, 374687.3 5493799, 373329 54...
+#&gt;  8 08    Baden-Württemberg      (((477730.9 5284628, 478787.9 5282116, 478115.3 5281851, 476810.6 5282473, 474974.2 ...
+#&gt;  9 09    Bayern                 (((609304 5267896, 611412.8 5271124, 610698.9 5271411, 607945.5 5271010, 607563.7 52...
+#&gt; 10 10    Saarland               (((361552.9 5446473, 360071.7 5445778, 360504 5443598, 359332.9 5443107, 358827 5441...
+#&gt; 11 11    Berlin                 (((791413.7 5842844, 790893.8 5842428, 791533.4 5841333, 791395.6 5839623, 794035.4 ...
+#&gt; 12 12    Brandenburg            (((785946.5 5753693, 785639.8 5754990, 784317.3 5756006, 781094.8 5754818, 780962.7 ...
+#&gt; 13 13    Mecklenburg-Vorpommern (((781646 6013699, 782498.3 6012606, 784820.1 6013162, 785221.3 6012500, 782852.8 60...
+#&gt; 14 14    Sachsen                (((753976.9 5653939, 753032 5655691, 751452.6 5654801, 751573.8 5653912, 749135.5 56...
+#&gt; 15 15    Sachsen-Anhalt         (((668257.8 5690780, 667266.6 5690798, 666512.6 5693214, 666784.7 5695026, 665467.5 ...
+#&gt; 16 16    Thüringen              (((726497.5 5648383, 727596.7 5650422, 727072.6 5650537, 727318.6 5651669, 730241.1 ...
+```
+
++ Die Datenstruktur eines `sf`-Objekts ist ein Tibble.
+
++ Unterschiede zum klassischen Fall liegen in den Informationen hinsichtlich des Koordinatenrefernzsystems und der Variable `geometry`.
+
+
+---
+class: clear, inverse, middle, center
+
+# Praxisbeispiel
+## .center[Rohe Geoinformationen visualisieren]
+
+---
+# Rohe Geoinformationen visualisieren
+
+.pull-left[
+
+```r
+bundeslaender %&gt;% 
+*         ggplot(aes(geometry = geometry)) +
+*         geom_sf()
+```
+
++ Bei der Visualisierung von `sf`-Objekten gibt es nur zwei wesentliche Unterschiede zu den uns bekannten Visualierungsformen.
+
++ Anstelle einer `x` und/oder `y`-Aesthetic nutzen wir die ausschließlich `sf`-Objekten vorbehaltene `geometry`-Aesthetic. (Hier wird der `geometry`-Aesthetic die Variable mit dem Namen *geometry* zugewiesen.)
+
++ Darüber hinaus nutzen wir das `geom`, das `sf`-Objekten vorbehalten ist: `geom_sf()`
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-3-1.png" width="100%" /&gt;
+]
+
+---
+class: clear, inverse, middle, center
+
+# Praxisbeispiel
+## .center[Geoinformationen und Attribute kombinieren]
+
+---
+# Geoinformationen und Attribute kombinieren
+
++ Bis hierhin haben wir nur die Geometrie selbst visualisiert.
+
++ In der Regel ist das nicht das Ziel.
+
++ Wir sind vielmehr am Attribut interessiert, dass wir mithilfe der Geometrie visualisieren möchten.
+
++ Geometrien sind &amp;raquo;**sticky**&amp;laquo;. 
+
++ Das heißt, wir können wie gewohnt zwei Tabellen (Tibbles) miteinander verbinden.
+
++ Wie? .font200[&amp;rarr;] Im Zweifel mit einem **Left Join**:
+
+
+```r
+geodaten_mit_attributen &lt;- rohgeodaten %&gt;% 
+          left_join(attribute)
+```
+
++ Dabei steht auf der linken Seite des Joins das `sf`-Objekt, rechts der Tibble, der die Attribute enhält, die wir an die Geoinformationen anknüpfen.
+
+---
+class: font90 code110
+# Attribute einladen
+
+
+```r
+(alq &lt;- read_csv("data/Arbeitslosenquote_Bundeslaender_clean.csv")
+)
+```
+
+```
+#&gt; # A tibble: 16 x 3
+#&gt;    Kennziffer Raumeinheit            Arbeitslosenquote
+#&gt;    &lt;chr&gt;      &lt;chr&gt;                              &lt;dbl&gt;
+#&gt;  1 01         Schleswig-Holstein                   6  
+#&gt;  2 02         Hamburg                              6.8
+#&gt;  3 03         Niedersachsen                        5.8
+#&gt;  4 04         Bremen                              10.2
+#&gt;  5 05         Nordrhein-Westfalen                  7.4
+#&gt;  6 06         Hessen                               5  
+#&gt;  7 07         Rheinland-Pfalz                      4.8
+#&gt;  8 08         Baden-Württemberg                    3.5
+#&gt;  9 09         Bayern                               3.2
+#&gt; 10 10         Saarland                             6.7
+#&gt; 11 11         Berlin                               9  
+#&gt; 12 12         Brandenburg                          7  
+#&gt; 13 13         Mecklenburg-Vorpommern               8.6
+#&gt; 14 14         Sachsen                              6.7
+#&gt; 15 15         Sachsen-Anhalt                       8.4
+#&gt; 16 16         Thüringen                            6.1
+```
+
+
+---
+class: font90 code110
+# Geometrien und Attribute kombinieren
+
+
+```r
+(joined_bundeslaender_alq &lt;- bundeslaender %&gt;% 
+           left_join(alq, by = c("AGS" = "Kennziffer")) # Auswahl der keys
+)
+```
+
+```
+#&gt; Simple feature collection with 16 features and 4 fields
+#&gt; Geometry type: MULTIPOLYGON
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 280353.1 ymin: 5235878 xmax: 921261.6 ymax: 6101302
+#&gt; Projected CRS: ETRS89 / UTM zone 32N
+#&gt; # A tibble: 16 x 5
+#&gt;    AGS   GEN                                                                      geometry Raumeinheit       Arbeitslosenquo~
+#&gt;    &lt;chr&gt; &lt;chr&gt;                                                          &lt;MULTIPOLYGON [m]&gt; &lt;chr&gt;                        &lt;dbl&gt;
+#&gt;  1 01    Schleswig-Holstein     (((428802.8 6004127, 427486.6 6003257, 426225.6 6005019, ~ Schleswig-Holste~              6  
+#&gt;  2 02    Hamburg                (((464521.5 5978903, 462755.7 5977541, 461955.5 5977811, ~ Hamburg                        6.8
+#&gt;  3 03    Niedersachsen          (((358703.9 5939438, 357875.2 5940047, 358627.9 5940777, ~ Niedersachsen                  5.8
+#&gt;  4 04    Bremen                 (((471012 5933445, 468446.4 5938237, 467569.6 5939474, 46~ Bremen                        10.2
+#&gt;  5 05    Nordrhein-Westfalen    (((497895.6 5706077, 492410 5703432, 494508.2 5699391, 49~ Nordrhein-Westfa~              7.4
+#&gt;  6 06    Hessen                 (((437411.5 5569859, 437085.4 5572675, 436232.1 5573150, ~ Hessen                         5  
+#&gt;  7 07    Rheinland-Pfalz        (((375299.1 5490019, 375152.4 5491292, 374508.3 5492528, ~ Rheinland-Pfalz                4.8
+#&gt;  8 08    Baden-Württemberg      (((477730.9 5284628, 478787.9 5282116, 478115.3 5281851, ~ Baden-Württemberg              3.5
+#&gt;  9 09    Bayern                 (((609304 5267896, 611412.8 5271124, 610698.9 5271411, 60~ Bayern                         3.2
+#&gt; 10 10    Saarland               (((361552.9 5446473, 360071.7 5445778, 360504 5443598, 35~ Saarland                       6.7
+#&gt; 11 11    Berlin                 (((791413.7 5842844, 790893.8 5842428, 791533.4 5841333, ~ Berlin                         9  
+#&gt; 12 12    Brandenburg            (((785946.5 5753693, 785639.8 5754990, 784317.3 5756006, ~ Brandenburg                    7  
+#&gt; 13 13    Mecklenburg-Vorpommern (((781646 6013699, 782498.3 6012606, 784820.1 6013162, 78~ Mecklenburg-Vorp~              8.6
+#&gt; 14 14    Sachsen                (((753976.9 5653939, 753032 5655691, 751452.6 5654801, 75~ Sachsen                        6.7
+#&gt; 15 15    Sachsen-Anhalt         (((668257.8 5690780, 667266.6 5690798, 666512.6 5693214, ~ Sachsen-Anhalt                 8.4
+#&gt; 16 16    Thüringen              (((726497.5 5648383, 727596.7 5650422, 727072.6 5650537, ~ Thüringen                      6.1
+```
+
+---
+class: clear, inverse, middle, center
+
+# Praxisbeispiel
+## .center[Geometrien und Attribute visualisieren]
+
+---
+# Geometrien und Attribute visualisieren
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+          ggplot(aes(geometry = geometry, 
+*                    fill = Arbeitslosenquote)) +
+          geom_sf() 
+```
+
++ Der `fill`-Aesthetic wird das zu visualisierende Attribut zugewiesen.
+
++ Ist man an diesem Punkt angekommen, ist alles Weitere Kosmetik...
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-7-1.png" width="100%" /&gt;
+]
+
+---
+# Geometrien und Attribute visualisieren
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+          ggplot(aes(geometry = geometry, 
+                     fill = Arbeitslosenquote)) + 
+          geom_sf() +
+*         theme_void()
+```
+
++ So bietet es sich für Karten an, Längen- und Breitengrad sowie die entsprechenden Achsen im Hintergrund auszublenden.
+
++ Hierfür kann man das Theme mit der Funktion `theme_void()` anpassen.
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-8-1.png" width="100%" /&gt;
+]
+
+
+---
+# Geometrien und Attribute visualisieren
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+          ggplot(aes(geometry = geometry, 
+                     fill = Arbeitslosenquote)) + 
+          geom_sf() +
+          theme_void() +
+*         scale_fill_viridis_b()
+```
+
++ Die Farbskala lässt sich wie gewohnt anpassen.
+
++ Optional: `scale_fill_viridis_b()` gruppiert die kontinuierliche Variable und weist dann erst die Farben zu.
+
++ Die Gruppierung vom Beobachtungen auf Basis von kontinuierlichen Variablen ist ein nützliches Tool. 
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-9-1.png" width="100%" /&gt;
+]
+
+---
+class: clear, inverse, middle, center
+
+# Exkurs
+## .center[Gruppieren von Daten]
+
+
+
+---
+# Exkurs: Gruppieren von Daten
+
++ Es gibt verschiedene Möglichkeiten, Daten auf Basis von kontinuierlichen Variablen zu Gruppieren.
+
++ Eine bequeme Möglichkeit bieten die `cut_...()`-Funktionen.
+    + `cut_interval()` erstellt `n` Gruppen mit gleichem Intervall.
+    + `cut_number()` erstellt `n` Gruppen mit (ungefähr) gleicher Anzahl an Beobachtungen.
+    + `cut_width()` erstellt Gruppen der Breite `width`.
+
++ Etwas flexibler ist die sehr nützliche Funktion `case_when()`.
+    + Sie hat den entscheidenen Vorteil, dass sie auch für die Gruppierung von nichtnumerischen Variablen genutzt werden kann.
+    + Logische Struktur der Funktion:
+
+
+```r
+    case_when(logischer Test 1 ~ mach das,
+              logischer Test 2 ~ mach dies,
+              logischer Test 3 ~ mach jenes,
+              ... ~ ...)
+```
+
+
+
+---
+class: font90 code110
+# Exkurs: Gruppieren von Daten
+##`cut_interval()`
+
+
+
+```r
+alq %&gt;% 
+*         mutate(gruppe = cut_interval(Arbeitslosenquote, n = 4)) %&gt;%
+          add_count(gruppe) #wieviele Beob. je Gruppe?
+```
+
+```
+#&gt; # A tibble: 16 x 5
+#&gt;    Kennziffer Raumeinheit            Arbeitslosenquote gruppe          n
+#&gt;    &lt;chr&gt;      &lt;chr&gt;                              &lt;dbl&gt; &lt;fct&gt;       &lt;int&gt;
+#&gt;  1 01         Schleswig-Holstein                   6   (4.95,6.7]      4
+#&gt;  2 02         Hamburg                              6.8 (6.7,8.45]      6
+#&gt;  3 03         Niedersachsen                        5.8 (4.95,6.7]      4
+#&gt;  4 04         Bremen                              10.2 (8.45,10.2]     3
+#&gt;  5 05         Nordrhein-Westfalen                  7.4 (6.7,8.45]      6
+#&gt;  6 06         Hessen                               5   (4.95,6.7]      4
+#&gt;  7 07         Rheinland-Pfalz                      4.8 [3.2,4.95]      3
+#&gt;  8 08         Baden-Württemberg                    3.5 [3.2,4.95]      3
+#&gt;  9 09         Bayern                               3.2 [3.2,4.95]      3
+#&gt; 10 10         Saarland                             6.7 (6.7,8.45]      6
+#&gt; 11 11         Berlin                               9   (8.45,10.2]     3
+#&gt; 12 12         Brandenburg                          7   (6.7,8.45]      6
+#&gt; 13 13         Mecklenburg-Vorpommern               8.6 (8.45,10.2]     3
+#&gt; 14 14         Sachsen                              6.7 (6.7,8.45]      6
+#&gt; 15 15         Sachsen-Anhalt                       8.4 (6.7,8.45]      6
+#&gt; 16 16         Thüringen                            6.1 (4.95,6.7]      4
+```
+
+
+---
+class: font90 code110
+# Exkurs: Gruppieren von Daten
+##`cut_number()`
+
+
+
+```r
+alq %&gt;% 
+*         mutate(gruppe = cut_number(Arbeitslosenquote, n = 4)) %&gt;%
+          add_count(gruppe) #wieviele Beob. je Gruppe?
+```
+
+```
+#&gt; # A tibble: 16 x 5
+#&gt;    Kennziffer Raumeinheit            Arbeitslosenquote gruppe          n
+#&gt;    &lt;chr&gt;      &lt;chr&gt;                              &lt;dbl&gt; &lt;fct&gt;       &lt;int&gt;
+#&gt;  1 01         Schleswig-Holstein                   6   (5.6,6.7]       5
+#&gt;  2 02         Hamburg                              6.8 (6.7,7.65]      3
+#&gt;  3 03         Niedersachsen                        5.8 (5.6,6.7]       5
+#&gt;  4 04         Bremen                              10.2 (7.65,10.2]     4
+#&gt;  5 05         Nordrhein-Westfalen                  7.4 (6.7,7.65]      3
+#&gt;  6 06         Hessen                               5   [3.2,5.6]       4
+#&gt;  7 07         Rheinland-Pfalz                      4.8 [3.2,5.6]       4
+#&gt;  8 08         Baden-Württemberg                    3.5 [3.2,5.6]       4
+#&gt;  9 09         Bayern                               3.2 [3.2,5.6]       4
+#&gt; 10 10         Saarland                             6.7 (5.6,6.7]       5
+#&gt; 11 11         Berlin                               9   (7.65,10.2]     4
+#&gt; 12 12         Brandenburg                          7   (6.7,7.65]      3
+#&gt; 13 13         Mecklenburg-Vorpommern               8.6 (7.65,10.2]     4
+#&gt; 14 14         Sachsen                              6.7 (5.6,6.7]       5
+#&gt; 15 15         Sachsen-Anhalt                       8.4 (7.65,10.2]     4
+#&gt; 16 16         Thüringen                            6.1 (5.6,6.7]       5
+```
+
+---
+class: font90 code110
+# Exkurs: Gruppieren von Daten
+##`cut_width()`
+
+
+
+```r
+alq %&gt;% 
+*         mutate(gruppe = cut_width(Arbeitslosenquote, width = 2)) %&gt;%
+          add_count(gruppe) #wieviele Beob. je Gruppe?
+```
+
+```
+#&gt; # A tibble: 16 x 5
+#&gt;    Kennziffer Raumeinheit            Arbeitslosenquote gruppe     n
+#&gt;    &lt;chr&gt;      &lt;chr&gt;                              &lt;dbl&gt; &lt;fct&gt;  &lt;int&gt;
+#&gt;  1 01         Schleswig-Holstein                   6   (5,7]      7
+#&gt;  2 02         Hamburg                              6.8 (5,7]      7
+#&gt;  3 03         Niedersachsen                        5.8 (5,7]      7
+#&gt;  4 04         Bremen                              10.2 (9,11]     1
+#&gt;  5 05         Nordrhein-Westfalen                  7.4 (7,9]      4
+#&gt;  6 06         Hessen                               5   [3,5]      4
+#&gt;  7 07         Rheinland-Pfalz                      4.8 [3,5]      4
+#&gt;  8 08         Baden-Württemberg                    3.5 [3,5]      4
+#&gt;  9 09         Bayern                               3.2 [3,5]      4
+#&gt; 10 10         Saarland                             6.7 (5,7]      7
+#&gt; 11 11         Berlin                               9   (7,9]      4
+#&gt; 12 12         Brandenburg                          7   (5,7]      7
+#&gt; 13 13         Mecklenburg-Vorpommern               8.6 (7,9]      4
+#&gt; 14 14         Sachsen                              6.7 (5,7]      7
+#&gt; 15 15         Sachsen-Anhalt                       8.4 (7,9]      4
+#&gt; 16 16         Thüringen                            6.1 (5,7]      7
+```
+
+---
+class: font90 code110
+# Exkurs: Gruppieren von Daten
+##`case_when()`
+
+
+
+```r
+alq %&gt;% 
+          mutate(gruppe = case_when(Arbeitslosenquote &lt; 5 ~ "kleiner als 5 Prozent",
+                                    between(Arbeitslosenquote, 5, 8) ~ "5 bis 8 Prozent",
+                                    Arbeitslosenquote &gt; 8 ~ "größer als 8 Prozent")) %&gt;% 
+          add_count(gruppe) #wieviele Beob. je Gruppe?
+```
+
+```
+#&gt; # A tibble: 16 x 5
+#&gt;    Kennziffer Raumeinheit            Arbeitslosenquote gruppe                    n
+#&gt;    &lt;chr&gt;      &lt;chr&gt;                              &lt;dbl&gt; &lt;chr&gt;                 &lt;int&gt;
+#&gt;  1 01         Schleswig-Holstein                   6   5 bis 8 Prozent           9
+#&gt;  2 02         Hamburg                              6.8 5 bis 8 Prozent           9
+#&gt;  3 03         Niedersachsen                        5.8 5 bis 8 Prozent           9
+#&gt;  4 04         Bremen                              10.2 größer als 8 Prozent      4
+#&gt;  5 05         Nordrhein-Westfalen                  7.4 5 bis 8 Prozent           9
+#&gt;  6 06         Hessen                               5   5 bis 8 Prozent           9
+#&gt;  7 07         Rheinland-Pfalz                      4.8 kleiner als 5 Prozent     3
+#&gt;  8 08         Baden-Württemberg                    3.5 kleiner als 5 Prozent     3
+#&gt;  9 09         Bayern                               3.2 kleiner als 5 Prozent     3
+#&gt; 10 10         Saarland                             6.7 5 bis 8 Prozent           9
+#&gt; 11 11         Berlin                               9   größer als 8 Prozent      4
+#&gt; 12 12         Brandenburg                          7   5 bis 8 Prozent           9
+#&gt; 13 13         Mecklenburg-Vorpommern               8.6 größer als 8 Prozent      4
+#&gt; 14 14         Sachsen                              6.7 5 bis 8 Prozent           9
+#&gt; 15 15         Sachsen-Anhalt                       8.4 größer als 8 Prozent      4
+#&gt; 16 16         Thüringen                            6.1 5 bis 8 Prozent           9
+```
+
+
+---
+class: code100 font100
+# Exkurs: Gruppieren von Daten
+## `cut_interval()` - Visualisierung
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+*         mutate(gruppe = cut_interval(Arbeitslosenquote, n = 4)) %&gt;%
+          ggplot(aes(geometry = geometry, 
+                     fill = gruppe)) + 
+          geom_sf() +
+          theme_void() +
+          scale_fill_viridis_d() 
+```
+
+
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-15-1.png" width="100%" /&gt;
+]
+
+
+---
+class: code100 font100
+# Exkurs: Gruppieren von Daten
+## `cut_number()` - Visualisierung
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+*         mutate(gruppe = cut_number(Arbeitslosenquote, n = 4)) %&gt;%
+          ggplot(aes(geometry = geometry, 
+                     fill = gruppe)) + 
+          geom_sf() +
+          theme_void() +
+          scale_fill_viridis_d() 
+```
+
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-16-1.png" width="100%" /&gt;
+]
+
+
+---
+class: code100 font100
+# Exkurs: Gruppieren von Daten
+## `cut_width()` - Visualisierung
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+*         mutate(gruppe = cut_width(Arbeitslosenquote, width = 2.0)) %&gt;%
+          ggplot(aes(geometry = geometry, 
+                     fill = gruppe)) + 
+          geom_sf() +
+          theme_void() +
+          scale_fill_viridis_d() 
+```
+
+
+]
+
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-17-1.png" width="100%" /&gt;
+]
+
+
+---
+class: code100 font95
+# Exkurs: Gruppieren von Daten
+## `case_when()` - Visualisierung
+
+.pull-left[
+
+```r
+joined_bundeslaender_alq %&gt;% 
+*         mutate(gruppe = case_when(
+*                   Arbeitslosenquote &lt; 5 ~ "kleiner als 5 Prozent",
+*                   between(Arbeitslosenquote, 5, 8) ~ "5 bis 8 Prozent",
+*                   Arbeitslosenquote &gt; 8 ~ "größer als 8 Prozent")) %&gt;%
+          mutate(gruppe = factor(gruppe, 
+                                 levels = c("kleiner als 5 Prozent",
+                                             "5 bis 8 Prozent",
+                                             "größer als 8 Prozent"))) %&gt;% 
+          ggplot(aes(geometry = geometry, 
+                     fill = gruppe)) + 
+          geom_sf() +
+          theme_void() +
+          scale_fill_viridis_d()
+```
+
++ Im Gegensatz zu den `cut_...()`-Funktionen, erstellt `case_when()` keinen (geordneten) Faktorvektor, sondern einen Charactervektor.
+
++ Für die gewünschte Ordnung, bei der Visualisierung, erstellen wir also zuerst einen Faktorvektor und ordnen die `levels`.
+
+]
+
+.pull-right[
+&lt;img src="figs/unnamed-chunk-18-1.png" width="100%" /&gt;
+]
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach &lt;img src="images/rstudio.svg" width="250px"&gt;.  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%<br>",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    if (preNodes.length < 2) return;
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details " +
+      (el.classList.contains("open") ? "open " : "") +
+      "class='output'><summary>Ergebnis anzeigen</summary>" +
+      outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

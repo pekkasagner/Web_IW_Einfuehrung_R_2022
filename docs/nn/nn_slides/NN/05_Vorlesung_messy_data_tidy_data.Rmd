@@ -1,0 +1,476 @@
+---
+title: "Datenanalyse und -visualisierung"
+subtitle: "mit der Programmiersprache R"
+output: 
+  xaringan::moon_reader:
+    includes:
+      after_body: "css/collapse-output.html"
+    self_contained: true
+    css:
+    # [default, tamu, tamu-fonts]
+     - css/default.css
+     - css/metropolis_changed.css
+     - css/metropolis-fonts_changed.css
+    lib_dir: libs
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%<br>"
+      ratio: "16:9"
+---
+
+layout: true
+
+<div class="my-footer">
+  <span>&emsp;
+  Pekka Sagner M.Sc.
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;&emsp;&emsp;
+  Datenanalyse und -visualisierung</span> 
+</div>
+
+
+```{r setup, include=FALSE}
+pacman::p_load(tidyverse, fontawesome, tidyverse, knitr, xaringanExtra)
+
+options(
+    htmltools.dir.version = FALSE,
+    knitr.table.format = "html",
+    knitr.kable.NA = ""
+)
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 7.252,
+    fig.height = 4,
+    comment = "#>",
+    fig.retina = 3 # Better figure resolution
+)
+# Enables the ability to show all slides in a tile overview by pressing "o"
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = "all")
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,
+  mute_unhighlighted_code = FALSE
+)
+# xaringanExtra::use_logo(
+#   image_url = "images/logo_print_studierende.jpg",
+#   position = xaringanExtra::css_position(top = "1em", right = "1em")
+# )
+
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+```
+ 
+
+---
+#Datenanalyse und -visualisierung
+
+## mit der Programmiersprache R
+
+.split3070_left[
+
+### Pekka Sagner M.Sc.
+
+[`r fa(name = "envelope", fill = "black")` sagner@iwkoeln.de](mailto:sagner@iwkoeln.de)<br>
+[`r fa(name = "user", fill = "black")` iwkoeln.de/.../pekka-sagner](https://www.iwkoeln.de/institut/personen/pekka-sagner.html)<br>
+[`r fa(name = "github", fill = "black")` @pekkasagner](http://github.com/pekkasagner)
+
+Sommersemester 2022
+
+.font60[Letzte Aktualisierung:  `r format(Sys.time(), '%d. %B %Y')`
+]
+
+]
+
+.split3070_right[
+<br/><br/>
+<br/><br/>
+
+## Säubern von Daten
+]
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "images/logo_print_studierende.jpg", # top right corner
+  width = "200px" 
+)
+```
+
+
+---
+#Inhalte und Ziele der Sitzung
+
++ Umgang mit &raquo;unsauberen&laquo; Daten.
++ Transformieren von Daten vom Wide-Format ins Long-Format und vice-versa.
++ Aufteilen und Zusammenführen von Spalten.
+
+.center[
+<img src="images/tidyr.svg" width="200px"> 
+]
+
+.right[
+.font50[
+Quelle: [github/rstudio.com](https://github.com/rstudio/hex-stickers/blob/master/SVG/tidyr.svg)
+]
+] 
+
++ Leseempfehlungen:
+    + [R4DS, Kapitel 12 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/tidy-data.html)
+    + [Data Organization in Spreadsheets (Broman/Woo, 2018)](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989)
+    + [Tidy Data (Wickham, 2014)](https://www.jstatsoft.org/article/view/v059i10)
+
+
+---
+class: clear, inverse, middle, center
+
+# Tidy Data?
+.center[(Wiederholung)]
+
+---
+# Tidy Data?
+## (Wiederholung)
+
+.left-column[
+.right[
+<img src="images/tidy_variablen.png" width="150px">
+<img src="images/tidy_beobachtungen.png" width="150px">
+<img src="images/tidy_werte.png" width="150px">
+
+]
+]
+
+.right-column[
+<br/>
+<br/>
+### Jede Variable in einer eigenen Spalte.
+<br/>
+<br/>
+### Jede Beobachtung in einer eigenen Zeile.
+<br/>
+<br/>
+### Jeder Wert in einer eigenen Zelle.
+]
+
+
+---
+class: clear, inverse, middle, center
+# Messy Data $\rightsquigarrow$ Tidy Data
+
+---
+# Messy Data $\rightsquigarrow$ Tidy Data
+
+> “Tidy datasets are all alike, but every messy dataset is messy in its own way.” ~ Hadley Wickham
+
++ Der erste Schritt, um unordentliche Daten in ein ordentliches Format zu überführen, ist es, die Datenstruktur zu verstehen.
+
++ Danach muss geprüft werden, ob die drei Bedingungen für ordentliche Daten erfüllt sind.
+
+.column[
+  
++ Steht jede Variable in einer eigenen Spalte? 
+
++ Steht jede Beobachtung in einer eigenen Zeile? 
+
++ Steht jeder Wert in einer eigenen Zelle?
+
+]
+
+.column[
+.center[
+
+Nein? .font200[&rarr;]
+<br/>
+Nein? .font200[&rarr;]
+<br/>
+Nein? .font200[&rarr;]
+]
+]
+
+.column[
+  <img src="images/tidyr.svg" width="450px"> .font50[Quelle: [github/rstudio.com](https://github.com/rstudio/hex-stickers/blob/master/SVG/tidyr.svg)]
+]
+
+---
+# Transformieren von Spalten
+
+
++ Für die Transformation von Spalten und Zeilen, **das Drehen** eines Datensatzes, bietet das Paket `tidyr` aus dem Tidyverse die Funktionen 
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+.center[.font150[**`pivot_longer()`** und **`pivot_wider()`**.]]
+
+
+---
+# Transformieren von Spalten
+
+## Zwei Darstellungsformen derselben Daten
+
+.center[
+<img src="images/wide_long.png" width="600px"> 
+]
+.font50[Quelle: [Garrick Aiden-Buie](https://github.com/gadenbuie/tidyexplain)
+]
+---
+# Transformieren von Spalten ins Long-Format
+
+ 
+### Beispiel **Wide-to-Long**:
+```{r echo=F}
+tibble(land_a = c(format(1000000, scientific = F)), land_b = c(1100000),
+       land_c = 1230000) %>% 
+  kableExtra::kable()
+```
+
+### Ziel:
+
+```{r echo=F}
+tibble(land = c("a", "b", "c"), bip = c(format(1000000, scientific = F), format(1100000, scientific = F), format(1230000, scientific = F))) %>% 
+  kableExtra::kable()
+```
+
+
+---
+class: code70
+
+# `pivot_longer()`
+
++ Die Funktion `pivot_longer()` macht einen Datensätz **länger**. 
+
++ Man sagt auch, man bringt einen Datensatz vom **Wide-Format** ins **Long-Format**.
+
++ Ein einfaches, häufig autretendes Beispiel für **Wide-Formate** sind Tabellen im Zusammenhang mit Jahreszahlen:
+
+```{r echo=F}
+tribble(~ "", ~ "2018", ~"2019", ~"2020", ~"2021",
+        "bip", 123, 231, 321, 113) %>% 
+  kableExtra::kable()
+```
+
++ Diese Darstellung ist zwar gut menschenlesbar, aber schlecht maschinenlesbar.
+
++ Wide-Formate sind (meistens) nicht Tidy.
+
+---
+# `pivot_longer()`
+
+## Unsere Beispieldaten (wide-to-long):
+
+```{r}
+(messy_data_1 <- tibble(land_a = 1000000, 
+                        land_b = 1100000,
+                        land_c = 1230000) 
+)
+```
+
+---
+# `pivot_longer()`
+
++ Im einfachsten Fall braucht die Funktion nur einen Input.
+
++ `cols` bezeichnet die Spalten, die in das Long-Format übertragen werden sollen.
+
+```{r}
+messy_data_1  %>% 
+  pivot_longer(cols = everything()) #<<
+```
+
++ Alternativ zur Hilfsfunktion `everything()`, die uns einfach alle Spalten auswählen lässt, könnten wir die Spalten auch explizit als Character-Vektor definieren.
+
+
+---
+# `pivot_longer()`
+
++ Mit `names_to` wird der Name für die Spalte vergeben, deren Inhalt aus den **Spaltennamen** des alten Datensatzes besteht.
+
+
+```{r}
+messy_data_1  %>% 
+  pivot_longer(cols = everything(), 
+               names_to = "land") #<<
+```
+
+---
+# `pivot_longer()`
+
++ Mit `values_to` wird der Name für die Spalte vergeben, deren Inhalt aus den **Zellwerten** des alten Datensatzes besteht.
+
+
+```{r}
+messy_data_1  %>% 
+  pivot_longer(cols = everything(), 
+               names_to = "land", 
+               values_to = "bip") #<<
+```
+
+---
+# `pivot_longer()`
+
++ Mit dem `names_prefix`-Argument können wir schließlich das nicht benötigte `land_`-Präfix entfernen.
+
+
+```{r}
+messy_data_1  %>% 
+  pivot_longer(cols = everything(), 
+               names_to = "land", 
+               values_to = "bip",
+               names_prefix = "land_") #<<
+```
+
+
+---
+# `pivot_wider()`
+
++ Die Funktion `pivot_wider()` macht einen Datensätz **breiter**. 
+
++ Man sagt auch, man bringt einen Datensatz vom **Long-Format* ins *Wide-Format**.
+
++ **Tidy Data** ist im **Long-Format**. 
+
++ Aber Daten im **Long-Format** sind nicht zwingend **Tidy**.
+
++ Deshalb kann es durchaus auch im Sinne des Tidy-Data-Prinzips sinnvoll und notwendig sein, Datensätze in ein breiteres Format zu bringen.
+
+---
+# Transformieren von Spalten ins Wide-Format
+
+### Beispiel **Long-to-Wide**:
+
+.font80[
+```{r echo=F}
+tribble(~ land, ~ typ, ~ wert,
+        "a", "bip", 1000000,
+        "a", "einwohner", 5000,
+        "b", "bip", 1100000,
+        "b", "einwohner", 6000,
+        "c", "bip", 1230000,
+        "c", "einwohner", 4000) %>% 
+  kableExtra::kable()
+```
+]
+
+### Ziel:
+
+```{r echo=F}
+tribble(~ land, ~ bip, ~ einwohner,
+        "a", 1000000, 5000,
+        "b", 1100000, 6000,
+        "c", 1230000, 4000) %>% 
+  kableExtra::kable()
+```
+
+
+---
+class: code70
+# `pivot_wider()`
+
+## Unsere Beispieldaten (Long-to-Wide):
+
+```{r}
+(messy_data_2 <- tribble(~ land, ~ typ, ~ wert,
+        "a", "bip", 1000000,
+        "a", "einwohner", 5000,
+        "b", "bip", 1100000,
+        "b", "einwohner", 6000,
+        "c", "bip", 1230000,
+        "c", "einwohner", 4000)
+)
+```
+
++ *Hinweis: `tribble()` erlaubt die zeilenweise Definition von Tibbles.*
+
+---
+# `pivot_wider()`
+
++ In diesem simplen Fall braucht die Funktion mindestens zwei Inputs, die als Paar **zusammenspielen**.
+
++ `names_from` bezeichnet die Spalte(n), aus der die Werte für die Zielspaltennamen stammen.
+
++ `values_from` bezeichnet die Spalte(n) aus denen die Werte für die entsprechenden Zielspalten stammen.
+
+```{r}
+messy_data_2  %>% 
+  pivot_wider(names_from = typ, #<<
+              values_from = wert) #<<
+```
+
+---
+# `pivot_wider()` und `pivot_wider()`
+
++ Die beiden Funktionen bieten noch zahlreiche Argumente, die in besonderen Konstellationen hilfreich sein können.
+
++ Beispiele für `pivot_longer()` sind hier beschrieben: [https://tidyr.tidyverse.org/reference/pivot_longer.html](https://tidyr.tidyverse.org/reference/pivot_longer.html)
+
++ Beispiele für `pivot_wider()` sind hier beschrieben: [https://tidyr.tidyverse.org/reference/pivot_wider.html](https://tidyr.tidyverse.org/reference/pivot_wider.html)
+
+---
+# Ein weiteres Beispiel für unsaubere Daten
+
+### Beispiel **Teilen von Spalten**:
+
+.font80[
+```{r echo=F}
+tribble(~ land, ~ "bip/einwohner",
+       "a", "1000000/5000",
+       "b", "1100000/6000") %>% 
+  kableExtra::kable()
+```
+]
+
+### Ziel:
+
+```{r echo=F}
+tribble(~ land, ~ bip, ~ einwohner,
+        "a", 1000000, 5000,
+        "b", 1100000, 6000) %>% 
+  kableExtra::kable()
+```
+
+---
+class: code70
+# `separate()`
+
+## Unsere Beispieldaten (separate):
+
+```{r}
+(messy_data_3 <- tribble(~ land, ~ "bip/einwohner",
+       "a", "1000000/5000",
+       "b", "1100000/6000") 
+)
+```
+
+
+---
+class: code70
+# `separate()`
+
++ `separate` erhält als erstes Argument `col` die Spalte, in der wir die Zellenwerte trennen möchten. 
+
++ `into` definiert die Spaltennamen der neuen getrennten Spalten.
+
++ `sep` bezeichnet den Trenn-Character.
+
+```{r}
+messy_data_3 %>% 
+  separate(col = "bip/einwohner",
+           into = c("bip", "einwohner"), 
+           sep = "/")
+```
+
+
++ Der Gegenpart von `separate()` ist die Funktion `unite()`.
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach <img src="images/rstudio.svg" width="250px">.  

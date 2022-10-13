@@ -1,0 +1,65 @@
+---
+title: "Report für Kontinent `r params$continent`"
+author: "Pekka Sagner"
+date: '2022-08-03'
+output: word_document
+params:
+          continent: "Europe"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = F, message = F)
+```
+
+## Die spannendsten Informationen für `r params$continent`
+
+
+```{r load data, include = F}
+library(tidyverse)
+
+(gapminder_raw <- read_csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv")
+)
+
+```
+
+In `r params$continent` gibt es `r gapminder_raw |> filter(continent == params$continent) |> distinct(country) |> count()` Länder. Das größte Land ist `r gapminder_raw |> filter(continent == params$continent) |> filter(year == max(year)) |> filter(pop == max(pop)) |> pull(country)` mit `r gapminder_raw |> filter(continent == params$continent) |> filter(year == max(year)) |> filter(pop == max(pop)) |> pull(pop) / 1000000` Mio. Einwohnern. Das kleinste Land ist `r gapminder_raw |> filter(continent == params$continent) |> filter(year == max(year)) |> filter(pop == min(pop)) |> pull(country)` mit `r gapminder_raw |> filter(continent == params$continent) |> filter(year == max(year)) |> filter(pop == min(pop)) |> pull(pop) / 1000000` Mio. Einwohnern.
+
+
+## Top-3
+
+Länder mit den meisten Einwohnern in Europe:
+
+```{r top}
+gapminder_raw |> 
+          filter(continent == params$continent) |> 
+          filter(year == max(year)) |> 
+          mutate(rank = rank(-pop)) |> 
+          slice_max(pop, n = 3) |> 
+          arrange(desc(pop)) |> 
+          knitr::kable()
+```
+
+Länder mit den wenigsten Einwohnern in Europe:
+
+```{r bottom}
+gapminder_raw |> 
+          filter(continent == params$continent) |> 
+          filter(year == max(year)) |> 
+          mutate(rank = rank(-pop)) |> 
+          slice_min(pop, n = 3) |> 
+          arrange(desc(pop)) |> 
+          knitr::kable()
+```
+
+
+## Summary-Tabelle mit Quintilen, Median, Durchschnitt, Min, Max der numerischen Variablen pro Jahr
+
+```{r summary_table}
+gapminder_raw |> 
+          filter(continent == params$continent) |> 
+          group_by(year) |> 
+          summarise(across(where(is.numeric), .fns = list(Durchschnitt = mean,
+                                                          Median = median))) |> 
+          knitr::kable()
+```
+

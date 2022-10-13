@@ -1,0 +1,33 @@
+---
+title: "Übungsblatt 4"
+subtitle:    |
+    | Datenanalyse und -visualisierung mit R
+    | Hochschule Bonn-Rhein-Sieg
+author: "Pekka Sagner M.Sc."
+# date: "19. November 2021"
+output: pdf_document
+urlcolor: Tan
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+{\large 20. Mai 2022}
+\end{center}
+
+## Messy Data $\rightsquigarrow$ Tidy Data
+
+### Aufgabe 1: &raquo;Ordnung beginnt am Anfang&laquo;
+
+a) Laden Sie die Datei `Einkommen_Kreise.xlsx` herunter. Öffnen Sie die Datei in Excel oder einer OpenOffice-Variante. Welche Daten und Informationen enthält die Datei?
+
+b) Lesen Sie den Datensatz `Einkommen_Kreise.xlsx` mit der Funktion `read_excel` aus dem Paket `readxl` in `R` ein. Betrachten Sie den eingelesenen Datensatz als Tibble. Was fällt Ihnen auf? Was *stimmt nicht* mit dem Datensatz? Notieren Sie die Punkte, die an diesem Datensatz *nicht stimmen*.
+
+c) Bringen Sie den Datensatz in ein Tidy-Format.
+
+d) Stellen Sie die zeitliche Entwicklung der Haushaltseinkommen in Bonn, Düsseldorf, Köln und dem Rhein-Sieg-Kreis grafisch dar.
+
+e) Berechnen Sie die Relation der Haushaltseinkommen in Bonn, Köln und dem Rhein-Sieg-Kreis relativ zur Landeshauptstadt im Zeitverlauf. 
+f) Stellen Sie die bestimmte Relation aus e) grafisch dar.

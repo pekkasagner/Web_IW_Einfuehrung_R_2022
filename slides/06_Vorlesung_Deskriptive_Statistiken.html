@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Einführung in R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis_changed.css" type="text/css" />
+    <link rel="stylesheet" href="css/metropolis-fonts_changed.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Einführung in R
+## Fortbildung im Institut der deutschen Wirtschaft
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span&gt;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  Einführung in R | Deskriptive Statistiken | Pekka Sagner &lt;/span&gt; 
+&lt;/div&gt;
+
+
+
+ 
+---
+class: clear, inverse, middle, center
+
+#.font200[6] &amp;emsp;Deskriptive Statistiken
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 100px;
+height: 128px;
+z-index: 0;
+background-image: url(images/IW_LOGO_STANDARD_RGB.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:-.5em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+---
+# Inhalte und Ziele der Sitzung
+
++ Berechnen deskriptiver Statistiken
++ Häufigkeitsstatistiken für kategoriale Variablen
+
+
+---
+class: clear, inverse, middle, center
+
+# Deskriptive Statistiken
+
+---
+#Beispieldatensatz
+
+.font90[
+
+```r
+library(tidyverse)
+# install.packages(palmerpenguins)
+(beispieldaten &lt;- palmerpenguins::penguins)
+```
+
+```
+#&gt; # A tibble: 344 x 8
+#&gt;    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g sex     year
+#&gt;    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+#&gt;  1 Adelie  Torgersen           39.1          18.7               181        3750 male    2007
+#&gt;  2 Adelie  Torgersen           39.5          17.4               186        3800 female  2007
+#&gt;  3 Adelie  Torgersen           40.3          18                 195        3250 female  2007
+#&gt;  4 Adelie  Torgersen           NA            NA                  NA          NA &lt;NA&gt;    2007
+#&gt;  5 Adelie  Torgersen           36.7          19.3               193        3450 female  2007
+#&gt;  6 Adelie  Torgersen           39.3          20.6               190        3650 male    2007
+#&gt;  7 Adelie  Torgersen           38.9          17.8               181        3625 female  2007
+#&gt;  8 Adelie  Torgersen           39.2          19.6               195        4675 male    2007
+#&gt;  9 Adelie  Torgersen           34.1          18.1               193        3475 &lt;NA&gt;    2007
+#&gt; 10 Adelie  Torgersen           42            20.2               190        4250 &lt;NA&gt;    2007
+#&gt; # ... with 334 more rows
+```
+]
+
+---
+#`summary()`
+
++ Deskriptive Statistiken fassen Variablen zusammen.
+
++ Einen schnellen Überblick über einen Datensatz kann man sich mit der `summary()`-Funktion verschaffen:
+
+.code80[
+
+```r
+summary(beispieldaten) 
+```
+
+```
+#&gt;       species          island    bill_length_mm  bill_depth_mm   flipper_length_mm  body_mass_g  
+#&gt;  Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10   Min.   :172.0     Min.   :2700  
+#&gt;  Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60   1st Qu.:190.0     1st Qu.:3550  
+#&gt;  Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30   Median :197.0     Median :4050  
+#&gt;                                  Mean   :43.92   Mean   :17.15   Mean   :200.9     Mean   :4202  
+#&gt;                                  3rd Qu.:48.50   3rd Qu.:18.70   3rd Qu.:213.0     3rd Qu.:4750  
+#&gt;                                  Max.   :59.60   Max.   :21.50   Max.   :231.0     Max.   :6300  
+#&gt;                                  NA's   :2       NA's   :2       NA's   :2         NA's   :2     
+#&gt;      sex           year     
+#&gt;  female:165   Min.   :2007  
+#&gt;  male  :168   1st Qu.:2007  
+#&gt;  NA's  : 11   Median :2008  
+#&gt;               Mean   :2008  
+#&gt;               3rd Qu.:2009  
+#&gt;               Max.   :2009  
+#&gt; 
+```
+]
+---
+#Über den Überblick hinaus
+
++ Eine ähnliche Funktionsweise bietet die Funktion `skimr::skim()`.
+
++ Diese Funktionen können einen ersten Überblick über die Daten geben, sind jedoch für die weitere Arbeit mit den errechneten Werten nicht hilfreich.
+
++ Deswegen: &amp;raquo;Selbst sind die Forschenden.&amp;laquo; Die meisten notwendigen Funktionen zur Erstellung deskriptiver Statistiken kennen wir ohnehin bereits.
+
+---
+#Deskriptive Statistiken für numerische Variablen
+
++ Um ausgewählte Summary Statistics für numerische Variablen zu berechnen, nutzen wir die Funktion `summarise()` in Kombination mit der entsprechenden Funktion, die wir anwenden möchten:
+
+
+
+|Funktion                | Beschreibung
+|------------------------|----------------------------------------------------
+|mean(x, na.rm = FALSE)  | Arithmetic mean
+|sd(x)                   | (Sample) Standard Deviation
+|var(x)                  | (Sample) Variance
+|median(x)               | Median
+|quantile(x, probs, type)| Quantile of x.  probs: vector with probabilities
+|min(x)                  | Minimum value of x
+|max(x)                  | Maximum value of x
+|range(x)                | x_min and x_max
+|...                     | ...
+
+
+---
+# Eine Variable, eine Funktion
+
++ Häufig sind wir an **einer** Summary Statistic **einer** Variable interessiert. Z. B.:
+
+
+
+```r
+beispieldaten |&gt;
+          summarise(durchschnitt_bill_length_mm = mean(bill_length_mm, na.rm = T))
+```
+
+```
+#&gt; # A tibble: 1 x 1
+#&gt;   durchschnitt_bill_length_mm
+#&gt;                         &lt;dbl&gt;
+#&gt; 1                        43.9
+```
+
++ `na.rm = T`: Falls NA-Werte (fehlende Werte) in der Variable auftauchen, sorgt dieses Argument dafür, dass dennoch die Funktion angewendet wird.
+
+---
+# Mehrere Variablen, mehrere Funktionen
+
++ Wir können in einem `summarise()`-Schritt auch mehrere Funktionen manuell kombinieren:
+
+
+
+```r
+beispieldaten |&gt; 
+          summarise(durchschnitt_bill_length_mm = mean(bill_length_mm, na.rm = T), 
+*                   median_bill_length_mm = median(bill_length_mm, na.rm = T))
+```
+
+```
+#&gt; # A tibble: 1 x 2
+#&gt;   durchschnitt_bill_length_mm median_bill_length_mm
+#&gt;                         &lt;dbl&gt;                 &lt;dbl&gt;
+#&gt; 1                        43.9                  44.4
+```
+
+---
+class: font90
+# Viele Variablen, viele Funktionen
+
++ Das &amp;raquo;hardcoden&amp;laquo; von Variablennamen und Funktionen ist bei wenigen Variablen und Funktionen kein großer Schreibaufwand. 
+
++ Bei mehreren Variablen und Funktionen wird das Tippen jedoch schnell zeitintensiv und fehleranfällig.
+
++ Die Funktion `across()` kann hierbei helfen:
+
+
+```r
+beispieldaten |&gt; 
+*         summarise(across(.cols = c("bill_length_mm", "bill_depth_mm"),
+*                          .fns = list(durchschnitt = mean, stabw = sd),
+*                          na.rm = T
+                           )
+                    )
+```
+
+```
+#&gt; # A tibble: 1 x 4
+#&gt;   bill_length_mm_durchschnitt bill_length_mm_stabw bill_depth_mm_durchschnitt bill_depth_mm_stabw
+#&gt;                         &lt;dbl&gt;                &lt;dbl&gt;                      &lt;dbl&gt;               &lt;dbl&gt;
+#&gt; 1                        43.9                 5.46                       17.2                1.97
+```
+
++ *Hinweis: `across()` funktioniert auch mit `mutate()` beim Erstellen neuer oder Überschreiben bestehender Variablen.*
+
+---
+# Viele Variablen, viele Funktionen
+
++ Richtig Schreibaufwand lässt sich sparen, wenn weitere Hilfsfunktionen verwendet werden.
+
++ So kann man Beispielsweise die Liste der Funktionen auf alle numerischen Spalten anwenden:
+
+
+```r
+beispieldaten |&gt; 
+*         summarise(across(.cols = where(is.numeric),
+                           .fns = list(durchschnitt = mean, stabw = sd),
+                           na.rm = T
+                           )
+                    )
+```
+
+```
+#&gt; # A tibble: 1 x 10
+#&gt;   bill_length_mm_d~ bill_length_mm_s~ bill_depth_mm_du~ bill_depth_mm_s~ flipper_length_~ flipper_length_~
+#&gt;               &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+#&gt; 1              43.9              5.46              17.2             1.97             201.             14.1
+#&gt; # ... with 4 more variables: body_mass_g_durchschnitt &lt;dbl&gt;, body_mass_g_stabw &lt;dbl&gt;,
+#&gt; #   year_durchschnitt &lt;dbl&gt;, year_stabw &lt;dbl&gt;
+```
+
+
+---
+# Viele Variablen, viele Funktionen
+## Für Gruppen
+
+
+```r
+beispieldaten |&gt; 
+*         group_by(year) |&gt;
+          summarise(across(.cols = where(is.numeric),
+                           .fns = list(durchschnitt = mean, stabw = sd),
+                           na.rm = T
+                           )
+                    )
+```
+
+```
+#&gt; # A tibble: 3 x 9
+#&gt;    year bill_length_mm_durchschnitt bill_length_mm_s~ bill_depth_mm_du~ bill_depth_mm_s~ flipper_length_m~
+#&gt;   &lt;int&gt;                       &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+#&gt; 1  2007                        43.7              5.39              17.4             2.15              197.
+#&gt; 2  2008                        43.5              5.34              16.9             1.98              203.
+#&gt; 3  2009                        44.5              5.64              17.1             1.79              203.
+#&gt; # ... with 3 more variables: flipper_length_mm_stabw &lt;dbl&gt;, body_mass_g_durchschnitt &lt;dbl&gt;,
+#&gt; #   body_mass_g_stabw &lt;dbl&gt;
+```
+
+---
+class: font100 code100
+# Kreuztabellen
+
++ Kreuztabellen können als gruppenweise Summary Statistics für zwei Gruppen verstanden werden.
++ Mit dieser Interpretation ist das Erstellen von Kreuztabellen in der bekannten Syntax möglich, es muss jedoch für zwei (oder auch mehrere) Variablen gruppiert werden:
+
+
+```r
+beispieldaten |&gt; 
+*         group_by(year, species) |&gt;
+          summarise(mean_bill_depth_mm = mean(bill_depth_mm, na.rm = T)) |&gt; 
+          ungroup()
+```
+
+```
+#&gt; # A tibble: 9 x 3
+#&gt;    year species   mean_bill_depth_mm
+#&gt;   &lt;int&gt; &lt;fct&gt;                  &lt;dbl&gt;
+#&gt; 1  2007 Adelie                  18.8
+#&gt; 2  2007 Chinstrap               18.5
+#&gt; 3  2007 Gentoo                  14.7
+#&gt; 4  2008 Adelie                  18.2
+#&gt; 5  2008 Chinstrap               18.4
+#&gt; 6  2008 Gentoo                  14.9
+#&gt; 7  2009 Adelie                  18.1
+#&gt; 8  2009 Chinstrap               18.3
+#&gt; 9  2009 Gentoo                  15.3
+```
+
+
+
+---
+class: font100 code100
+# Kreuztabellen
+
++ Die so erstellte Tabelle kann mit `pivot_wider()` in das typische Kreuztabellenformat gebracht werden. *Hinweis: Dann genügt die Tabelle nicht mehr dem Tidy Data Prinzip.*
+
+
+```r
+beispieldaten |&gt; 
+          group_by(year, species) |&gt; 
+          summarise(mean_bill_depth_mm = mean(bill_depth_mm, na.rm = T)) |&gt; 
+          ungroup() |&gt; 
+*         pivot_wider(id_cols = "year",
+*                     names_from = "species",
+*                     values_from = "mean_bill_depth_mm")
+```
+
+```
+#&gt; # A tibble: 3 x 4
+#&gt;    year Adelie Chinstrap Gentoo
+#&gt;   &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1  2007   18.8      18.5   14.7
+#&gt; 2  2008   18.2      18.4   14.9
+#&gt; 3  2009   18.1      18.3   15.3
+```
+
+---
+class: clear, inverse, middle, center
+
+#Häufigkeiten und Anteile
+
+---
+class: font100 code100
+# Häufigkeitstabellen
+
++ Als Teil deskriptiver Statistiken sind wir auch an Häufigkeiten und Anteilen verschiedener Gruppen interessiert.
+
++ Z. B.: Wie viele der beobachteten Pinguine gehören zu welcher Spezies? Wie groß ist der Anteil der beobachteten weiblichen Pinguine nach Spezies und Jahr.
+
++ Die Funktion `count()` zählt die einzigartigen Ausprägungen der übergebenen Variable(n). Bei mehreren Variablen wird paarweise ausgewertet. 
+
++ D. h. `count()` übernimmt die Gruppierung für uns und `group_by()` kann entfallen:
+
+.pull-left[
+
+```r
+beispieldaten |&gt; 
+          group_by(species) |&gt;
+          count()
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt; # Groups:   species [3]
+#&gt;   species       n
+#&gt;   &lt;fct&gt;     &lt;int&gt;
+#&gt; 1 Adelie      152
+#&gt; 2 Chinstrap    68
+#&gt; 3 Gentoo      124
+```
+]
+
+.pull-right[
+
+```r
+beispieldaten |&gt; 
+          count(species)
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt;   species       n
+#&gt;   &lt;fct&gt;     &lt;int&gt;
+#&gt; 1 Adelie      152
+#&gt; 2 Chinstrap    68
+#&gt; 3 Gentoo      124
+```
+]
+
++ *Hinweis: `count()` hebt im Fall von group_by() die Gruppierung nicht wieder auf. Das muss bei weiteren Schritten beachtet werden.* 
+
+---
+class: font100 code100
+# Paarweise Häufigkeitstabellen
+
++ Paarweise Häufigkeiten lassen sich, wie bereits bei den Summary Statistics gezeigt, in Kreuztabellen überführen:
+
+
+.pull-left[
+
+```r
+beispieldaten |&gt; 
+          count(species, year) 
+```
+
+```
+#&gt; # A tibble: 9 x 3
+#&gt;   species    year     n
+#&gt;   &lt;fct&gt;     &lt;int&gt; &lt;int&gt;
+#&gt; 1 Adelie     2007    50
+#&gt; 2 Adelie     2008    50
+#&gt; 3 Adelie     2009    52
+#&gt; 4 Chinstrap  2007    26
+#&gt; 5 Chinstrap  2008    18
+#&gt; 6 Chinstrap  2009    24
+#&gt; 7 Gentoo     2007    34
+#&gt; 8 Gentoo     2008    46
+#&gt; 9 Gentoo     2009    44
+```
+]
+
+
+.pull-right[
+
+```r
+beispieldaten |&gt; 
+          count(species, year) |&gt;
+          pivot_wider(id_cols = "year",
+                      names_from = "species",
+                      values_from = "n")
+```
+
+```
+#&gt; # A tibble: 3 x 4
+#&gt;    year Adelie Chinstrap Gentoo
+#&gt;   &lt;int&gt;  &lt;int&gt;     &lt;int&gt;  &lt;int&gt;
+#&gt; 1  2007     50        26     34
+#&gt; 2  2008     50        18     46
+#&gt; 3  2009     52        24     44
+```
+]
+
+---
+# Anteile
+
++ Die Berechnung von Anteilen erfolgt schlicht als Anzahl der Ausprägung in Relation zur Summe der Ausprägungen innerhalb der Gruppe, die von Interesse ist. Im einfachsten Fall also als:
+
+
+```r
+beispieldaten |&gt; 
+          count(species) |&gt;
+          mutate(anteil = n / sum(n))
+```
+
+```
+#&gt; # A tibble: 3 x 3
+#&gt;   species       n anteil
+#&gt;   &lt;fct&gt;     &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 Adelie      152  0.442
+#&gt; 2 Chinstrap    68  0.198
+#&gt; 3 Gentoo      124  0.360
+```
+
+
+---
+class: font100 code100
+# Anteile
+
++ Bei gruppenweisen Anteilen übergeben wir mit `group_by()` die Variable(n) innerhalb derer die Anteile bestimmt werden sollen.
+
+.pull-left[
++ Zuerst Häufigkeiten berechnen:
+
+```r
+beispieldaten |&gt; 
+          count(species, year) 
+```
+
+```
+#&gt; # A tibble: 9 x 3
+#&gt;   species    year     n
+#&gt;   &lt;fct&gt;     &lt;int&gt; &lt;int&gt;
+#&gt; 1 Adelie     2007    50
+#&gt; 2 Adelie     2008    50
+#&gt; 3 Adelie     2009    52
+#&gt; 4 Chinstrap  2007    26
+#&gt; 5 Chinstrap  2008    18
+#&gt; 6 Chinstrap  2009    24
+#&gt; 7 Gentoo     2007    34
+#&gt; 8 Gentoo     2008    46
+#&gt; 9 Gentoo     2009    44
+```
+]
+
+.pull-right[
++ Dann gruppieren und Anteile berechnen:
+
+```r
+beispieldaten |&gt; 
+          count(species, year) |&gt;
+          group_by(year) |&gt; 
+          mutate(anteil = n / sum(n))
+```
+
+```
+#&gt; # A tibble: 9 x 4
+#&gt; # Groups:   year [3]
+#&gt;   species    year     n anteil
+#&gt;   &lt;fct&gt;     &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 Adelie     2007    50  0.455
+#&gt; 2 Adelie     2008    50  0.439
+#&gt; 3 Adelie     2009    52  0.433
+#&gt; 4 Chinstrap  2007    26  0.236
+#&gt; 5 Chinstrap  2008    18  0.158
+#&gt; 6 Chinstrap  2009    24  0.2  
+#&gt; 7 Gentoo     2007    34  0.309
+#&gt; 8 Gentoo     2008    46  0.404
+#&gt; 9 Gentoo     2009    44  0.367
+```
+]
+
+---
+class: font100 code100
+# Anteile
+
++ Bei Bedarf kann dann wieder in ein Kreuztabellenformat überführt werden:
+
+
+```r
+beispieldaten |&gt; 
+          count(species, year) |&gt;
+          group_by(year) |&gt; 
+          mutate(anteil = n / sum(n)) |&gt; 
+          ungroup() |&gt; 
+          pivot_wider(names_from = "species",
+                      id_cols = "year",
+                      values_from = c("n", "anteil"))
+```
+
+```
+#&gt; # A tibble: 3 x 7
+#&gt;    year n_Adelie n_Chinstrap n_Gentoo anteil_Adelie anteil_Chinstrap anteil_Gentoo
+#&gt;   &lt;int&gt;    &lt;int&gt;       &lt;int&gt;    &lt;int&gt;         &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+#&gt; 1  2007       50          26       34         0.455            0.236         0.309
+#&gt; 2  2008       50          18       46         0.439            0.158         0.404
+#&gt; 3  2009       52          24       44         0.433            0.2           0.367
+```
+
+---
+class: clear, inverse, middle, center
+
+#Aus `R` in die Kommunikation
+
+---
+#Speichern von Tabellen
+
++ Tabellen können in allen bekannten Datenformaten gespeichert werden.
+
++ Beispieldatensatz, der gespeichert werden soll:
+
+
+```r
+(daten_speich &lt;- beispieldaten |&gt; 
+          count(species))
+```
+
+```
+#&gt; # A tibble: 3 x 2
+#&gt;   species       n
+#&gt;   &lt;fct&gt;     &lt;int&gt;
+#&gt; 1 Adelie      152
+#&gt; 2 Chinstrap    68
+#&gt; 3 Gentoo      124
+```
+
++ Für die Weiterverarbeitung in Reports und anderen IW-Formaten bieten sich die gängigen Excel-Formate, insbesondere xlsx-Dateien, an.
+
+---
+class: font80
+#Funktionen zum Speichern von Tabellen
+
+**Good to know:**
+
+Paket |Funktion                | Beispiel                                                 |Anwendung
+------|------------------------|----------------------------------------------------------
+Base R|`write.table()`           | `write.table(x = daten_speich, file = "daten_speich.txt")` | Für rohe Textdateien, Trennzeichen ist Leerzeichen, Dezimaltrennzeichen ist Punkt.
+Base R |`write.csv() `            | `write.csv(x = daten_speich, file = "daten_speich.csv")`   | Für &amp;raquo;Englische&amp;laquo; CSV-Dateien; Trennzeichen ist Komma, Dezimaltrennzeichen ist Punkt.
+Base R |`write.csv2()`             | `write.csv2(x = daten_speich, file = "daten_speich.csv")`  | Für &amp;raquo;Deutsche&amp;laquo; CSV-Dateien; Trennzeichen ist Semikolon, Dezimaltrennzeichen ist Komma.
+
+**Empfohlene Funktionen:**
+
+Paket |Funktion                | Beispiel                                                 |Anwendung
+------|------------------------|----------------------------------------------------------
+readr |`write_csv()`            | `write_csv(x = daten_speich, file = "daten_speich.csv")`   | &amp;raquo;Englische&amp;laquo; CSV-Dateien; Trennzeichen ist Komma, Dezimaltrennzeichen ist Punkt. &lt;br /&gt; Doppelt so schnell wie write.csv().
+readr |`write_csv2()`            | `write_csv2(x = daten_speich, file = "daten_speich.csv")`  | Für &amp;raquo;Deutsche&amp;laquo; CSV-Dateien; Trennzeichen ist Semikolon, Dezimaltrennzeichen ist Komma. &lt;br /&gt; Doppelt so schnell wie write.csv2().
+xlsx |`write.xlsx()`            | `write.xlsx(x = daten_speich, file = "daten_speich.csv", sheetName = "Tabelle1")`  | Zum Speichern von xlsx-Dateien.
+
+---
+class: clear, inverse, middle, center
+
+#Genug der Theorie. Ab nach &lt;img src="images/rstudio.svg" width="250px"&gt;.  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%/%total%<br>",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    if (preNodes.length < 2) return;
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details " +
+      (el.classList.contains("open") ? "open " : "") +
+      "class='output'><summary>Ergebnis anzeigen</summary>" +
+      outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
