@@ -1,10 +1,10 @@
 ---
 title: "Übungsblatt 2"
 subtitle:    |
-    | Datenanalyse und -visualisierung mit R
-    | Hochschule Bonn-Rhein-Sieg
-author: "Pekka Sagner M.Sc."
-date: "22. April 2022"
+    | Einführung in R
+    | Institut der deutschen Wirtschaft
+author: "Pekka Sagner"
+date: "25. Oktober & 11. November 2022"
 output: pdf_document
 urlcolor: Tan
 ---

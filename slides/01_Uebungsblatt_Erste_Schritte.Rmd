@@ -3,8 +3,8 @@ title: "Übungsblatt 1"
 subtitle:    |
     | Einführung in R
     | Institut der deutschen Wirtschaft
-author: "Pekka Sagner M.Sc."
-date: "18. & 25. August 2022"
+author: "Pekka Sagner"
+date: "25. Oktober & 11. November 2022"
 output: pdf_document
 urlcolor: Tan
 ---

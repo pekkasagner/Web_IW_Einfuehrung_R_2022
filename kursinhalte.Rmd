@@ -43,13 +43,13 @@ In dieser Sitzung besprechen wir die Inhalte der Vorlesung und orientieren uns i
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Hinweise zur Installation von R und RStudio&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/00_Uebungsblatt_Hinweise_Installation.pdf) 
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Hinweise zur Installation von R und RStudio&laquo; als PDF-Datei öffnen](./slides/00_Uebungsblatt_Hinweise_Installation.pdf) 
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/01_Uebungsblatt_Erste_Schritte.pdf) 
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als PDF-Datei öffnen](./slides/01_Uebungsblatt_Erste_Schritte.pdf) 
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_1.R)
+<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_1.R) -->
 
 ### Daten
 
@@ -68,21 +68,20 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 [`r fontawesome::fa("window-restore")` Folien &raquo;Einführung in das Tidyverse&laquo; als HTML-Datei öffnen](./slides/03_Vorlesung_Tidyverse.html)
 
-
 [`r fontawesome::fa("file-pdf")` Folien &raquo;Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./slides/03_Vorlesung_Tidyverse.pdf)
 
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/02_Uebungsblatt_Intro_Tidyverse.pdf)
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als PDF-Datei öffnen](./slides/02_Uebungsblatt_Intro_Tidyverse.pdf)
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_2.R)
+<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_2.R) -->
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./unterlagen/daten/olympics.csv)
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;olympics&laquo; als CSV-Datei öffnen](./slides/data/olympics.csv)
 
 ## 3. Umgang mit unordentlichen Daten {.tabset .tabset-fade}
 
@@ -99,21 +98,21 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 ### Vorlesungsfolien
 
-[`r fontawesome::fa("window-restore")` Folien &raquo;Säubern von Daten&laquo; als HTML-Datei öffnen](./slides/05_Vorlesung_messy_data_tidy_data.html)
+[`r fontawesome::fa("window-restore")` Folien &raquo;Säubern von Daten&laquo; als HTML-Datei öffnen](./slides/04_Vorlesung_messy_data_tidy_data.html)
 
-[`r fontawesome::fa("file-pdf")` Folien &raquo;Säubern von Daten&laquo; als PDF-Datei öffnen](./slides/05_Vorlesung_messy_data_tidy_data.pdf)
+[`r fontawesome::fa("file-pdf")` Folien &raquo;Säubern von Daten&laquo; als PDF-Datei öffnen](./slides/04_Vorlesung_messy_data_tidy_data.pdf)
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/04_Uebungsblatt_Messy_Data.pdf)
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 3 - Messy Data &zigrarr; Tidy Data&laquo; als PDF-Datei öffnen](./slides/03_Uebungsblatt_Messy_Data.pdf)
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_4.R)
+<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_4.R) -->
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;Einkommen_Kreise&laquo; als xlsx-Datei öffnen](./unterlagen/daten/Einkommen_Kreise.xlsx)
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;Einkommen_Kreise&laquo; als xlsx-Datei öffnen](./slides/data/Einkommen_Kreise.xlsx)
 
 ## 4. Daten verbinden {.tabset .tabset-fade}
 
@@ -132,21 +131,21 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 
 ### Übungsaufgaben
 
-[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf)
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 4 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./slides/04_Uebungsblatt_Data_Joins.pdf)
 
 ### Musterlösung
 
-[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R)
+<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
 
 ### Daten
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv)
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./slides/data/studis_fh_2017.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv)
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./slides/data/studis_fh.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv)
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./slides/data/studis_insg_2017.csv)
 
-[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv)
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./slides/data/studis_insg.csv)
 
 
 ## 5. Deskriptive Statistiken {.tabset .tabset-fade}
@@ -154,9 +153,6 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 Deskriptive Statistiken bilden einen wichtigen Teil der Datenanalyse. Sie tragen einen entscheidenden Teil zum Gesamtverständnis der analysierten Daten bei, außerdem sind zusammenfassende deskriptive Statistiken zentral für die Wissenschaftskommunikation. Neben der Berechnung zusammenfassender deskriptiver Statistiken lernen wir in diesem Teil des Kurses zudem, wie Häufigkeitsstatistiken für kategoriale Variablen berechnet werden können.
 
 ### Leseempfehlungen
-
-<!-- [`r fontawesome::fa("external-link-alt")` R4DS, Kapitel 13 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/relational-data.html) -->
-
 
 ### Vorlesungsfolien
 
@@ -166,7 +162,7 @@ Deskriptive Statistiken bilden einen wichtigen Teil der Datenanalyse. Sie tragen
 
 ### Übungsaufgaben
 
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf) -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Deskriptive Statistiken und Häufigkeitstabellen&laquo; als PDF-Datei öffnen](./slides/05_Uebungsblatt_Deskriptive_Statistiken.pdf)
 
 ### Musterlösung
 
@@ -174,14 +170,7 @@ Deskriptive Statistiken bilden einen wichtigen Teil der Datenanalyse. Sie tragen
 
 ### Daten
 
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv) -->
-
+[`r fontawesome::fa("file-archive")` Datensatz &raquo;soep_dummy&laquo; als dta-Datei öffnen](./slides/data/soep_dummy/soep_dummy.dta)
 
 ## 6. Funktionen & Iteration {.tabset .tabset-fade}
 
@@ -189,7 +178,7 @@ Datenanalyseschritte wiederholen sich häufig. Um Zeit zu sparen und Fehler zu v
 
 ### Leseempfehlungen
 
-<!-- [`r fontawesome::fa("external-link-alt")` R4DS, Kapitel 13 (Wickham/Grolemund, 2021)](https://r4ds.had.co.nz/relational-data.html) -->
+[`r fontawesome::fa("external-link-alt")` Programming with dplyr Vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/programming.html)
 
 
 ### Vorlesungsfolien
@@ -200,7 +189,7 @@ Datenanalyseschritte wiederholen sich häufig. Um Zeit zu sparen und Fehler zu v
 
 ### Übungsaufgaben
 
-<!-- [`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 5 - Mutating Joins - Grundlagen&laquo; als PDF-Datei öffnen](./unterlagen/uebungsaufgaben/05_Uebungsblatt_Data_Joins.pdf) -->
+[`r fontawesome::fa("file-pdf")` Übungsblatt &raquo;Übungsblatt 6 - Funktionen und Iteration&laquo; als PDF-Datei öffnen](./slides/06_Uebungsblatt_Funktionen_Iteration.pdf)
 
 ### Musterlösung
 
@@ -208,10 +197,4 @@ Datenanalyseschritte wiederholen sich häufig. Um Zeit zu sparen und Fehler zu v
 
 ### Daten
 
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh_2017.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_fh&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_fh.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg_2017&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg_2017.csv) -->
-
-<!-- [`r fontawesome::fa("file-archive")` Datensatz &raquo;studis_insg&laquo; als CSV-Datei öffnen](./unterlagen/daten/studis_insg.csv) -->
+`r fontawesome::fa("file-archive")` Keine Daten

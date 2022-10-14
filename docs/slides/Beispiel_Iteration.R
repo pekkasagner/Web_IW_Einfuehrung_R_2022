@@ -59,5 +59,3 @@ map(.x = vec_continent_names, .f = my_continent_report_function)
 
 
 
-
-

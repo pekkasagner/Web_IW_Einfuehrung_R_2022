@@ -1,0 +1,49 @@
+---
+title: "Übungsblatt 6"
+subtitle:    |
+    | Einführung in R
+    | Institut der deutschen Wirtschaft
+author: "Pekka Sagner"
+date: "25. Oktober & 11. November 2022"
+output: pdf_document
+urlcolor: Tan
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```   
+
+## Funktionen und Iteration
+
+### Aufgabe 1: &raquo;Funktioniert doch!&laquo; - Funktionen
+
+a) Erstellen Sie zunächst folgenden Tibble: 
+
+```{r warning=F, message=F, echo = F}
+library(tidyverse)
+
+tibble(x = c(1, NA, 2, 1),
+       y = c(3, 4, 4, 4),
+       z = c(NA, NA, "A", "B")) |> 
+          knitr::kable() 
+```
+
+b) Erstellen Sie eine Funktion `my_share_function`, mit der Sie die Anteile der verschiedenen Ausprägungen der Vektoren bestimmen können.
+
+c) Erstellen Sie eine Funktion, mit der Sie überprüfen können, ob eine Spalte im erstellten Tibble numerisch ist. Falls ein Vektor numerisch ist, soll *Vektor ist numerisch.* ausgegeben werden, falls nicht, soll *Vektor ist nicht numerisch.* ausgegeben werden.
+
+d) Erstellen Sie eine Funktion, mit der Sie überprüfen können, ob eine Spalte im erstellten Tibble einen Wert größer als 3 enthält. Falls ein Vektor diese Bedingung erfüllt, soll *Vektor enhält Werte größer 3.* ausgegeben werden, falls nicht, soll *Vektor enhält keine Werte größer 3.* ausgegeben werden.
+
+### Aufgabe 2: &raquo;Und noch 'ne Runde!&laquo; - Iteration
+
+Idee: Wir wollen ein Kontinent-Reporting auf Basis der `gapminder`-Daten erstellen. Das Reporting soll sich auf das aktuellste Jahr beziehen und aus drei Inhalten bestehen:
+    i) Die drei größten Länder nach dem BIP pro Kopf sowie die entsprechenden Informationen aus den anderen Variablen.
+    ii) Die drei kleinsten Länder nach dem BIP pro Kopf sowie die entsprechenden Informationen aus den anderen Variablen.
+    iii) Die Korrelation des BIP pro Kopf und der Lebenserwartung der Länder des Kontinents pro Jahr.
+
+a) Laden Sie den Datensatz `gapminder` aus dem Paket `gapminder` in Ihr Environment.
+
+b) Bestimmen Sie i)-iii) für Europa. Speichern Sie die Tabellen jeweils als xlsx-Dateien.
+
+c) Erstellen Sie eine Funktion, mit der Sie die Berechnungen iterativ auf alle Kontinente anwenden können.
+    
