@@ -1,3 +1,7 @@
+#Übung 6 - Funktionen und Iteration
+#Autor: Pekka Sagner
+
+
 library(tidyverse)
 
 (daten <- tibble(x = c(1, NA, 2, 1),
@@ -7,7 +11,6 @@ library(tidyverse)
 
 
 #b)
-
 my_share_function <- function(data, vector) {
           data |> 
                     count({{ vector }}) |> 
@@ -36,13 +39,7 @@ my_num_check <- function(data, vector) {
 my_num_check(daten, z)
 
 
-is.numeric(daten |> 
-                     pull(x) )
-
-
-
 #d)
-
 
 my_check_function <- function(data, vector) {
           
@@ -56,8 +53,9 @@ my_check_function <- function(data, vector) {
                               
                     }
                     
-                    if(all( data |> pull( {{ vector }} ) <= 3) == TRUE)   {
-                              print("Vektor enhält keine Werte größer 3.")
+                    if(all( data |> pull( {{ vector }} ) <= 3) == TRUE | 
+                              any(is.na(data |> pull( {{ vector }} ) <= 3)) )  {
+                              print("Vektor enhält keine Werte größer 3. Achtung, Vektor enthält auch Missings.")
                               
                     }
           }
@@ -69,7 +67,6 @@ my_check_function <- function(data, vector) {
 }
 
 my_check_function(daten, y)
-
 
 
 #Aufgabe 2:

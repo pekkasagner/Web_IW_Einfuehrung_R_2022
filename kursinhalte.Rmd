@@ -49,7 +49,7 @@ In dieser Sitzung besprechen wir die Inhalte der Vorlesung und orientieren uns i
 
 ### Musterlösung
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_1.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 1 - Erste Schritte mit R und R-Studio&laquo; als R-Datei öffnen](./slides/Musterloesung_Uebung_1.R)
 
 ### Daten
 
@@ -77,7 +77,7 @@ zugrunde liegende Design-Philosophie, Grammatik und Datenstrukturen. Wir beschä
 
 ### Musterlösung
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_2.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 2 - Einführung in das Tidyverse&laquo; als R-Datei öffnen](./slides/Musterloesung_Uebung_2.R)
 
 ### Daten
 
@@ -108,7 +108,7 @@ Ein großer Teil der Zeit, die wir &raquo;im echten Leben&laquo; mit der Datenan
 
 ### Musterlösung
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_4.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 3 - Messy Data &zigrarr; Tidy Data&laquo; als R-Datei öffnen](./slides/Musterloesung_Uebung_3.R)
 
 ### Daten
 
@@ -135,7 +135,7 @@ Ein Datensatz alleine kann für sich genommen spannende Erkenntnisse bergen. Hä
 
 ### Musterlösung
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 4 - Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./slides/Musterloesung_Uebung_4.R)
 
 ### Daten
 
@@ -166,7 +166,7 @@ Deskriptive Statistiken bilden einen wichtigen Teil der Datenanalyse. Sie tragen
 
 ### Musterlösung
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./slides/Musterloesung_Uebung_5.R)
 
 ### Daten
 
@@ -193,7 +193,7 @@ Datenanalyseschritte wiederholen sich häufig. Um Zeit zu sparen und Fehler zu v
 
 ### Musterlösung
 
-<!-- [`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 5 -Mutating Joins - Grundlagen&laquo; als R-Datei öffnen](./unterlagen/musterloesungen/uebung_5.R) -->
+[`r fontawesome::fa("code")` Musterlösung für &raquo;Übungsblatt 6 - Funktionen und Iteration&laquo; als R-Datei öffnen](./slides/Musterloesung_Uebung_6.R)
 
 ### Daten
 

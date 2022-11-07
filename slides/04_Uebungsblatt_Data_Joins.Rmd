@@ -31,6 +31,6 @@ b) Laden Sie die Datensätze `studis_insg_2017.csv` und `studis_fh_2017.csv` in 
 
 c) Laden Sie die Datensätze `studis_insg.csv` und `studis_fh.csv` in `R` ein. Verschaffen Sie sich einen Überblick über die Daten. Wie hat sich der Anteil der FH-Studierenden an allen Studierenden in Köln entwickelt?
 
-d) Visualisieren Sie die Entwicklung aller Studierenden je 1.000 Einwohner sowie der FH-Studierenden je 1.000 Einwohner im Zeitverlauf für die sieben größten deutschen Städte (Berlin, Düsseldorf, Frankfurt a.M., Hamburg, Köln, München, Stuttgart). Nutzen Sie weiterhin die Daten in `studis_insg.csv` und `studis_fh.csv`. 
+d) Berechnen Sie die Entwicklung aller Studierenden je 1.000 Einwohner sowie der FH-Studierenden je 1.000 Einwohner im Zeitverlauf für die sieben größten deutschen Städte (Berlin, Düsseldorf, Frankfurt a.M., Hamburg, Köln, München, Stuttgart). Nutzen Sie weiterhin die Daten in `studis_insg.csv` und `studis_fh.csv`. 
 
 
